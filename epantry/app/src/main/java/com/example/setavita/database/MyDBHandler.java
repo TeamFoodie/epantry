@@ -132,7 +132,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
             pantryIngredients = null;
         }
 
-        System.out.println("Found: " + pantryIngredients.getIngredientName());
+//        System.out.println("Found: " + pantryIngredients.getIngredientName());
         db.close();
         return pantryIngredients;
     }

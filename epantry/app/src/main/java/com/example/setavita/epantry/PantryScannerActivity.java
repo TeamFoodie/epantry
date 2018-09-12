@@ -87,7 +87,7 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
                         }
                         else{
                             topUpIngredient();
-                            finish();
+//                            finish();
                         }
 
                     }
