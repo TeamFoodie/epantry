@@ -28,4 +28,5 @@ dependencies {
 //    implementation 'com.google.zxing.integration.android'
     implementation 'com.android.support:recyclerview-v7:28.0.0-rc01'
     implementation 'com.android.support:design:28.0.0-rc01'
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.0'
 }

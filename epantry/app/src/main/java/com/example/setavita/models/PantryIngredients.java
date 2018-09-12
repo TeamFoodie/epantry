@@ -63,8 +63,8 @@ public class PantryIngredients {
         return this.currentQuantity;
     }
 
-    public void getUnitMeasu(int current){
-        this.currentQuantity = current;
+    public String getUnitMeasure(){
+        return this.unitMeasure;
     }
 
     public int getOwner(){
