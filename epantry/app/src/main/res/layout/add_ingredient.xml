@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="111dp"
+        android:text="Register New Ingredient" />
+
+    <EditText
+        android:id="@+id/ingredientName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/title"
+        android:layout_alignRight="@+id/title"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="176dp"
+        android:ems="10"
+        android:hint="Ingredient Name"
+        android:inputType="textPersonName" />
+
+    <Spinner
+        android:id="@+id/unitMeasureDropDown"
+        android:layout_width="215dp"
+        android:layout_height="38dp"
+        android:layout_alignEnd="@+id/title"
+        android:layout_alignRight="@+id/title"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="164dp"
+        android:entries="@array/unitMeasurements"
+        android:prompt="@string/unit_measure"></Spinner>
+
+    <EditText
+        android:id="@+id/unitCount"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/title"
+        android:layout_alignRight="@+id/title"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="Unit Count"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="68dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginRight="81dp"
+        android:text="Save" />
+
+    <TextView
+        android:id="@+id/ingredientID"
+        android:layout_width="265dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/ingredientName"
+        android:layout_alignLeft="@+id/ingredientName"
+        android:layout_marginTop="148dp"
+        android:text="TextView" />
+
+
+</RelativeLayout>
