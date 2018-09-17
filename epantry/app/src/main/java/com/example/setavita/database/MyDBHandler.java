@@ -33,8 +33,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
                 "(" + INGREDIENT_ID + " NVARCHAR PRIMARY KEY," +
                 INGREDIENT_NAME + " NVARCHAR," +
@@ -83,7 +81,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
 
-    public boolean addHandler(PantryIngredients pIngredients) {
+    public boolean addIngredient(PantryIngredients pIngredients) {
         boolean createSuccessful = false;
         ContentValues values = new ContentValues();
         System.out.println(pIngredients.toString());

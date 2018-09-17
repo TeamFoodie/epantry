@@ -32,42 +32,17 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
         unitCount = (EditText) findViewById(R.id.unitCount);
         unitMeasure = (Spinner) findViewById(R.id.unitMeasureDropDown);
         ingredientIDTEXT = (TextView) findViewById(R.id.ingredientID);
+        saveButton = (Button) findViewById(R.id.save_button);
         database = new MyDBHandler(this);
+
+        saveButton.setOnClickListener(this);
         setID(ingID);
 
-
-        saveIngredient();
     }
 
     public void setID(String id) {
         ingredientIDTEXT.setText("INGREDIENT ID: " + id);
         this.ingredientID = id;
-    }
-
-    public void saveIngredient() {
-        saveButton = (Button) findViewById(R.id.save_button);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean ingredientCreated = false;
-                String name = ingredientName.getText().toString();
-                int total = Integer.parseInt(unitCount.getText().toString());
-                String measure = unitMeasure.getSelectedItem().toString();
-
-                String messages = "33" + measure + " of " + name + " has been added";
-
-                PantryIngredients pantryIngredient = new PantryIngredients(ingredientID, name, total, total, measure, 001);
-                ingredientCreated = database.addHandler(pantryIngredient);
-
-                if(ingredientCreated) {
-                    messages = total + measure + " of " + name + " has been added successfully!";
-                }else{
-                    messages = "Sorry, ingredient could not be added, please try again";
-                }
-                showCustomDialog(R.string.dialog_addedIng, messages);
-
-            }
-        });
     }
 
     private void showCustomDialog(int type, String message) {
@@ -79,9 +54,6 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        Intent intent = new Intent(AddIngredientActivity.this, PantryScannerActivity.class);
-//                        startActivity(intent);
-
                         finish();
                     }
                 });
@@ -90,10 +62,24 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
     }
 
     public void onClick(View v) {
-//        if(v.getId() == R.id.save_button){
-//            IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-//            scanIntegrator.initiateScan();
-//        }
+        if(v.getId() == R.id.save_button){
+            boolean ingredientCreated = false;
+            String name = ingredientName.getText().toString();
+            int total = Integer.parseInt(unitCount.getText().toString());
+            String measure = unitMeasure.getSelectedItem().toString();
+
+            String messages = "33 " + measure + " of " + name + " has been added";
+
+            PantryIngredients pantryIngredient = new PantryIngredients(ingredientID, name, total, total, measure, 001);
+            ingredientCreated = database.addIngredient(pantryIngredient);
+
+            if(ingredientCreated) {
+                messages = total + measure + " of " + name + " has been added successfully!";
+            }else{
+                messages = "Sorry, ingredient could not be added, please try again";
+            }
+            showCustomDialog(R.string.dialog_addedIng, messages);
+        }
     }
 
 }

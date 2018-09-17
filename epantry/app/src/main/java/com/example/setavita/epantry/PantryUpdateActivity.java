@@ -44,7 +44,7 @@ public class PantryUpdateActivity extends AppCompatActivity implements View.OnCl
                 String message = "";
 
                 if (ingredient != null) {
-                    message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + "to your pantry?";
+                    message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + " to your pantry?";
                     option = 1;
                 } else {
                     message = "Ingredient scanned was not recognized. Do you want to register new ingredient?";
@@ -82,7 +82,7 @@ public class PantryUpdateActivity extends AppCompatActivity implements View.OnCl
                 }
                 else{
                     topUpIngredient();
-//                    finish();
+                    finish();
                 }
 
             }

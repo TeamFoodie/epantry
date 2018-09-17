@@ -19,22 +19,33 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
 
     MyDBHandler database;
     PantryIngredients ingredient;
-    private Button scanBtn;
+    private Button scanBtn, enterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantry_scanner);
         scanBtn = (Button) findViewById(R.id.scan_button);
+        enterButton = (Button) findViewById(R.id.enterButton);
         database = new MyDBHandler(this);
 
         scanBtn.setOnClickListener(this);
+        enterButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(PantryScannerActivity.this, PantryUpdateActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void onClick(View v) {
         if (v.getId() == R.id.scan_button) {
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
+        } else if (v.getId() == R.id.enterButton) {
+            Intent intent = new Intent(PantryScannerActivity.this, PantryUpdateActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -47,14 +58,13 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
             ingredient = database.findHandler(scanContent);
             int option = 1;
 
-            if(ingredient != null){
-                message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + "to your pantry?";
+            if (ingredient != null) {
+                message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + " to your pantry?";
                 option = 1;
-            }else{
+            } else {
                 message = "Ingredient scanned was not recognized. Do you want to register new ingredient?";
                 option = 2;
             }
-
 
 
             showCustomDialog(R.string.dialog_restock, message, scanContent, option);
@@ -77,38 +87,33 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
                     }
                 });
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-                        if(OKoption == 2) {
-                            AddIngredientActivity.ingID = id;
-                            Intent intent = new Intent(PantryScannerActivity.this, AddIngredientActivity.class);
-                            startActivity(intent);
-                        }
-                        else{
-                            topUpIngredient();
-//                            finish();
-                        }
+                if (OKoption == 2) {
+                    AddIngredientActivity.ingID = id;
+                    Intent intent = new Intent(PantryScannerActivity.this, AddIngredientActivity.class);
+                    startActivity(intent);
+                } else {
+                    topUpIngredient();
+                            finish();
+                }
 
-                    }
-                });
+            }
+        });
 
         dialog.show();
     }
 
-    public void topUpIngredient(){
+    public void topUpIngredient() {
         int newQuantity = ingredient.getCurrentQuantity() + ingredient.getTotalQuantity();
         ingredient.setCurrentQuantity(newQuantity);
         boolean updated = database.updateQuantity(ingredient);
-        if(updated){
+        if (updated) {
             System.out.println("topped up");
-        }else{
+        } else {
             System.out.println("rank");
         }
     }
 
-    public void changeScreens(View view){
-        Intent startActivity = new Intent(PantryScannerActivity.this, AddIngredientActivity.class);
-
-    }
 }

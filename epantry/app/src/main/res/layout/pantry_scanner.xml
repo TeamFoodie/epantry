@@ -9,21 +9,13 @@
     android:background="@drawable/background2">
 
     <TextView
-        android:id="@+id/scan_format"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scan_button"
-        android:layout_centerHorizontal="true"
-        android:textIsSelectable="true" />
-
-    <TextView
-        android:id="@+id/scan_content"
+        android:id="@+id/scan_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="173dp"
-        android:text="Press scan to start"
+        android:text="Press SCAN or ENTER to start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -34,7 +26,20 @@
         android:id="@+id/scan_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="101dp"
+        android:layout_marginLeft="101dp"
         android:text="SCAN" />
+
+    <Button
+        android:id="@+id/enterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/scan_label"
+        android:layout_alignRight="@+id/scan_label"
+        android:layout_centerVertical="true"
+        android:text="Enter" />
 
 </RelativeLayout>
