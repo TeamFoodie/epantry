@@ -111,15 +111,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
 
-    public Object findHandler(String query, String TABLE_NAME) {
+    public PantryIngredients findHandler(String ingredientID) {
 
-//        String query = "Select * FROM " + TABLE_NAME + " WHERE " + INGREDIENT_ID + " = " + "'" + ingredientID + "'";
+        String query = "Select * FROM " + TABLE_NAME + " WHERE " + INGREDIENT_ID + " = " + "'" + ingredientID + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = getReadableDatabase().rawQuery(query, null);
+//        Cursor cursor1 = db.ra
         PantryIngredients pantryIngredients = new PantryIngredients();
-        if(TABLE_NAME == "Ingredients"){
-            SQLiteDatabase db = this.getWritableDatabase();
-//            PantryIngredients pantryIngredients = new PantryIngredients();
-            Cursor cursor = getReadableDatabase().rawQuery(query, null);
-            if (cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             cursor.moveToFirst();
             pantryIngredients.setIngredientID(cursor.getString(0));
             pantryIngredients.setIngredientName(cursor.getString(1));
@@ -131,10 +130,9 @@ public class MyDBHandler extends SQLiteOpenHelper {
         } else {
             pantryIngredients = null;
         }
-            pantryTable.findIngredient(cursor);
-            db.close();
 
-        }
+//        System.out.println("Found: " + pantryIngredients.getIngredientName());
+        db.close();
         return pantryIngredients;
     }
 

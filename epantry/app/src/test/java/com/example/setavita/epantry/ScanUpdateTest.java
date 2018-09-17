@@ -37,10 +37,12 @@ public class ScanUpdateTest {
     public void testUpdateofDatabase() {
 //        public PantryIngredients(String id, String name, int total, int current, String unitMeasure, int owner){
 
-        PantryIngredients ingredient = new PantryIngredients("12345", "Ingredient1", 23, 23, "grams", 111);
+//        PantryIngredients ingredient = new PantryIngredients("12345", "Ingredient1", 23, 23, "grams", 111);
+        PantryIngredients ingredient = new PantryIngredients();
         db = new MyDBHandler(update);
-        assertFalse(db.addHandle(ingredient));
-
+//        assertFalse(db.addHandle(ingredient));
+//        boolean actualReturn = db.addHandle(ingredient);
+        assertEquals(false, db.addHandle(ingredient));
 //        assertFalse(signupClass.checkEmail(testEmail));
     }
 
