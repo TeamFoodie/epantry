@@ -1,0 +1,4 @@
+#Wed Sep 12 13:50:19 NZST 2018
+base.0=/Users/charizze/AndroidStudioProjects/ePantry/app/build/intermediates/transforms/dexMerger/debug/40
+path.0=classes.dex
+renamed.0=classes.dex
