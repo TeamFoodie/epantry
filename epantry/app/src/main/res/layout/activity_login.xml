@@ -6,21 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/realbg"
-    tools:context=".Login">
+    tools:context=".UserLoginActivity">
 
 
     <Button
         android:id="@+id/BtoSignup"
         android:layout_width="wrap_content"
         android:layout_height="31dp"
-        android:layout_marginBottom="132dp"
+        android:layout_marginBottom="168dp"
         android:background="@android:color/transparent"
         android:onClick="onClick"
         android:text="No account yet? Create one"
         android:textAllCaps="false"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Bsignup"
         app:layout_constraintVertical_bias="0.166" />
@@ -29,12 +29,12 @@
         android:id="@+id/TFloginUsername"
         android:layout_width="300dp"
         android:layout_height="34dp"
-        android:layout_marginTop="248dp"
-        android:background="@android:color/transparent"
+        android:layout_marginTop="192dp"
+        android:background="@android:color/background_light"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,12 +43,12 @@
         android:id="@+id/TFloginPassword"
         android:layout_width="300dp"
         android:layout_height="34dp"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/transparent"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/background_light"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TFloginUsername" />
@@ -67,23 +67,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TFloginPassword"
-        app:layout_constraintVertical_bias="0.122" />
+        app:layout_constraintVertical_bias="0.132" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="27dp"
-        android:layout_marginEnd="98dp"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="124dp"
-        android:fontFamily="@font/pacifico"
-        android:text="e-Pantry"
-        android:textColor="@android:color/background_light"
-        android:textSize="58sp"
-        app:layout_constraintBottom_toTopOf="@+id/TFloginUsername"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

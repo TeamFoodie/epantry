@@ -1,38 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/realbg"
-    tools:context=".Home">
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="212dp"
-        android:layout_height="7dp"
-        android:background="#c1ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.487" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="212dp"
-        android:layout_height="7dp"
-        android:background="#c1ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.682" />
+    android:background="@drawable/background1"
+    tools:context=".LandingPageActivity">
 
     <TextView
         android:id="@+id/textView15"
         android:layout_width="9dp"
         android:layout_height="350dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="91dp"
+        android:layout_marginEnd="177dp"
         android:background="#c1ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -42,26 +25,11 @@
         app:layout_constraintVertical_bias="0.705" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:text="Find Recipes"
-        android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="81dp"
-        tools:layout_editor_absoluteY="242dp" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:text="Find Recipes"
-        android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="81dp"
-        tools:layout_editor_absoluteY="242dp" />
-
-    <TextView
         android:layout_width="273dp"
         android:layout_height="398dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView15"
+        android:layout_marginEnd="40dp"
         android:background="#c1ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
@@ -70,172 +38,138 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.781" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="27dp"
-        android:layout_marginEnd="98dp"
-        android:layout_marginStart="98dp"
-        android:fontFamily="@font/pacifico"
-        android:text="e-Pantry"
-        android:textColor="@android:color/background_light"
-        android:textSize="58sp"
-        app:layout_constraintBottom_toTopOf="@+id/TFloginUsername"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65" />
-
-    <TextView
-        android:id="@+id/usernameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="296dp"
-        android:text="Username"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/usernameInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="224dp"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="296dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/usernameText"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/passwordInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="223dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="356dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/passwordText"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/passwordText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
-        android:text="Password"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameText" />
-
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/searchRecipe"
         android:layout_width="83dp"
         android:layout_height="89dp"
+        android:layout_alignStart="@+id/myRecipes"
+        android:layout_alignTop="@+id/textView15"
         app:srcCompat="@drawable/ic_search_black_24dp"
         tools:layout_editor_absoluteX="79dp"
         tools:layout_editor_absoluteY="153dp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/myPantry"
         android:layout_width="83dp"
         android:layout_height="89dp"
+        android:layout_alignStart="@+id/newRecipe"
+        android:layout_alignTop="@+id/textView15"
         app:srcCompat="@drawable/ic_kitchen_black_24dp"
         tools:layout_editor_absoluteX="222dp"
         tools:layout_editor_absoluteY="153dp" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/myRecipes"
         android:layout_width="82dp"
-        android:layout_height="77dp"
+        android:layout_height="192dp"
+        android:layout_below="@+id/findRecipeLabel"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="-24dp"
         app:srcCompat="@drawable/ic_import_contacts_black_24dp"
-        tools:layout_editor_absoluteX="79dp"
+        tools:layout_editor_absoluteX="222dp"
         tools:layout_editor_absoluteY="280dp" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/newRecipe"
         android:layout_width="84dp"
         android:layout_height="79dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/shoppingCart"
+        android:layout_marginBottom="218dp"
         app:srcCompat="@drawable/ic_add_circle_outline_black_24dp"
         tools:layout_editor_absoluteX="221dp"
         tools:layout_editor_absoluteY="280dp" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/shoppingCart"
         android:layout_width="82dp"
         android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/setGoals"
+        android:layout_marginEnd="72dp"
         app:srcCompat="@drawable/ic_shopping_cart_black_24dp"
         tools:layout_editor_absoluteX="223dp"
         tools:layout_editor_absoluteY="397dp" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/setGoals"
         android:layout_width="84dp"
         android:layout_height="79dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/searchRecipe"
+        android:layout_marginBottom="102dp"
         app:srcCompat="@drawable/ic_star_border_black_24dp"
         tools:layout_editor_absoluteX="79dp"
         tools:layout_editor_absoluteY="397dp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/findRecipeLabel"
         android:layout_width="wrap_content"
         android:layout_height="18dp"
+        android:layout_alignStart="@+id/searchRecipe"
+        android:layout_below="@+id/searchRecipe"
         android:text="Find Recipes"
         android:textColor="@android:color/black"
         tools:layout_editor_absoluteX="81dp"
         tools:layout_editor_absoluteY="242dp" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/myPantryLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/newRecipeLabel"
+        android:layout_below="@+id/myPantry"
         android:text="My Pantry"
         android:textColor="@android:color/black"
         tools:layout_editor_absoluteX="234dp"
         tools:layout_editor_absoluteY="242dp" />
 
     <TextView
-        android:id="@+id/textView10"
-        android:layout_width="77dp"
-        android:layout_height="19dp"
-        android:text="My Recipes"
-        android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="356dp" />
-
-    <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/shoppingListLabel"
         android:layout_width="93dp"
         android:layout_height="20dp"
+        android:layout_alignStart="@+id/myPantry"
+        android:layout_below="@+id/shoppingCart"
         android:text="Shopping List"
         android:textColor="@android:color/black"
         tools:layout_editor_absoluteX="222dp"
         tools:layout_editor_absoluteY="477dp" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/setGoalsLabel"
         android:layout_width="71dp"
         android:layout_height="19dp"
+        android:layout_alignEnd="@+id/setGoals"
+        android:layout_below="@+id/setGoals"
+        android:layout_marginTop="-102dp"
         android:text="Set Goals"
         android:textColor="@android:color/black"
         tools:layout_editor_absoluteX="89dp"
         tools:layout_editor_absoluteY="476dp" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/newRecipeLabel"
         android:layout_width="77dp"
         android:layout_height="19dp"
+        android:layout_alignStart="@+id/myPantry"
+        android:layout_below="@+id/newRecipe"
+        android:layout_marginTop="-218dp"
+        android:text="New Recipe"
+        android:textColor="@android:color/black"
+        tools:layout_editor_absoluteX="228dp"
+        tools:layout_editor_absoluteY="356dp" />
+
+    <TextView
+        android:id="@+id/myRecipeLabel"
+        android:layout_width="77dp"
+        android:layout_height="19dp"
+        android:layout_alignStart="@+id/findRecipeLabel"
+        android:layout_below="@+id/newRecipe"
+        android:layout_marginTop="-218dp"
         android:text="New Recipe"
         android:textColor="@android:color/black"
         tools:layout_editor_absoluteX="228dp"
         tools:layout_editor_absoluteY="356dp" />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

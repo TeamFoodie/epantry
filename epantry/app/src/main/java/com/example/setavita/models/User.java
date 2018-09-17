@@ -1,4 +1,4 @@
-package com.example.epantry;
+package com.example.setavita.models;
 
 /*
  * The User class stores information about a

@@ -4,7 +4,7 @@
  * test method that username field isn't empty
  * test method that it checks password matches confirmed password
  */
-package com.example.epantry;
+package com.example.setavita.epantry;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class Signup extends AppCompatActivity {
+import com.example.setavita.database.Database;
+import com.example.setavita.models.User;
+
+public class SignupFormActivity extends AppCompatActivity {
 
     EditText ETusername;
     EditText ETemail;
@@ -24,15 +27,15 @@ public class Signup extends AppCompatActivity {
     EditText ETconfirmpassword;
     Button Bcreateaccount;
     Database db = new Database(this);
-    Signup seterror;
+    SignupFormActivity seterror;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        Log.i("Signup", "Hello");
-        Log.i("Signup", "Test");
+        Log.i("SignupFormActivity", "Hello");
+        Log.i("SignupFormActivity", "Test");
 
         ETusername = (EditText) findViewById(R.id.TFname);
         ETemail = (EditText) findViewById(R.id.TFemail);
@@ -105,13 +108,13 @@ public class Signup extends AppCompatActivity {
                 User user = new User(username, password, email);
                 db.addUser(user);
 
-                Log.i("Signup", "Confirmed login");
-                Intent i = new Intent(Signup.this, Home.class);
+                Log.i("SignupFormActivity", "Confirmed login");
+                Intent i = new Intent(SignupFormActivity.this, LandingPageActivity.class);
                 startActivity(i);
             }
         }
         if (v.getId() == R.id.BtoLogin) {
-            Intent i = new Intent(Signup.this, Login.class);
+            Intent i = new Intent(SignupFormActivity.this, UserLoginActivity.class);
             startActivity(i);
         }
     }
