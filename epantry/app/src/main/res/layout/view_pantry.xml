@@ -9,9 +9,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="50dp"
         android:layout_marginEnd="40dp"
-        android:text="Add Ingredient" />
+        android:text="Add Ingredient"
+        android:layout_marginRight="40dp" />
 
     <TextView
         android:id="@+id/label"
@@ -20,6 +22,17 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="47dp"
-        android:layout_marginTop="109dp"
-        android:text="Pantry Ingredients" />
+        android:layout_marginTop="98dp"
+        android:text="Pantry Ingredients"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="47dp" />
+
+    <ListView
+        android:id="@+id/ingredientListView"
+        android:layout_width="287dp"
+        android:layout_height="337dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/label"
+        android:layout_marginTop="117dp"
+        android:layout_alignLeft="@+id/label" />
 </RelativeLayout>

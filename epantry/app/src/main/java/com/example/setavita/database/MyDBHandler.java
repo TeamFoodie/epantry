@@ -10,6 +10,10 @@ import android.os.Bundle;
 
 import com.example.setavita.models.PantryIngredients;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MyDBHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;
@@ -57,9 +61,11 @@ public class MyDBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public String loadHandler() {
+    public PantryIngredients loadHandler() {//} ArrayList<PantryIngredients> loadHandler() {
 
-        String result = "";
+        ArrayList<PantryIngredients> ingredient = new ArrayList<>();
+        PantryIngredients current = null;
+//        String result = "";
         String query = "Select* FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -70,17 +76,25 @@ public class MyDBHandler extends SQLiteOpenHelper {
             int result_3 = cursor.getInt(3);
             String result_4 = cursor.getString(4);
             int result_5 = cursor.getInt(5);
-            result += String.valueOf(result_0) + " " + result_1 +
-                    String.valueOf(result_2) + " " +
-                    String.valueOf(result_3) + " " +
-                    String.valueOf(result_4) + " " +
-                    String.valueOf(result_5) + " " +
-                    System.getProperty("line.separator");
+
+
+
+            current = new PantryIngredients(result_0, result_1, result_2, result_3, result_4, result_5);
+            ingredient.add(current);
+            return current;
+
+//            result += String.valueOf(result_0) + " " + result_1 +
+//                    String.valueOf(result_2) + " " +
+//                    String.valueOf(result_3) + " " +
+//                    String.valueOf(result_4) + " " +
+//                    String.valueOf(result_5) + " " +
+//                    System.getProperty("line.separator");
         }
         cursor.close();
         db.close();
-        return result;
+//        return result;
 
+        return current;
     }
 
 
