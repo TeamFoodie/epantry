@@ -22,6 +22,9 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String UNIT_MEASURE = "UnitMeasure";
     public static final String OWNER = "Owner";
     public static final int version = 1;
+    private PantryIngredientTable pantryTable = new PantryIngredientTable();
+
+
 //    public MySQLiteHelper db = new MySQLiteHelper(this);
 
     //initialize the database
@@ -33,14 +36,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
-                "(" + INGREDIENT_ID + " NVARCHAR PRIMARY KEY," +
-                INGREDIENT_NAME + " NVARCHAR," +
-                TOTAL_QUANTITY + " INTEGER," +
-                CURRENT_QUANTITY + " INTEGER," +
-                UNIT_MEASURE + " NVARCHAR," +
-                OWNER + " INTEGER" + ");";
-        db.execSQL(CREATE_TABLE);
+//        String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
+//                "(" + INGREDIENT_ID + " NVARCHAR PRIMARY KEY," +
+//                INGREDIENT_NAME + " NVARCHAR," +
+//                TOTAL_QUANTITY + " INTEGER," +
+//                CURRENT_QUANTITY + " INTEGER," +
+//                UNIT_MEASURE + " NVARCHAR," +
+//                OWNER + " INTEGER" + ");";
+        db.execSQL(pantryTable.getCreateTable());
     }
 
 //    public void onCreate(Bundle savedInstance){
@@ -81,26 +84,23 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
 
-    public boolean addIngredient(PantryIngredients pIngredients) {
+    public boolean addHandle(Object obj) {
         boolean createSuccessful = false;
-        ContentValues values = new ContentValues();
-        System.out.println(pIngredients.toString());
-        System.out.println(pIngredients.getIngredientID());
-        values.put(INGREDIENT_ID , pIngredients.getIngredientID());
-        values.put(INGREDIENT_NAME, pIngredients.getIngredientName());
-        values.put(TOTAL_QUANTITY, pIngredients.getTotalQuantity());
-        values.put(CURRENT_QUANTITY, pIngredients.getCurrentQuantity());
-        values.put(UNIT_MEASURE, pIngredients.getUnitMeasure());
-        values.put(OWNER, pIngredients.getOwner());
+        ContentValues values = null;
+        if(obj instanceof PantryIngredients){
+            PantryIngredients pIngredients = (PantryIngredients) obj;
+            values = pantryTable.getValues(pIngredients);
+        }
+
 
         SQLiteDatabase db = this.getWritableDatabase();
         long i = db.insert(TABLE_NAME, null, values);
 
 
-        if (i == -1){
+        if (i == -1) {
             createSuccessful = false;
             System.out.println("could not populate");
-        }else{
+        } else {
             createSuccessful = true;
             System.out.println("table populated");
         }
@@ -110,14 +110,16 @@ public class MyDBHandler extends SQLiteOpenHelper {
         return createSuccessful;
     }
 
-    public PantryIngredients findHandler(String ingredientID) {
 
-        String query = "Select * FROM " + TABLE_NAME + " WHERE " + INGREDIENT_ID + " = " + "'" + ingredientID + "'";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = getReadableDatabase().rawQuery(query, null);
-//        Cursor cursor1 = db.ra
+    public Object findHandler(String query, String TABLE_NAME) {
+
+//        String query = "Select * FROM " + TABLE_NAME + " WHERE " + INGREDIENT_ID + " = " + "'" + ingredientID + "'";
         PantryIngredients pantryIngredients = new PantryIngredients();
-        if (cursor.moveToFirst()) {
+        if(TABLE_NAME == "Ingredients"){
+            SQLiteDatabase db = this.getWritableDatabase();
+//            PantryIngredients pantryIngredients = new PantryIngredients();
+            Cursor cursor = getReadableDatabase().rawQuery(query, null);
+            if (cursor.moveToFirst()) {
             cursor.moveToFirst();
             pantryIngredients.setIngredientID(cursor.getString(0));
             pantryIngredients.setIngredientName(cursor.getString(1));
@@ -129,9 +131,10 @@ public class MyDBHandler extends SQLiteOpenHelper {
         } else {
             pantryIngredients = null;
         }
+            pantryTable.findIngredient(cursor);
+            db.close();
 
-//        System.out.println("Found: " + pantryIngredients.getIngredientName());
-        db.close();
+        }
         return pantryIngredients;
     }
 
@@ -154,7 +157,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         return result;
     }
 
-    public boolean updateQuantity(PantryIngredients ingredient){
+    public boolean updateQuantity(PantryIngredients ingredient) {
 //        boolean updated = false;
 
         SQLiteDatabase db = this.getWritableDatabase();

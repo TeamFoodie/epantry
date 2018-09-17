@@ -39,7 +39,7 @@ public class ScanUpdateTest {
 
         PantryIngredients ingredient = new PantryIngredients("12345", "Ingredient1", 23, 23, "grams", 111);
         db = new MyDBHandler(update);
-        assertFalse(db.addIngredient(ingredient));
+        assertFalse(db.addHandle(ingredient));
 
 //        assertFalse(signupClass.checkEmail(testEmail));
     }
@@ -49,7 +49,7 @@ public class ScanUpdateTest {
 
         PantryIngredients ingredient = new PantryIngredients("12345", "Ingredient1", 23, 23, "grams", 111);
         db = new MyDBHandler(update);
-        assertTrue(db.addIngredient(ingredient));
+        assertTrue(db.addHandle(ingredient));
 
 //        assertTrue(signupClass.checkEmail(testEmail));
     }

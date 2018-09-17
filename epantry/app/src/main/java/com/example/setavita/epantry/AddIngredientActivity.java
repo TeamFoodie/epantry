@@ -71,7 +71,7 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
             String messages = "33 " + measure + " of " + name + " has been added";
 
             PantryIngredients pantryIngredient = new PantryIngredients(ingredientID, name, total, total, measure, 001);
-            ingredientCreated = database.addIngredient(pantryIngredient);
+            ingredientCreated = database.addHandle(pantryIngredient);
 
             if(ingredientCreated) {
                 messages = total + measure + " of " + name + " has been added successfully!";
