@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.setavita.database.DatabaseHandler;
 import com.example.setavita.models.PantryIngredient;
@@ -35,20 +36,26 @@ public class PantryUpdateActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View view) {
                 String id = ingredientID.getText().toString();
-                Object object = database.findHandle(id, "PantryIngredient");
-                ingredient = (PantryIngredient) object;
-                int option = 1;
-                String message = "";
-
-                if (ingredient != null) {
-                    message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + " to your pantry?";
-                    option = 1;
+                System.out.println("THIS IS THE ID=======" + id);
+                if (id.isEmpty()) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "No scan data received!", Toast.LENGTH_SHORT);
+                    toast.show();
                 } else {
-                    message = "Ingredient scanned was not recognized. Do you want to register new ingredient?";
-                    option = 2;
-                }
+                    Object object = database.findHandle(id, "PantryIngredient");
+                    ingredient = (PantryIngredient) object;
+                    int option = 1;
+                    String message = "";
 
-                showCustomDialog(R.string.dialog_restock, message, id, option);
+                    if (ingredient != null) {
+                        message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + " to your pantry?";
+                        option = 1;
+                    } else {
+                        message = "Ingredient scanned was not recognized. Do you want to register new ingredient?";
+                        option = 2;
+                    }
+
+                    showCustomDialog(R.string.dialog_restock, message, id, option);
+                }
             }
 
 
@@ -72,12 +79,11 @@ public class PantryUpdateActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                if(OKoption == 2) {
+                if (OKoption == 2) {
                     AddIngredientActivity.ingID = id;
                     Intent intent = new Intent(PantryUpdateActivity.this, AddIngredientActivity.class);
                     startActivity(intent);
-                }
-                else{
+                } else {
                     topUpIngredient();
                     finish();
                 }
@@ -88,18 +94,18 @@ public class PantryUpdateActivity extends AppCompatActivity implements View.OnCl
         dialog.show();
     }
 
-    public void topUpIngredient(){
+    public void topUpIngredient() {
         int newQuantity = ingredient.getCurrentQuantity() + ingredient.getTotalQuantity();
         ingredient.setCurrentQuantity(newQuantity);
         boolean updated = database.updateQuantity(ingredient);
-        if(updated){
+        if (updated) {
             System.out.println("topped up");
-        }else{
+        } else {
             System.out.println("rank");
         }
     }
 
-    public void changeScreens(View view){
+    public void changeScreens(View view) {
         Intent startActivity = new Intent(PantryUpdateActivity.this, AddIngredientActivity.class);
 
     }

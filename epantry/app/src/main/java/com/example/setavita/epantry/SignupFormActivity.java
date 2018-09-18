@@ -33,7 +33,7 @@ public class SignupFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.sign_up);
 
         Log.i("SignupFormActivity", "Hello");
         Log.i("SignupFormActivity", "Test");

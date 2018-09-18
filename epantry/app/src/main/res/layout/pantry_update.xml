@@ -8,11 +8,12 @@
         android:id="@+id/ingredientID"
         android:layout_width="201dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/label2"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="197dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Ingredient ID" />
+        android:hint="Ingredient ID"
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/label2"
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="153dp"
+        android:layout_marginTop="167dp"
         android:text="Please input barcode:" />
 
     <Button

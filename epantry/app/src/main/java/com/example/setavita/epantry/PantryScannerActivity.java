@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.setavita.database.DatabaseHandler;
-import com.example.setavita.models.PantryIngredients;
+import com.example.setavita.models.PantryIngredient;
 
 import google.zxing.integration.android.IntentIntegrator;
 import google.zxing.integration.android.IntentResult;
@@ -18,29 +18,41 @@ import google.zxing.integration.android.IntentResult;
 public class PantryScannerActivity extends AppCompatActivity implements OnClickListener {
 
     DatabaseHandler database;
-    PantryIngredients ingredient;
-    private Button scanBtn;
+    PantryIngredient ingredient;
+    private Button scanBtn, enterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantry_scanner);
         scanBtn = (Button) findViewById(R.id.scan_button);
+        enterButton = (Button) findViewById(R.id.lookup_button);
         database = new DatabaseHandler(this);
 
         scanBtn.setOnClickListener(this);
+        enterButton.setOnClickListener(this);
+//        enterButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(PantryScannerActivity.this, PantryScannerActivity.class));
+//
+//            }
+//        });
     }
 
     public void onClick(View v) {
         if (v.getId() == R.id.scan_button) {
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
+        }else if (v.getId() == R.id.lookup_button){
+            Intent intent = new Intent(PantryScannerActivity.this, PantryUpdateActivity.class);
+            startActivity(intent);
         }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        if (scanningResult != null) {
+        if (scanningResult.getContents() != null) {
             String scanContent = scanningResult.getContents();
 
             showCustomDialog(R.string.dialog_restock, "Slide Left", scanContent);
@@ -53,18 +65,19 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
     private void showCustomDialog(int type, String message, final String id) {
         final android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(this);
         dialog.setTitle("Add Ingredient");
-        if (id =="9310797278959"){
+//        if (id =="9310797278959"){
+//            message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + "to your pantry?";
+//        }else{
+//            message = "Ingredient scanned was not recognized. Do you want to register new ingredient?";
+//        }
+
+        Object object = database.findHandle(id, "PantryIngredient");
+        ingredient = (PantryIngredient) object;
+        if (ingredient != null) {
             message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + "to your pantry?";
-        }else{
+        } else {
             message = "Ingredient scanned was not recognized. Do you want to register new ingredient?";
         }
-//
-//        ingredient = database.findHandler(ingredientID);
-//            if(ingredient != null){
-//                message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + "to your pantry?";
-//            }else{
-//                message = "Ingredient scanned was not recognized. Do you want to register new ingredient?";
-//            }
 
         dialog.setMessage(message);
         dialog.setNegativeButton("Cancel",
@@ -88,7 +101,7 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
         dialog.show();
     }
 
-    public void changeScreens(View view){
+    public void changeScreens(View view) {
         Intent startActivity = new Intent(PantryScannerActivity.this, AddIngredientActivity.class);
 
     }

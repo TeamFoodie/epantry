@@ -32,7 +32,7 @@ public class UserLoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_page);
         Log.i("UserLoginActivity", "Hello");
 
 //        TFloginUsername = (EditText) findViewById(R.id.TFloginUsername);
