@@ -9,7 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.setavita.database.MyDBHandler;
+import com.example.setavita.database.DatabaseHandler;
 import com.example.setavita.models.PantryIngredients;
 
 import google.zxing.integration.android.IntentIntegrator;
@@ -17,7 +17,7 @@ import google.zxing.integration.android.IntentResult;
 
 public class PantryScannerActivity extends AppCompatActivity implements OnClickListener {
 
-    MyDBHandler database;
+    DatabaseHandler database;
     PantryIngredients ingredient;
     private Button scanBtn;
 
@@ -26,7 +26,7 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantry_scanner);
         scanBtn = (Button) findViewById(R.id.scan_button);
-        database = new MyDBHandler(this);
+        database = new DatabaseHandler(this);
 
         scanBtn.setOnClickListener(this);
     }

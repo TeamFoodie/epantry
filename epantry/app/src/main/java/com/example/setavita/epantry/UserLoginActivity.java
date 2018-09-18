@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.setavita.database.Database;
+
+import com.example.setavita.database.DatabaseHandler;
+
 import com.example.setavita.models.User;
 //
 //import com.amitshekhar.DebugDB;
@@ -24,7 +26,8 @@ public class UserLoginActivity extends AppCompatActivity {
 
     EditText TFloginUsername;
     EditText TFloginPassword;
-    Database db = new Database(this);
+
+    DatabaseHandler db = new DatabaseHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,8 @@ public class UserLoginActivity extends AppCompatActivity {
 //        Log.i("UserLoginActivity", DebugDB.getAddressLog());
 ////        Database db = new Database(this);
         //add Users
-        db.addUser(new User("username", "password", "email"));
+
+        db.addHandle(new User("username", "password", "email"));
 
         //http://192.168.1.70:8080/#
 

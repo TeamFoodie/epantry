@@ -16,7 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.setavita.database.Database;
+
+import com.example.setavita.database.DatabaseHandler;
 import com.example.setavita.models.User;
 
 public class SignupFormActivity extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class SignupFormActivity extends AppCompatActivity {
     EditText ETpassword;
     EditText ETconfirmpassword;
     Button Bcreateaccount;
-    Database db = new Database(this);
+    DatabaseHandler db = new DatabaseHandler(this);
     SignupFormActivity seterror;
 
     @Override
@@ -106,7 +107,9 @@ public class SignupFormActivity extends AppCompatActivity {
                     ETpassword.getError() == null && ETconfirmpassword.getError() == null
                     && db.checkExistingUser(username) == false) {
                 User user = new User(username, password, email);
-                db.addUser(user);
+
+                db.addHandle(user);
+
 
                 Log.i("SignupFormActivity", "Confirmed login");
                 Intent i = new Intent(SignupFormActivity.this, LandingPageActivity.class);

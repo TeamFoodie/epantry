@@ -1,9 +1,7 @@
 package com.example.setavita.epantry;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,13 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.setavita.database.MyDBHandler;
-import com.example.setavita.models.PantryIngredients;
-
-import google.zxing.integration.android.IntentIntegrator;
-import google.zxing.integration.android.IntentResult;
+import com.example.setavita.database.DatabaseHandler;
 
 public class AddIngredientActivity extends AppCompatActivity implements OnClickListener {
 
@@ -26,7 +19,7 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
     private Spinner unitMeasure;
     private TextView ingredientID;
     public static String ingID;
-    MyDBHandler database;
+    DatabaseHandler database;
 
 
     @Override
@@ -37,7 +30,7 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
         unitCount = (EditText) findViewById(R.id.ingredientName);
         unitMeasure = (Spinner) findViewById(R.id.unitMeasureDropDown);
         ingredientID = (TextView) findViewById(R.id.ingredientID);
-        database = new MyDBHandler(this);
+        database = new DatabaseHandler(this);
         setID(ingID);
 
 
