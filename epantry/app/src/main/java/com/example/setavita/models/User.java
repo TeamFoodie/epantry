@@ -1,4 +1,3 @@
-
 package com.example.setavita.models;
 
 /*
@@ -6,7 +5,6 @@ package com.example.setavita.models;
  * user's name and password
  */
 public class User {
-
 
     private String username;
     private String password;

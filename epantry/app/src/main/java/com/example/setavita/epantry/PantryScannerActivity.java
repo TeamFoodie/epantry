@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.setavita.database.DatabaseHandler;
-import com.example.setavita.models.PantryIngredient;
+import com.example.setavita.models.PantryIngredients;
 
 import google.zxing.integration.android.IntentIntegrator;
 import google.zxing.integration.android.IntentResult;
@@ -18,34 +18,23 @@ import google.zxing.integration.android.IntentResult;
 public class PantryScannerActivity extends AppCompatActivity implements OnClickListener {
 
     DatabaseHandler database;
-    PantryIngredient ingredient;
-    private Button scanBtn, enterButton;
+    PantryIngredients ingredient;
+    private Button scanBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantry_scanner);
         scanBtn = (Button) findViewById(R.id.scan_button);
-        enterButton = (Button) findViewById(R.id.enterButton);
         database = new DatabaseHandler(this);
 
         scanBtn.setOnClickListener(this);
-        enterButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(PantryScannerActivity.this, PantryUpdateActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
     public void onClick(View v) {
         if (v.getId() == R.id.scan_button) {
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
-        } else if (v.getId() == R.id.enterButton) {
-            Intent intent = new Intent(PantryScannerActivity.this, PantryUpdateActivity.class);
-            startActivity(intent);
         }
     }
 
@@ -53,31 +42,30 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
             String scanContent = scanningResult.getContents();
-            String message = "";
-            Object obj = database.findHandle(scanContent, "PantryIngredient");
-            ingredient = (PantryIngredient) obj;
-            int option = 1;
 
-            if (ingredient != null) {
-                message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + " to your pantry?";
-                option = 1;
-            } else {
-                message = "Ingredient scanned was not recognized. Do you want to register new ingredient?";
-                option = 2;
-            }
-
-
-            showCustomDialog(R.string.dialog_restock, message, scanContent, option);
+            showCustomDialog(R.string.dialog_restock, "Slide Left", scanContent);
         } else {
             Toast toast = Toast.makeText(getApplicationContext(), "No scan data received!", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
 
-    private void showCustomDialog(int type, String message, final String id, int option) {
+    private void showCustomDialog(int type, String message, final String id) {
         final android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(this);
-        final int OKoption = option;
         dialog.setTitle("Add Ingredient");
+        if (id =="9310797278959"){
+            message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + "to your pantry?";
+        }else{
+            message = "Ingredient scanned was not recognized. Do you want to register new ingredient?";
+        }
+//
+//        ingredient = database.findHandler(ingredientID);
+//            if(ingredient != null){
+//                message = "Do you want to add " + ingredient.getTotalQuantity() + " of " + ingredient.getIngredientName() + "to your pantry?";
+//            }else{
+//                message = "Ingredient scanned was not recognized. Do you want to register new ingredient?";
+//            }
+
         dialog.setMessage(message);
         dialog.setNegativeButton("Cancel",
                 new DialogInterface.OnClickListener() {
@@ -86,34 +74,22 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
                         finish();
                     }
                 });
-        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        dialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AddIngredientActivity.ingID = id;
+                        Intent intent = new Intent(PantryScannerActivity.this, AddIngredientActivity.class);
+                        startActivity(intent);
 
-                if (OKoption == 2) {
-                    AddIngredientActivity.ingID = id;
-                    Intent intent = new Intent(PantryScannerActivity.this, AddIngredientActivity.class);
-                    startActivity(intent);
-                } else {
-                    topUpIngredient();
-                            finish();
-                }
-
-            }
-        });
+                    }
+                });
 
         dialog.show();
     }
 
-    public void topUpIngredient() {
-        int newQuantity = ingredient.getCurrentQuantity() + ingredient.getTotalQuantity();
-        ingredient.setCurrentQuantity(newQuantity);
-        boolean updated = database.updateQuantity(ingredient);
-        if (updated) {
-            System.out.println("topped up");
-        } else {
-            System.out.println("rank");
-        }
-    }
+    public void changeScreens(View view){
+        Intent startActivity = new Intent(PantryScannerActivity.this, AddIngredientActivity.class);
 
+    }
 }
