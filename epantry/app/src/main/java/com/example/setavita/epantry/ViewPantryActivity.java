@@ -8,15 +8,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.example.setavita.database.MyDBHandler;
-import com.example.setavita.models.PantryIngredients;
+import com.example.setavita.database.DatabaseHandler;
+import com.example.setavita.models.PantryIngredient;
 
 import java.util.ArrayList;
 
 public class ViewPantryActivity extends AppCompatActivity {
 
-    private ArrayList<PantryIngredients> ingredientArray;
-    private MyDBHandler database;
+    private ArrayList<PantryIngredient> ingredientArray;
+    private DatabaseHandler database;
     private SimpleCursorAdapter cursorAdapter;
     private ListView listView;
 
@@ -26,12 +26,12 @@ public class ViewPantryActivity extends AppCompatActivity {
         setContentView(R.layout.view_pantry);
         ingredientArray = new ArrayList<>();
         listView = (ListView) findViewById(R.id.ingredientListView);
-        database = new MyDBHandler(this);
+        database = new DatabaseHandler(this);
 
-        cursorAdapter = new SimpleCursorAdapter(getBaseContext(),
-                R.layout.listview_pantry_item, null, new String[] {ingredientArray.get})
+//        cursorAdapter = new SimpleCursorAdapter(getBaseContext(),
+//                R.layout.listview_pantry_item, null, new String[] {ingredientArray.get})
 
-        loadIngredients();
+//        loadIngredients();
         configureAddButton();
 
     }
@@ -48,7 +48,7 @@ public class ViewPantryActivity extends AppCompatActivity {
     }
 
     public void loadIngredients(){
-        this.ingredientArray = database.loadHandler();
+//        this.ingredientArray = database.loadHandler();
 
     }
 

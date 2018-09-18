@@ -2,7 +2,7 @@ package com.example.setavita.models;
 
 import java.math.BigInteger;
 
-public class PantryIngredients {
+public class PantryIngredient {
     private String ingredientID;
     private String ingredientName;
     private int totalQuantity;
@@ -10,7 +10,7 @@ public class PantryIngredients {
     private String unitMeasure;
     private int owner;
 
-    public PantryIngredients(String id, String name, int total, int current, String unitMeasure, int owner){
+    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, int owner){
         this.ingredientID = id;
         this.ingredientName = name;
         this.totalQuantity = total;
@@ -19,7 +19,7 @@ public class PantryIngredients {
         this.owner = owner;
     }
 
-    public PantryIngredients(){
+    public PantryIngredient(){
 
     }
 

@@ -7,18 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.setavita.database.MyDBHandler;
-import com.example.setavita.models.PantryIngredients;
-
-import google.zxing.integration.android.IntentIntegrator;
-import google.zxing.integration.android.IntentResult;
+import com.example.setavita.database.DatabaseHandler;
+import com.example.setavita.models.PantryIngredient;
 
 public class PantryUpdateActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private MyDBHandler database;
-    private PantryIngredients ingredient;
+    private DatabaseHandler database;
+    private PantryIngredient ingredient;
     private Button searchButton;
     private EditText ingredientID;
 
@@ -26,7 +22,7 @@ public class PantryUpdateActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantry_update);
-        database = new MyDBHandler(this);
+        database = new DatabaseHandler(this);
         searchIngredient();
     }
 
@@ -39,7 +35,8 @@ public class PantryUpdateActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View view) {
                 String id = ingredientID.getText().toString();
-                ingredient = database.findHandler(id);
+                Object object = database.findHandle(id, "PantryIngredient");
+                ingredient = (PantryIngredient) object;
                 int option = 1;
                 String message = "";
 

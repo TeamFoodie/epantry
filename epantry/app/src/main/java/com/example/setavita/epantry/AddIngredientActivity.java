@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.setavita.database.MyDBHandler;
-import com.example.setavita.models.PantryIngredients;
+import com.example.setavita.database.DatabaseHandler;
+import com.example.setavita.models.PantryIngredient;
 
 public class AddIngredientActivity extends AppCompatActivity implements OnClickListener {
 
@@ -20,7 +20,7 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
     private Spinner unitMeasure;
     private TextView ingredientIDTEXT;
     public static String ingID;
-    private MyDBHandler database;
+    private DatabaseHandler database;
     private String ingredientID;
 
 
@@ -33,7 +33,7 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
         unitMeasure = (Spinner) findViewById(R.id.unitMeasureDropDown);
         ingredientIDTEXT = (TextView) findViewById(R.id.ingredientID);
         saveButton = (Button) findViewById(R.id.save_button);
-        database = new MyDBHandler(this);
+        database = new DatabaseHandler(this);
 
         saveButton.setOnClickListener(this);
         setID(ingID);
@@ -70,7 +70,7 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
 
             String messages = "33 " + measure + " of " + name + " has been added";
 
-            PantryIngredients pantryIngredient = new PantryIngredients(ingredientID, name, total, total, measure, 001);
+            PantryIngredient pantryIngredient = new PantryIngredient(ingredientID, name, total, total, measure, 001);
             ingredientCreated = database.addHandle(pantryIngredient);
 
             if(ingredientCreated) {

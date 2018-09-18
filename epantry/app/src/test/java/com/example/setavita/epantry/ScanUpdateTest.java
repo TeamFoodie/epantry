@@ -1,7 +1,7 @@
 package com.example.setavita.epantry;
 
-import com.example.setavita.database.MyDBHandler;
-import com.example.setavita.models.PantryIngredients;
+import com.example.setavita.database.DatabaseHandler;
+import com.example.setavita.models.PantryIngredient;
 
 import org.junit.After;
 import org.junit.Before;
@@ -18,14 +18,14 @@ public class ScanUpdateTest {
 
     private PantryUpdateActivity update;
     private AddIngredientActivity addIngredient;
-    private MyDBHandler db;
+    private DatabaseHandler db;
 
     @Before
     public void setUp() {
         //  context = InstrumentationRegistry.getContext();
         update = new PantryUpdateActivity();
         addIngredient = new AddIngredientActivity();
-//        db = new MyDBHandler(this);
+//        db = new DatabaseHandler(this);
     }
 
 
@@ -35,11 +35,11 @@ public class ScanUpdateTest {
 
     @Test
     public void testUpdateofDatabase() {
-//        public PantryIngredients(String id, String name, int total, int current, String unitMeasure, int owner){
+//        public PantryIngredient(String id, String name, int total, int current, String unitMeasure, int owner){
 
-//        PantryIngredients ingredient = new PantryIngredients("12345", "Ingredient1", 23, 23, "grams", 111);
-        PantryIngredients ingredient = new PantryIngredients();
-        db = new MyDBHandler(update);
+//        PantryIngredient ingredient = new PantryIngredient("12345", "Ingredient1", 23, 23, "grams", 111);
+        PantryIngredient ingredient = new PantryIngredient();
+        db = new DatabaseHandler(update);
 //        assertFalse(db.addHandle(ingredient));
 //        boolean actualReturn = db.addHandle(ingredient);
         assertEquals(false, db.addHandle(ingredient));
@@ -49,8 +49,8 @@ public class ScanUpdateTest {
     @Test
     public void testValidEmail() {
 
-        PantryIngredients ingredient = new PantryIngredients("12345", "Ingredient1", 23, 23, "grams", 111);
-        db = new MyDBHandler(update);
+        PantryIngredient ingredient = new PantryIngredient("12345", "Ingredient1", 23, 23, "grams", 111);
+        db = new DatabaseHandler(update);
         assertTrue(db.addHandle(ingredient));
 
 //        assertTrue(signupClass.checkEmail(testEmail));
