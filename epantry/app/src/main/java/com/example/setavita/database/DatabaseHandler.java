@@ -17,12 +17,12 @@ import java.util.List;
 public class DatabaseHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "EPANTRY";
+    private static final String DATABASE_NAME = "PANTRYDB";
 
     //table names
     private static final String TABLE_INGREDIENT = "PantryIngredients";
-    private static final String TABLE_USERS = "User";
-//
+    private static final String TABLE_USERS = "PantryUser";
+
 //    //columns for Ingredient Table
     private static final String INGREDIENT_ID = "IngredientID";
     private static final String INGREDIENT_NAME = "IngredientName";
@@ -110,9 +110,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             tableName = TABLE_INGREDIENT;
             values = table.getIngredientContents(ingredientObject);
 
+
+        }
+        else if(object instanceof User){
+            User userObject = (User) object;
+            tableName = TABLE_USERS;
+            values = table.getUserContents(userObject);
         }
         SQLiteDatabase db = this.getWritableDatabase();
-        long i = db.insert(TABLE_INGREDIENT, null, values);
+        long i = db.insert(tableName, null, values);
 
 
         if (i == -1) {
@@ -221,7 +227,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     public boolean checkLogin(String username, String password) {
-        String query = "SELECT * FROM users WHERE username = '" + username + "' AND password = '" + password + "'";
+        String query = "SELECT * FROM "+TABLE_USERS+" WHERE username = '" + username + "' AND password = '" + password + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -238,7 +244,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public boolean checkExistingUser(String username) {
-        String query = "SELECT * FROM users WHERE username = '" + username + "'";
+        String query = "SELECT * FROM "+TABLE_USERS+" WHERE username = '" + username + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);

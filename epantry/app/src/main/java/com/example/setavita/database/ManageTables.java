@@ -46,7 +46,7 @@ public class ManageTables {
                 "( " + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 USER_NAME + " TEXT, "+
                 USER_PASSWORD + " TEXT, "+
-                USER_EMAIL + "email TEXT )";
+                USER_EMAIL + " TEXT );";
 
         return createTable;
     }
