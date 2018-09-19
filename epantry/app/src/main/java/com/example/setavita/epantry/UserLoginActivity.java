@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.setavita.database.DatabaseHandler;
 
+import com.example.setavita.database.UserTable;
 import com.example.setavita.models.User;
 //
 //import com.amitshekhar.DebugDB;
@@ -27,7 +28,7 @@ public class UserLoginActivity extends AppCompatActivity {
     EditText TFloginUsername;
     EditText TFloginPassword;
 
-    DatabaseHandler db = new DatabaseHandler(this);
+    DatabaseHandler dbHandler = new DatabaseHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +36,8 @@ public class UserLoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_page);
         Log.i("UserLoginActivity", "Hello");
 
-//        TFloginUsername = (EditText) findViewById(R.id.TFloginUsername);
-//        TFloginPassword = (EditText) findViewById(R.id.TFloginPassword);
-
-
-//        Log.i("UserLoginActivity", DebugDB.getAddressLog());
-////        Database db = new Database(this);
-        //add Users
-
-        db.addHandle(new User("username", "password", "email"));
-
-        //http://192.168.1.70:8080/#
-
-
-       // List<User> list = db.getAllUsers();
-        // delete one user
-      //  db.deleteUser(list.get(0));
-
-        // get all users
-        db.getAllUsers();
+        dbHandler.addHandle(new User("username", "password", "email"));
+//        dbHandler.getAllUsers();
     }
 
     public void onClick(View v) {
@@ -68,10 +52,13 @@ public class UserLoginActivity extends AppCompatActivity {
             EditText b = (EditText) findViewById(R.id.TFloginPassword);
             String strPass = b.getText().toString();
 
-            if(db.checkLogin(strUser, strPass)) {
+            UserTable userDB = new UserTable();
+
+
+            if(userDB.checkLogin(strUser, strPass, dbHandler)) {
                 Intent i = new Intent(UserLoginActivity.this, LandingPageActivity.class);
-                i.putExtra("Username", strUser);
-                i.putExtra("Password", strPass); //pass values to other activity
+//                i.putExtra("Username", strUser);
+//                i.putExtra("Password", strPass); //pass values to other activity
                 startActivity(i);
             } else {
                 Toast noMatch = Toast.makeText(UserLoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT);

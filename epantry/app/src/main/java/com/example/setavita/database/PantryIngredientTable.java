@@ -6,7 +6,7 @@ import android.database.Cursor;
 import com.example.setavita.models.PantryIngredient;
 import com.example.setavita.models.User;
 
-public class ManageTables {
+public class PantryIngredientTable {
 
 
 
@@ -18,12 +18,7 @@ public class ManageTables {
     public static final String UNIT_MEASURE = "UnitMeasure";
     public static final String OWNER = "Owner";
 
-    //columns for User Table
-    private static final String USER_ID = "UserID";
-    private static final String USER_NAME = "UserName";
-    private static final String USER_PASSWORD = "Password";
-    private static final String USER_EMAIL = "Email";
-    private static final String[] USER_COLUMNS = {USER_ID, USER_NAME, USER_PASSWORD, USER_EMAIL};
+
 
     //Details for Cart
 
@@ -41,15 +36,6 @@ public class ManageTables {
         return createTable;
     }
 
-    public String createUserTable(String TABLE_NAME) {
-        String createTable = "CREATE TABLE "+ TABLE_NAME +
-                "( " + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                USER_NAME + " TEXT, "+
-                USER_PASSWORD + " TEXT, "+
-                USER_EMAIL + " TEXT );";
-
-        return createTable;
-    }
 
     public ContentValues getIngredientContents(PantryIngredient pIngredients) {
         ContentValues values = new ContentValues();
@@ -65,17 +51,9 @@ public class ManageTables {
         return values;
     }
 
-    public ContentValues getUserContents(User userObject) {
-        ContentValues values = new ContentValues();
-            values.put(USER_NAME, userObject.getUsername());
-            values.put(USER_PASSWORD, userObject.getPassword());
-            values.put(USER_EMAIL, userObject.getEmail());
 
 
-        System.out.println("User table!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
-        return values;
-    }
 
     public PantryIngredient findIngredient(Cursor cursor){
         PantryIngredient ingredient = new PantryIngredient();
@@ -95,5 +73,7 @@ public class ManageTables {
         return ingredient;
     }
 
-
+//
+//    public String createUserTable(String tableUsers) {
+//    }
 }
