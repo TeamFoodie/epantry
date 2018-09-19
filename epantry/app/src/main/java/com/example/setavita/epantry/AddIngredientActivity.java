@@ -27,7 +27,7 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_ingredient);
         ingredientName = (EditText) findViewById(R.id.ingredientName);
-        unitCount = (EditText) findViewById(R.id.ingredientName);
+        unitCount = (EditText) findViewById(R.id.unitCount);
         unitMeasure = (Spinner) findViewById(R.id.unitMeasureDropDown);
         ingredientID = (TextView) findViewById(R.id.ingredientID);
         database = new DatabaseHandler(this);
