@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/background_signup"
     tools:context=".SignupFormActivity">
 
     <TextView
@@ -135,9 +135,10 @@
         android:id="@+id/Bsignup"
         android:layout_width="300dp"
         android:layout_height="38dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/buttonColor"
         android:onClick="onClick"
         android:text="CREATE ACCOUNT"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"

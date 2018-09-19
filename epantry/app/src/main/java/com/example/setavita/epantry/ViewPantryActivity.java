@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class ViewPantryActivity extends AppCompatActivity {
 
@@ -17,7 +18,7 @@ public class ViewPantryActivity extends AppCompatActivity {
     }
 
     private void configureAddButton(){
-        Button addButton = (Button) findViewById(R.id.addIngredient);
+        ImageView addButton = (ImageView) findViewById(R.id.addIngredient);
         addButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

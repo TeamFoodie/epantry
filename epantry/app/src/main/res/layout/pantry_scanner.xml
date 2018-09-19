@@ -19,11 +19,12 @@
     <TextView
         android:id="@+id/scan_content"
         android:layout_width="wrap_content"
-        android:layout_height="44dp"
+        android:layout_height="29dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="191dp"
         android:text="Press SCAN or LOOK UP to start"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -36,7 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/scan_content"
         android:layout_centerVertical="true"
-        android:text="SCAN" />
+        android:background="@color/buttonColor"
+        android:text="SCAN"
+        android:textColor="@color/colorPrimaryDark" />
 
     <Button
         android:id="@+id/lookup_button"
@@ -44,6 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/scan_content"
         android:layout_centerVertical="true"
-        android:text="LOOK UP" />
+        android:background="@color/buttonColor"
+        android:text="LOOK UP"
+        android:textColor="@color/colorPrimaryDark" />
 
 </RelativeLayout>

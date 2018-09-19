@@ -25,18 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 //    //columns for Ingredient Table
     private static final String INGREDIENT_ID = "IngredientID";
-//    private static final String INGREDIENT_NAME = "IngredientName";
-//    private static final String TOTAL_QUANTITY = "TotalQuantity";
     private static final String CURRENT_QUANTITY = "CurrentQuantity";
-//    private static final String UNIT_MEASURE = "UnitMeasure";
-//    private static final String OWNER = "Owner";
-//
-//    //columns for User Table
-//    private static final String USER_ID = "id";
-//    private static final String USER_NAME = "username";
-//    private static final String USER_PASSWORD = "password";
-//    private static final String USER_EMAIL = "email";
-//    private static final String[] USER_COLUMNS = {USER_ID, USER_NAME, USER_PASSWORD, USER_EMAIL};
 
     private PantryIngredientTable pantryIngredientTable = new PantryIngredientTable();
     private UserTable userTable = new UserTable();
@@ -166,77 +155,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return true;
         }
     }
-//
-//    public User getUser(int id) {
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        Cursor cursor =
-//                db.query(TABLE_USERS, // a. table
-//                        USER_COLUMNS, // b. column names
-//                        " id = ?", // c. selections
-//                        new String[]{String.valueOf(id)}, // d. selections args
-//                        null, // e. group by
-//                        null, // f. having
-//                        null, // g. order by
-//                        null); // h. limit
-//
-//        if (cursor != null)
-//            cursor.moveToFirst();
-//
-//        User user = new User();
-//        user.setID(Integer.parseInt(cursor.getString(0)));
-//        user.setUsername(cursor.getString(1));
-//        user.setPassword(cursor.getString(2));
-//        user.setEmail(cursor.getString(3));
-//
-//        Log.d("getUser(" + id + ")", user.toString());
-//
-//        return user;
-//    }
-
-//    public List<User> getAllUsers() {
-//        List<User> users = new LinkedList<User>();
-//
-//        String query = "SELECT  * FROM " + TABLE_USERS;
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//
-//        User user = null;
-//        if (cursor.moveToFirst()) {
-//            do {
-//                user = new User();
-//                user.setID(Integer.parseInt(cursor.getString(0)));
-//                user.setUsername(cursor.getString(1));
-//                user.setPassword(cursor.getString(2));
-//                user.setEmail(cursor.getString(3));
-//
-//                users.add(user);
-//            } while (cursor.moveToNext());
-//        }
-//
-//        Log.d("getAllUsers()", users.toString());
-//
-//        return users;
-//    }
-//
-//    public int updateUser(User user) {
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("username", user.getUsername());
-//        values.put("password", user.getPassword());
-//        values.put("email", user.getEmail());
-//
-//        int i = db.update(TABLE_USERS, //table
-//                values, // column/value
-//                USER_ID + " = ?", // selections
-//                new String[]{String.valueOf(user.getUserID())}); //selection args
-//
-//        db.close();
-//
-//        return i;
-//    }
 }

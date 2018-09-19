@@ -25,11 +25,12 @@
         app:layout_constraintVertical_bias="0.705" />
 
     <TextView
-        android:layout_width="273dp"
-        android:layout_height="398dp"
+        android:layout_width="287dp"
+        android:layout_height="420dp"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/textView15"
         android:layout_marginEnd="40dp"
+        android:layout_marginTop="-22dp"
         android:background="#c1ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
