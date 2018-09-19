@@ -9,6 +9,7 @@ import android.widget.ImageView;
 public class LandingPageActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView restock;
+    private ImageView search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,13 +18,18 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
 
         restock = (ImageView) findViewById(R.id.myPantry);
         restock.setOnClickListener(this);
+        search = (ImageView) findViewById(R.id.searchRecipe);
+        search.setOnClickListener(this);
 
     }
 
-    @Override
+//    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.myPantry) {
             Intent intent = new Intent(LandingPageActivity.this, ViewPantryActivity.class);
+            startActivity(intent);
+        }else if (v.getId() == R.id.searchRecipe){
+            Intent intent = new Intent(LandingPageActivity.this, ViewAllRecipesActivity.class);
             startActivity(intent);
         }
     }

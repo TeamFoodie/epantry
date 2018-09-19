@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/realbg"
+    android:background="@drawable/background_new"
     tools:context=".UserLoginActivity">
 
 
@@ -13,7 +13,7 @@
         android:id="@+id/BtoSignup"
         android:layout_width="wrap_content"
         android:layout_height="31dp"
-        android:layout_marginBottom="168dp"
+        android:layout_marginBottom="140dp"
         android:background="@android:color/transparent"
         android:onClick="onClick"
         android:text="No account yet? Create one"
@@ -27,39 +27,40 @@
 
     <EditText
         android:id="@+id/TFloginUsername"
-        android:layout_width="300dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="192dp"
-        android:background="@android:color/background_light"
+        android:layout_width="252dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="248dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
         android:textColor="@android:color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/TFloginPassword"
-        android:layout_width="300dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="4dp"
-        android:background="@android:color/background_light"
+        android:layout_width="250dp"
+        android:layout_height="38dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         android:textColor="@android:color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TFloginUsername" />
 
     <Button
         android:id="@+id/Blogin"
-        android:layout_width="300dp"
-        android:layout_height="31dp"
+        android:layout_width="256dp"
+        android:layout_height="38dp"
         android:layout_marginEnd="148dp"
         android:layout_marginStart="148dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/buttonColor"
         android:onClick="onClick"
         android:text="Login"
         android:textColor="@android:color/white"
@@ -67,6 +68,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TFloginPassword"
-        app:layout_constraintVertical_bias="0.132" />
+        app:layout_constraintVertical_bias="0.121" />
 
 </android.support.constraint.ConstraintLayout>
