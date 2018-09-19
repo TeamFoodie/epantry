@@ -203,27 +203,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 ////    }
 //
     public boolean updateQuantity(PantryIngredient ingredient) {
-//        boolean updated = false;
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(CURRENT_QUANTITY, ingredient.getCurrentQuantity());
         return db.update(TABLE_INGREDIENT, values, INGREDIENT_ID + "=" + ingredient.getIngredientID(), null) > 0;
 
-
-//        return updated;
     }
-//
-//    public boolean updateHandler(String ID, String name, int total, int current, int owner) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues args = new ContentValues();
-//        args.put(INGREDIENT_ID, ID);
-//        args.put(INGREDIENT_NAME, name);
-//        args.put(TOTAL_QUANTITY, total);
-//        args.put(CURRENT_QUANTITY, current);
-//        args.put(OWNER, owner);
-//        return db.update(TABLE_NAME, args, INGREDIENT_ID + "=" + ID, null) > 0;
-//    }
 
 
     public boolean checkLogin(String username, String password) {
@@ -232,6 +218,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
+        //
         if (cursor.getCount() <= 0) {
             cursor.close();
             db.close();

@@ -36,7 +36,6 @@ public class PantryUpdateActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View view) {
                 String id = ingredientID.getText().toString();
-                System.out.println("THIS IS THE ID=======" + id);
                 if (id.isEmpty()) {
                     Toast toast = Toast.makeText(getApplicationContext(), "No scan data received!", Toast.LENGTH_SHORT);
                     toast.show();
