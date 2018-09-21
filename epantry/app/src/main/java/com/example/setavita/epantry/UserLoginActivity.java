@@ -25,6 +25,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
     EditText TFloginUsername;
     EditText TFloginPassword;
+    private User currentUser;
 
     DatabaseHandler dbHandler = new DatabaseHandler(this);
 
@@ -33,8 +34,8 @@ public class UserLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
         Log.i("UserLoginActivity", "Hello");
+        this.currentUser = new User();
 
-//        dbHandler.addHandle(new User("username", "password", "email"));
     }
 
     public void onClick(View v) {
@@ -49,13 +50,17 @@ public class UserLoginActivity extends AppCompatActivity {
             String strPass = b.getText().toString();
             UserTable userDB = new UserTable();
 
-            User currentUser = userDB.checkLogin(strUser, strPass, dbHandler);
+//            User currentUser = userDB.checkLogin(strUser, strPass, dbHandler);
 
+            DatabaseHandler dbHandler = new DatabaseHandler(this);
+            currentUser = userDB.checkLogin(strUser, strPass, dbHandler);
+            System.out.println("current user is " + currentUser.toString());
 
             if(currentUser != null) {
                 Intent i = new Intent(UserLoginActivity.this, LandingPageActivity.class);
+                i.putExtra("USER_ID", currentUser.getUserID());
+                System.out.println("USER ID FROM LOGIN IS " + currentUser.getUserID());
                 startActivity(i);
-                i.putExtra("USERID", currentUser.getUserID());
             } else {
                 Toast noMatch = Toast.makeText(UserLoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT);
                 noMatch.show();

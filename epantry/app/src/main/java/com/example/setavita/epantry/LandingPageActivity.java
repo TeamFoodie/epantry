@@ -10,6 +10,7 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
 
     private ImageView restock;
     private ImageView search;
+    private int currentUSER_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +22,29 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
         search = (ImageView) findViewById(R.id.searchRecipe);
         search.setOnClickListener(this);
 
+        if(savedInstanceState == null){
+            Bundle extras = getIntent().getExtras();
+            if(extras == null){
+//                currentUSER_ID = 1;
+                System.out.println("Bundle extra was NULL user");
+            }else{
+                currentUSER_ID = extras.getInt("USER_ID");
+            }
+        }else{
+            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
+            System.out.println("savedInstance was NULL");
+        }
     }
 
 //    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.myPantry) {
             Intent intent = new Intent(LandingPageActivity.this, ViewPantryActivity.class);
+            intent.putExtra("USER_ID", currentUSER_ID);
             startActivity(intent);
         }else if (v.getId() == R.id.searchRecipe){
             Intent intent = new Intent(LandingPageActivity.this, ViewAllRecipesActivity.class);
+//            intent.putExtra("USER_ID", currentUSER_ID);
             startActivity(intent);
         }
     }

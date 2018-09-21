@@ -21,7 +21,8 @@ public class AddIngredientActivity extends AppCompatActivity{
     private TextView ingredientID;
     public static String ingID;
     private DatabaseHandler database;
-    private int userID;
+    private int currentUSER_ID;
+    private String actualIngredientID;
 
 
     @Override
@@ -35,12 +36,25 @@ public class AddIngredientActivity extends AppCompatActivity{
         database = new DatabaseHandler(this);
         setID(ingID);
 
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                System.out.println("Bundle extra was NULL from AddIngredient Activity");
+            } else {
+                currentUSER_ID = extras.getInt("USER_ID");
+            }
+        } else {
+            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
+            System.out.println("savedInstance was NULL");
+        }
+
 
         saveIngredient();
     }
 
     public void setID(String id) {
         ingredientID.setText("INGREDIENT ID: " + id);
+        this.actualIngredientID = id;
     }
 
     public void saveIngredient() {
@@ -49,14 +63,14 @@ public class AddIngredientActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 boolean ingredientCreated = false;
-                String id = ingredientID.getText().toString();
                 String name = ingredientName.getText().toString();
                 String total = unitCount.getText().toString();
                 int totals = Integer.parseInt(total);
                 String measure = unitMeasure.getSelectedItem().toString();
                 String messages = "";
 
-                PantryIngredient pantryIngredient = new PantryIngredient(id, name, totals, totals, measure, 001);
+                PantryIngredient pantryIngredient = new PantryIngredient(actualIngredientID, name, totals, totals, measure, currentUSER_ID);
+                System.out.println("OWNER OF NEW PANTRY INGRIENT IS " + currentUSER_ID);
                 if (pantryIngredient != null){
                     messages = "ingredient is empty!";
                 }else{

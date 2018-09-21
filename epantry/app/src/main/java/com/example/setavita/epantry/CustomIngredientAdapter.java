@@ -22,9 +22,9 @@ public class CustomIngredientAdapter extends BaseAdapter{
     private Context context;
     private DatabaseHandler databaseHelper;
 
-    public CustomIngredientAdapter(Context context, List<PantryIngredient> ingredientList, DatabaseHandler databaseHelper){
-        this.context = context;
-        this.ingredientList = ingredientList;
+    public CustomIngredientAdapter(Context cont, List<PantryIngredient> list, DatabaseHandler db){
+        this.context = cont;
+        this.ingredientList = list;
         this.layoutInflater = LayoutInflater.from(context);
         this.databaseHelper = new DatabaseHandler(context);
     }
@@ -59,12 +59,10 @@ public class CustomIngredientAdapter extends BaseAdapter{
         }
 
         PantryIngredient ingredientItem = this.ingredientList.get(position);
+        viewHolder.itemName.setText(ingredientItem.getIngredientName());
+        viewHolder.itemTotal.setText(String.valueOf(ingredientItem.getCurrentQuantity()) + ingredientItem.getUnitMeasure());
 
-        viewHolder.itemName.setText(ingredientItem.getIngredientName());//.getProductName());
-        viewHolder.itemTotal.setText("Current:" + String.valueOf(ingredientItem.getCurrentQuantity()));//.getTotalCost()));
 
-
-//        System.out.println("Name is " + cartItem.getProductName() + " with total cost of " + cartItem.getTotalCost());
         return view;
     }
     static class ViewHolder {

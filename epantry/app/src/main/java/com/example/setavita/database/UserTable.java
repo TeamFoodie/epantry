@@ -34,7 +34,7 @@ public class UserTable {
         return createTable;
     }
 
-    public ContentValues getUserContents(User userObject) {
+    public ContentValues addNewUser(User userObject) {
         ContentValues values = new ContentValues();
         values.put(USER_NAME, userObject.getUsername());
         values.put(USER_PASSWORD, userObject.getPassword());
@@ -43,35 +43,30 @@ public class UserTable {
     }
 
     public User findUser(Cursor cursor) {
-        User user;;
-        int userID;
-        String name;
-        String pass;
-        String email;
+        User existingUser = new User();
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            userID = cursor.getInt(0);//.setIngredientID(cursor.getString(0));
-            name = cursor.getString(1);
-            pass = cursor.getString(2);
-            email = cursor.getString(3);
-            user = new User(userID, name, pass, email);
+            existingUser.setID(cursor.getInt(0));
+            existingUser.setUsername(cursor.getString(1));
+            existingUser.setPassword(cursor.getString(2));
+            existingUser.setEmail(cursor.getString(3));
             cursor.close();
         } else {
             return null;
         }
 
-        return user;
+        return existingUser;
     }
 
 
-    public User checkLogin(String user, String pass, DatabaseHandler dbHandler){
+    public User checkLogin(String user, String pass, DatabaseHandler db){
 
-        this.dbHandler = dbHandler;
+        this.dbHandler = db;
         dbHandler.setUser(user, pass);
 
         object = dbHandler.findHandle(user, "User");
         if(object == null){
-            System.out.println("entered object is null");
+            System.out.println("check login was  null");
             return null;
         }else{
             currentUser = (User) object;
