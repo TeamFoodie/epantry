@@ -18,6 +18,7 @@ import android.widget.EditText;
 
 
 import com.example.setavita.database.DatabaseHandler;
+import com.example.setavita.database.UserTable;
 import com.example.setavita.models.User;
 
 public class SignupFormActivity extends AppCompatActivity {
@@ -109,6 +110,9 @@ public class SignupFormActivity extends AppCompatActivity {
                 User user = new User(username, password, email);
 
                 db.addHandle(user);
+
+//                UserTable userTable = new UserTable();
+//                User registeredUser = userTable.findUser()
 
 
                 Log.i("SignupFormActivity", "Confirmed login");

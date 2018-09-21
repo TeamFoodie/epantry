@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.setavita.models.PantryIngredient;
 import com.example.setavita.models.User;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,8 +67,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             PantryIngredient ingredientObject = (PantryIngredient) object;
             tableName = TABLE_INGREDIENT;
             values = pantryIngredientTable.getIngredientContents(ingredientObject);
-
-
         }
         else if(object instanceof User){
             User userObject = (User) object;
@@ -136,6 +135,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(CURRENT_QUANTITY, ingredient.getCurrentQuantity());
         return db.update(TABLE_INGREDIENT, values, INGREDIENT_ID + "=" + ingredient.getIngredientID(), null) > 0;
 
+    }
+
+    public List<PantryIngredient> loadAllPantryIngredients(String id){
+        List<PantryIngredient> ingredientList = new ArrayList<>();
+        String query = "Select * FROM " + TABLE_INGREDIENT + " WHERE UserID" + " = " + "'" + id + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = getReadableDatabase().rawQuery(query, null);
+
+        List<PantryIngredient> cartList = new ArrayList<>();
+        cartList = pantryIngredientTable.loadAllPantryIngredients(cursor);
+
+
+        return cartList;
     }
 
 

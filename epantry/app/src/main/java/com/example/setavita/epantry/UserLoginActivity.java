@@ -20,8 +20,6 @@ import com.example.setavita.database.DatabaseHandler;
 
 import com.example.setavita.database.UserTable;
 import com.example.setavita.models.User;
-//
-//import com.amitshekhar.DebugDB;
 
 public class UserLoginActivity extends AppCompatActivity {
 
@@ -36,13 +34,11 @@ public class UserLoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_page);
         Log.i("UserLoginActivity", "Hello");
 
-        dbHandler.addHandle(new User("username", "password", "email"));
-//        dbHandler.getAllUsers();
+//        dbHandler.addHandle(new User("username", "password", "email"));
     }
 
     public void onClick(View v) {
         if(v.getId() == R.id.Bsignup) {
-                //check if username and password matches to value in database
             Intent i = new Intent(UserLoginActivity.this, SignupFormActivity.class);
             startActivity(i);
         }
@@ -51,15 +47,15 @@ public class UserLoginActivity extends AppCompatActivity {
             String strUser = a.getText().toString();
             EditText b = (EditText) findViewById(R.id.TFloginPassword);
             String strPass = b.getText().toString();
-
             UserTable userDB = new UserTable();
 
+            User currentUser = userDB.checkLogin(strUser, strPass, dbHandler);
 
-            if(userDB.checkLogin(strUser, strPass, dbHandler)) {
+
+            if(currentUser != null) {
                 Intent i = new Intent(UserLoginActivity.this, LandingPageActivity.class);
-//                i.putExtra("Username", strUser);
-//                i.putExtra("Password", strPass); //pass values to other activity
                 startActivity(i);
+                i.putExtra("USERID", currentUser.getUserID());
             } else {
                 Toast noMatch = Toast.makeText(UserLoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT);
                 noMatch.show();

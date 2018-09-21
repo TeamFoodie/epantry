@@ -11,15 +11,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.setavita.database.DatabaseHandler;
+import com.example.setavita.models.PantryIngredient;
 
-public class AddIngredientActivity extends AppCompatActivity implements OnClickListener {
+public class AddIngredientActivity extends AppCompatActivity{
 
     private Button saveButton;
     private EditText ingredientName, unitCount;
     private Spinner unitMeasure;
     private TextView ingredientID;
     public static String ingID;
-    DatabaseHandler database;
+    private DatabaseHandler database;
+    private int userID;
 
 
     @Override
@@ -52,23 +54,21 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
                 String total = unitCount.getText().toString();
                 int totals = Integer.parseInt(total);
                 String measure = unitMeasure.getSelectedItem().toString();
+                String messages = "";
 
-                String messages = "33" + measure + " of " + name + " has been added";
+                PantryIngredient pantryIngredient = new PantryIngredient(id, name, totals, totals, measure, 001);
+                if (pantryIngredient != null){
+                    messages = "ingredient is empty!";
+                }else{
+                    messages = "ingredient is NOT empty";
+                }
+                ingredientCreated = database.addHandle(pantryIngredient);
 
-//                PantryIngredients pantryIngredient = new PantryIngredients(id, name, total, total, measure, 001);
-//                if (pantryIngredient != null){
-//                    messages = "ingredient is empty!";
-//                }else{
-//                    messages = "ingredient is NOT empty";
-//                }
-//                ingredientCreated = database.addHandler(pantryIngredient);
-//
-//                if(ingredientCreated) {
-//                    showCustomDialog(R.string.dialog_addedIng, "Ingredient has successfully been added!");
-//                }else{
-//                    showCustomDialog(R.string.dialog_addedIng, "Ingredient NOT added!");
-//                }
-                showCustomDialog(R.string.dialog_addedIng, messages);
+                if(ingredientCreated) {
+                    showCustomDialog(R.string.dialog_addedIng, "Ingredient has successfully been added!");
+                }else{
+                    showCustomDialog(R.string.dialog_addedIng, "Ingredient NOT added!");
+                }
 
             }
         });
@@ -83,9 +83,6 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        Intent intent = new Intent(AddIngredientActivity.this, PantryScannerActivity.class);
-//                        startActivity(intent);
-
                         finish();
                     }
                 });
@@ -93,11 +90,5 @@ public class AddIngredientActivity extends AppCompatActivity implements OnClickL
         dialog.show();
     }
 
-    public void onClick(View v) {
-//        if(v.getId() == R.id.save_button){
-//            IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-//            scanIntegrator.initiateScan();
-//        }
-    }
 
 }

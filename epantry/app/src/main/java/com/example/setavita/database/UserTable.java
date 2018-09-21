@@ -39,21 +39,22 @@ public class UserTable {
         values.put(USER_NAME, userObject.getUsername());
         values.put(USER_PASSWORD, userObject.getPassword());
         values.put(USER_EMAIL, userObject.getEmail());
-
-
-        System.out.println("User table!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
         return values;
     }
 
     public User findUser(Cursor cursor) {
-        User user = new User();// ingredient = new PantryIngredient();
+        User user;;
+        int userID;
+        String name;
+        String pass;
+        String email;
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            user.setID(cursor.getInt(0));//.setIngredientID(cursor.getString(0));
-            user.setUsername(cursor.getString(1));
-            user.setPassword(cursor.getString(2));
-            user.setEmail(cursor.getString(3));
+            userID = cursor.getInt(0);//.setIngredientID(cursor.getString(0));
+            name = cursor.getString(1);
+            pass = cursor.getString(2);
+            email = cursor.getString(3);
+            user = new User(userID, name, pass, email);
             cursor.close();
         } else {
             return null;
@@ -62,23 +63,8 @@ public class UserTable {
         return user;
     }
 
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
 
-    public boolean checkLogin(String user, String pass, DatabaseHandler dbHandler){
+    public User checkLogin(String user, String pass, DatabaseHandler dbHandler){
 
         this.dbHandler = dbHandler;
         dbHandler.setUser(user, pass);
@@ -86,12 +72,12 @@ public class UserTable {
         object = dbHandler.findHandle(user, "User");
         if(object == null){
             System.out.println("entered object is null");
-            return false;
+            return null;
         }else{
             currentUser = (User) object;
 
         }
-        return true;
+        return currentUser;
     }
 
 
