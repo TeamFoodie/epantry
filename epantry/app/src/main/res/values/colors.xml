@@ -4,4 +4,25 @@
     <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#00d9a9b9</color>
     <color name="buttonColor">#168f7c</color>
+
+
+    <color name="titlebar_bg">#222222</color>
+    <color name="select_default">#969fa5</color>
+    <color name="select_right">#48daa9</color>
+    <color name="select_error">#eb6161</color>
+    <color name="select_select">#c6c6c6</color>
+    <color name="select_answered">#60adde</color>
+    <color name="transparent">#00ffffff</color>
+
+    <color name="red">#ff6666</color>
+    <color name="main_color">#ff7385</color>
+    <color name="btn_main_color_normal">@color/main_color</color>
+    <color name="btn_main_color_pressed">#ff8d9c</color>
+    <color name="text_black_light">#999999</color>
+    <color name="text_black_light_light">#cccccc</color>
+
+    <color name="right_answer">#009100</color>
+    <!--应用背景色-->
+    <color name="background">#f4f4f5</color>
+    <color name="white">#ffffff</color>
 </resources>

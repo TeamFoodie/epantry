@@ -4,7 +4,7 @@
  * test method that username field isn't empty
  * test method that it checks password matches confirmed password
  */
-package com.example.setavita.epantry;
+package com.example.setavita.epantry.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-import com.example.setavita.database.DatabaseHandler;
-import com.example.setavita.models.User;
+import com.example.setavita.epantry.database.DatabaseHandler;
+import com.example.setavita.epantry.R;
+import com.example.setavita.epantry.models.User;
 
 public class SignupFormActivity extends AppCompatActivity {
 

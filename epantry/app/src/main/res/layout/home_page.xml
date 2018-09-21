@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background1"
-    tools:context=".LandingPageActivity">
+    tools:context=".activity.LandingPageActivity">
 
     <TextView
         android:id="@+id/textView15"

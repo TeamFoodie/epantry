@@ -1,4 +1,4 @@
-package com.example.setavita.epantry;
+package com.example.setavita.epantry.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.setavita.database.DatabaseHandler;
-import com.example.setavita.models.PantryIngredient;
+import com.example.setavita.epantry.database.DatabaseHandler;
+import com.example.setavita.epantry.R;
+import com.example.setavita.epantry.models.PantryIngredient;
 
 import google.zxing.integration.android.IntentIntegrator;
 import google.zxing.integration.android.IntentResult;
@@ -20,6 +22,7 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
     DatabaseHandler database;
     PantryIngredient ingredient;
     private Button scanBtn, enterButton;
+    private TextView scan_format;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +30,12 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
         setContentView(R.layout.pantry_scanner);
         scanBtn = (Button) findViewById(R.id.scan_button);
         enterButton = (Button) findViewById(R.id.lookup_button);
+        scan_format = findViewById(R.id.scan_format);
         database = new DatabaseHandler(this);
 
         scanBtn.setOnClickListener(this);
         enterButton.setOnClickListener(this);
+        scan_format.setOnClickListener(this);
 //        enterButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -47,6 +52,8 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
         }else if (v.getId() == R.id.lookup_button){
             Intent intent = new Intent(PantryScannerActivity.this, PantryUpdateActivity.class);
             startActivity(intent);
+        }else if (v.getId() == R.id.scan_format){
+            startActivity(new Intent(PantryScannerActivity.this, MakeFoodActivity.class));
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.setavita.database;
+package com.example.setavita.epantry.database;
 
 
 import android.database.sqlite.SQLiteDatabase;
@@ -6,13 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.util.Log;
 
-import com.example.setavita.models.PantryIngredient;
-import com.example.setavita.models.User;
-
-import java.util.LinkedList;
-import java.util.List;
+import com.example.setavita.epantry.models.PantryIngredient;
+import com.example.setavita.epantry.models.User;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     //information of database

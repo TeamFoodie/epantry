@@ -2,68 +2,61 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.setavita.epantry">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-                android:theme="@style/AppTheme">
-        <activity android:name=".PantryScannerActivity">
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.PantryScannerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddIngredientActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".activity.AddIngredientActivity">
         </activity>
-        <activity android:name=".ViewPantryActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".activity.ViewPantryActivity">
         </activity>
-        <activity android:name=".PantryUpdateActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".activity.PantryUpdateActivity">
         </activity>
 
         <activity
-            android:name=".UserLoginActivity"
+            android:name=".activity.UserLoginActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
-        <activity android:name=".LandingPageActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".activity.LandingPageActivity">
         </activity>
-        <activity android:name=".SignupFormActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".activity.SignupFormActivity">
         </activity>
-        <activity android:name=".ViewAllRecipesActivity"
+        <activity
+            android:name=".activity.ViewAllRecipesActivity"
             android:windowSoftInputMode="stateVisible|adjustNothing">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
+        <activity android:name=".activity.MakeFoodActivity">
+        </activity>
+        <activity android:name=".activity.SaveActivity" />
+        <activity android:name=".activity.FoodMaterialListActivity" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.setavita.epantry.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity android:name=".activity.CaptureActivity"></activity>
 
 
     </application>

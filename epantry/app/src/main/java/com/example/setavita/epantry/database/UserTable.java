@@ -1,10 +1,9 @@
-package com.example.setavita.database;
+package com.example.setavita.epantry.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.setavita.models.PantryIngredient;
-import com.example.setavita.models.User;
+import com.example.setavita.epantry.models.User;
 
 public class UserTable {
     //username and password for current user

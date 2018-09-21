@@ -1,4 +1,4 @@
-package com.example.setavita.models;
+package com.example.setavita.epantry.models;
 
 public class Recipe {
    

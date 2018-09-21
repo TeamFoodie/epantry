@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PantryScannerActivity"
+    tools:context=".activity.PantryScannerActivity"
     android:background="@drawable/background2">
 
     <TextView
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/scan_button"
         android:layout_centerHorizontal="true"
+        android:text="test"
         android:textIsSelectable="true" />
 
     <TextView

@@ -1,7 +1,9 @@
 package com.example.setavita.epantry;
 
-import com.example.setavita.database.DatabaseHandler;
-import com.example.setavita.models.PantryIngredient;
+import com.example.setavita.epantry.database.DatabaseHandler;
+import com.example.setavita.epantry.activity.AddIngredientActivity;
+import com.example.setavita.epantry.activity.PantryUpdateActivity;
+import com.example.setavita.epantry.models.PantryIngredient;
 
 import org.junit.After;
 import org.junit.Before;
