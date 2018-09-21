@@ -38,11 +38,11 @@ public class ViewPantryActivity extends AppCompatActivity {
             System.out.println("savedInstance was NULL");
         }
 
+        System.out.println("Current user in View pantry is " + currentUSER_ID);
+
 
         pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
-
-        System.out.println("Current user in View pantry is " + currentUSER_ID);
-        final ListView listView = (ListView) findViewById(R.id.viewAllPantry);
+        ListView listView = (ListView) findViewById(R.id.viewAllPantry);
         listView.setAdapter(new CustomIngredientAdapter(this, pantryList, dbHandler));
 
         configureAddButton();

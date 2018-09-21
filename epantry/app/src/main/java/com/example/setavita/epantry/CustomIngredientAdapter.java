@@ -70,4 +70,10 @@ public class CustomIngredientAdapter extends BaseAdapter{
         TextView itemTotal;
     }
 
+//    public static void refreshView(){
+//
+////        CustomIngredientAdapter adapter = new CustomIngredientAdapter();
+////        this.notifyDataSetChanged();
+//    }
+
 }

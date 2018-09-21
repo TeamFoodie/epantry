@@ -75,4 +75,8 @@ public class PantryIngredient {
         return this.ingredientID+ " " +this.ingredientName + " " + this.totalQuantity + " " + this.owner;
     }
 
+    public String toString(){
+        return ingredientID + " " +  ingredientName + " " + totalQuantity + unitMeasure;
+    }
+
 }

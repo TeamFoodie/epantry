@@ -78,10 +78,10 @@ public class PantryIngredientTable {
 
     public List<PantryIngredient> loadAllPantryIngredients(Cursor cursor){
         List<PantryIngredient> pantryList = new ArrayList<>();
-        PantryIngredient pantryObject = new PantryIngredient();
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
+            PantryIngredient pantryObject = new PantryIngredient();
             pantryObject.setIngredientID(cursor.getString(0));
             pantryObject.setIngredientName(cursor.getString(1));
             pantryObject.setTotalQuantity(cursor.getInt(2));
@@ -89,7 +89,8 @@ public class PantryIngredientTable {
             pantryObject.setUnitMeasure(cursor.getString(4));
             pantryObject.setOwner(cursor.getInt(5));
             pantryList.add(pantryObject);
-
+            System.out.println("THIS IS THE PANTRY INGREDIENT TABLE");
+            System.out.println(pantryObject.toString());
             cursor.moveToNext();
         }
 

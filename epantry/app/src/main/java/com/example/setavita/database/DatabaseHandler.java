@@ -168,11 +168,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = getReadableDatabase().rawQuery(query, null);
 
-        List<PantryIngredient> cartList = new ArrayList<>();
-        cartList = pantryIngredientTable.loadAllPantryIngredients(cursor);
+        ingredientList = pantryIngredientTable.loadAllPantryIngredients(cursor);
 
 
-        return cartList;
+        return ingredientList;
     }
 
 

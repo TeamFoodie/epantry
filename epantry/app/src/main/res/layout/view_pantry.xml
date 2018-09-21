@@ -38,7 +38,8 @@
         android:layout_above="@+id/viewAllPantry"
         android:layout_alignParentStart="true"
         android:layout_marginStart="41dp"
-        android:text="Ingredient Name:" />
+        android:text="Ingredient Name:"
+        android:textColor="@android:color/background_dark" />
 
     <TextView
         android:id="@+id/textView2"
@@ -46,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/viewAllPantry"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="54dp"
-        android:text="Current" />
+        android:layout_marginEnd="81dp"
+        android:text="Current"
+        android:textColor="@android:color/background_dark" />
 </RelativeLayout>
