@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_signup"
-    tools:context=".activity.SignupFormActivity">
+    tools:context="com.example.teamfoodie.activity.SignupFormActivity">
 
     <TextView
         android:id="@+id/textView27"
