@@ -1,16 +1,14 @@
-package com.example.setavita.epantry;
+package com.example.setavita.activity;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.setavita.database.DatabaseHandler;
-import com.example.setavita.models.PantryIngredient;
+import com.example.setavita.epantry.database.DatabaseHandler;
+import com.example.setavita.epantry.models.PantryIngredient;
 
 import java.util.List;
 

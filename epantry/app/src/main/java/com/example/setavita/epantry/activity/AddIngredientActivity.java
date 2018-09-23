@@ -1,17 +1,16 @@
-package com.example.setavita.epantry;
+package com.example.setavita.activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.setavita.database.DatabaseHandler;
-import com.example.setavita.models.PantryIngredient;
+import com.example.setavita.epantry.database.DatabaseHandler;
+import com.example.setavita.epantry.models.PantryIngredient;
 
 public class AddIngredientActivity extends AppCompatActivity{
 

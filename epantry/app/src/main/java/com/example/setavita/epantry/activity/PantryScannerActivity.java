@@ -1,4 +1,4 @@
-package com.example.setavita.epantry;
+package com.example.setavita.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,8 +9,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.setavita.database.DatabaseHandler;
-import com.example.setavita.models.PantryIngredient;
+import com.example.setavita.epantry.database.DatabaseHandler;
+import com.example.setavita.epantry.models.PantryIngredient;
 
 import google.zxing.integration.android.IntentIntegrator;
 import google.zxing.integration.android.IntentResult;

@@ -1,4 +1,4 @@
-package com.example.setavita.epantry;
+package com.example.setavita.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

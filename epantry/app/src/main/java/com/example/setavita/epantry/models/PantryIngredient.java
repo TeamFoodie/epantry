@@ -1,6 +1,4 @@
-package com.example.setavita.models;
-
-import java.math.BigInteger;
+package com.example.setavita.epantry.models;
 
 public class PantryIngredient {
     private String ingredientID;

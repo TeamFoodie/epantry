@@ -1,4 +1,4 @@
-package com.example.setavita.epantry;
+package com.example.setavita.activity;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.setavita.models.Recipe;
+import com.example.setavita.epantry.models.Recipe;
 
 import java.util.List;
 
