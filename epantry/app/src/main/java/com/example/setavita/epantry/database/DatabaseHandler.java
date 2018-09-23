@@ -10,6 +10,9 @@ import android.database.Cursor;
 import com.example.setavita.epantry.models.PantryIngredient;
 import com.example.setavita.epantry.models.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;
@@ -19,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_INGREDIENT = "P_INGREDIENTS";
     private static final String TABLE_USERS = "USERS";
 
-//    //columns for Ingredient Table
+    //    //columns for Ingredient Table
     private static final String INGREDIENT_ID = "IngredientID";
     private static final String CURRENT_QUANTITY = "CurrentQuantity";
 
@@ -62,13 +65,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             PantryIngredient ingredientObject = (PantryIngredient) object;
             tableName = TABLE_INGREDIENT;
             values = pantryIngredientTable.getIngredientContents(ingredientObject);
-
-
-        }
-        else if(object instanceof User){
+        } else if (object instanceof User) {
             User userObject = (User) object;
             tableName = TABLE_USERS;
-            values = userTable.getUserContents(userObject);
+            values = userTable.addNewUser(userObject);
         }
         SQLiteDatabase db = this.getWritableDatabase();
         long i = db.insert(tableName, null, values);
@@ -86,7 +86,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return createSuccessful;
     }
-    public void setUser(String user, String pass){
+
+    public void setUser(String user, String pass) {
         this.username = user;
         this.password = pass;
 
@@ -105,11 +106,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 query = "Select * FROM " + TABLE_INGREDIENT + " WHERE IngredientID" + " = " + "'" + id + "'";
                 cursor = getReadableDatabase().rawQuery(query, null);
                 foundIngredient = pantryIngredientTable.findIngredient(cursor);
+                System.out.println("FIND HANDLE FOR PANTRY INGREDIENT!!!!!!");
                 object = (Object) foundIngredient;
 
                 break;
             case "User":
-                query = "SELECT * FROM "+TABLE_USERS+" WHERE UserName = '" + username + "' AND Password = '" + password + "'";
+                query = "SELECT * FROM " + TABLE_USERS + " WHERE UserName = '" + username + "' AND Password = '" + password + "'";
+
+                System.out.println("user found : name: " + username + " password: " + password);
                 cursor = db.rawQuery(query, null);
                 foundUser = userTable.findUser(cursor);
                 object = (Object) foundUser;
@@ -134,9 +138,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+//    public User findExistingUser(int id) {
+//        User existingUser = new User();
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        String query = "Select * FROM " + TABLE_USERS + " WHERE UserID" + " = " + "'" + id + "'";
+//        Cursor cursor = getReadableDatabase().rawQuery(query, null);
+//
+//        if (cursor.moveToFirst()) {
+//            cursor.moveToFirst();
+//            existingUser.setID(cursor.getInt(0));
+//            existingUser.setUsername(cursor.getString(1));
+//            existingUser.setPassword(cursor.getString(2));
+//            existingUser.setEmail(cursor.getString(3));
+//            cursor.close();
+//        } else {
+//            return null;
+//        }
+//
+//        return existingUser;
+//    }
+
+
+
+    public List<PantryIngredient> loadAllPantryIngredients(int id) {
+        List<PantryIngredient> ingredientList = new ArrayList<>();
+        String query = "Select * FROM " + TABLE_INGREDIENT + " WHERE Owner" + " = " + "'" + id + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = getReadableDatabase().rawQuery(query, null);
+
+        ingredientList = pantryIngredientTable.loadAllPantryIngredients(cursor);
+
+
+        return ingredientList;
+    }
+
 
     public boolean checkExistingUser(String username) {
-        String query = "SELECT * FROM "+TABLE_USERS+" WHERE username = '" + username + "'";
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE username = '" + username + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);

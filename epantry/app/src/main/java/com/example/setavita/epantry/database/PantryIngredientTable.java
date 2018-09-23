@@ -5,6 +5,9 @@ import android.database.Cursor;
 
 import com.example.setavita.epantry.models.PantryIngredient;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PantryIngredientTable {
 
 
@@ -72,7 +75,25 @@ public class PantryIngredientTable {
         return ingredient;
     }
 
-//
-//    public String createUserTable(String tableUsers) {
-//    }
+    public List<PantryIngredient> loadAllPantryIngredients(Cursor cursor){
+        List<PantryIngredient> pantryList = new ArrayList<>();
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            PantryIngredient pantryObject = new PantryIngredient();
+            pantryObject.setIngredientID(cursor.getString(0));
+            pantryObject.setIngredientName(cursor.getString(1));
+            pantryObject.setTotalQuantity(cursor.getInt(2));
+            pantryObject.setCurrentQuantity(cursor.getInt(3));
+            pantryObject.setUnitMeasure(cursor.getString(4));
+            pantryObject.setOwner(cursor.getInt(5));
+            pantryList.add(pantryObject);
+            System.out.println("THIS IS THE PANTRY INGREDIENT TABLE");
+            System.out.println(pantryObject.toString());
+            cursor.moveToNext();
+        }
+
+        return  pantryList;
+    }
+
 }

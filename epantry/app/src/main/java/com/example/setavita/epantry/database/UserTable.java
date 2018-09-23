@@ -33,64 +33,45 @@ public class UserTable {
         return createTable;
     }
 
-    public ContentValues getUserContents(User userObject) {
+    public ContentValues addNewUser(User userObject) {
         ContentValues values = new ContentValues();
         values.put(USER_NAME, userObject.getUsername());
         values.put(USER_PASSWORD, userObject.getPassword());
         values.put(USER_EMAIL, userObject.getEmail());
-
-
-        System.out.println("User table!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
         return values;
     }
 
     public User findUser(Cursor cursor) {
-        User user = new User();// ingredient = new PantryIngredient();
+        User existingUser = new User();
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            user.setID(cursor.getInt(0));//.setIngredientID(cursor.getString(0));
-            user.setUsername(cursor.getString(1));
-            user.setPassword(cursor.getString(2));
-            user.setEmail(cursor.getString(3));
+            existingUser.setID(cursor.getInt(0));
+            existingUser.setUsername(cursor.getString(1));
+            existingUser.setPassword(cursor.getString(2));
+            existingUser.setEmail(cursor.getString(3));
             cursor.close();
         } else {
             return null;
         }
 
-        return user;
+        return existingUser;
     }
 
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
 
-    public boolean checkLogin(String user, String pass, DatabaseHandler dbHandler){
+    public User checkLogin(String user, String pass, DatabaseHandler db){
 
-        this.dbHandler = dbHandler;
+        this.dbHandler = db;
         dbHandler.setUser(user, pass);
 
         object = dbHandler.findHandle(user, "User");
         if(object == null){
-            System.out.println("entered object is null");
-            return false;
+            System.out.println("check login was  null");
+            return null;
         }else{
             currentUser = (User) object;
 
         }
-        return true;
+        return currentUser;
     }
 
 
