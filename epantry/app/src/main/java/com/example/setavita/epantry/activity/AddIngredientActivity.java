@@ -13,16 +13,14 @@ import com.example.setavita.epantry.R;
 import com.example.setavita.epantry.database.DatabaseHandler;
 import com.example.setavita.epantry.models.PantryIngredient;
 
-public class AddIngredientActivity extends AppCompatActivity{
+public class AddIngredientActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button saveButton;
     private EditText ingredientName, unitCount;
     private Spinner unitMeasure;
     private TextView ingredientID;
     public static String ingID;
-    private DatabaseHandler database;
-    private int currentUSER_ID;
-    private String actualIngredientID;
+    DatabaseHandler database;
 
 
     @Override
@@ -36,25 +34,12 @@ public class AddIngredientActivity extends AppCompatActivity{
         database = new DatabaseHandler(this);
         setID(ingID);
 
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                System.out.println("Bundle extra was NULL from AddIngredient Activity");
-            } else {
-                currentUSER_ID = extras.getInt("USER_ID");
-            }
-        } else {
-            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
-            System.out.println("savedInstance was NULL");
-        }
-
 
         saveIngredient();
     }
 
     public void setID(String id) {
         ingredientID.setText("INGREDIENT ID: " + id);
-        this.actualIngredientID = id;
     }
 
     public void saveIngredient() {
@@ -63,26 +48,28 @@ public class AddIngredientActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 boolean ingredientCreated = false;
+                String id = ingredientID.getText().toString();
                 String name = ingredientName.getText().toString();
                 String total = unitCount.getText().toString();
                 int totals = Integer.parseInt(total);
                 String measure = unitMeasure.getSelectedItem().toString();
-                String messages = "";
 
-                PantryIngredient pantryIngredient = new PantryIngredient(actualIngredientID, name, totals, totals, measure, currentUSER_ID);
-                System.out.println("OWNER OF NEW PANTRY INGRIENT IS " + currentUSER_ID);
-                if (pantryIngredient != null){
-                    messages = "ingredient is empty!";
-                }else{
-                    messages = "ingredient is NOT empty";
-                }
-                ingredientCreated = database.addHandle(pantryIngredient);
+                String messages = "33" + measure + " of " + name + " has been added";
 
-                if(ingredientCreated) {
-                    showCustomDialog(R.string.dialog_addedIng, "Ingredient has successfully been added!");
-                }else{
-                    showCustomDialog(R.string.dialog_addedIng, "Ingredient NOT added!");
-                }
+//                PantryIngredients pantryIngredient = new PantryIngredients(id, name, total, total, measure, 001);
+//                if (pantryIngredient != null){
+//                    messages = "ingredient is empty!";
+//                }else{
+//                    messages = "ingredient is NOT empty";
+//                }
+//                ingredientCreated = database.addHandler(pantryIngredient);
+//
+//                if(ingredientCreated) {
+//                    showCustomDialog(R.string.dialog_addedIng, "Ingredient has successfully been added!");
+//                }else{
+//                    showCustomDialog(R.string.dialog_addedIng, "Ingredient NOT added!");
+//                }
+                showCustomDialog(R.string.dialog_addedIng, messages);
 
             }
         });
@@ -97,6 +84,9 @@ public class AddIngredientActivity extends AppCompatActivity{
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+//                        Intent intent = new Intent(AddIngredientActivity.this, PantryScannerActivity.class);
+//                        startActivity(intent);
+
                         finish();
                     }
                 });
@@ -104,5 +94,11 @@ public class AddIngredientActivity extends AppCompatActivity{
         dialog.show();
     }
 
+    public void onClick(View v) {
+//        if(v.getId() == R.id.save_button){
+//            IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+//            scanIntegrator.initiateScan();
+//        }
+    }
 
 }
