@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_new"
-    tools:context="com.example.teamfoodie.activity.UserLoginActivity">
+    tools:context="com.example.teamfoodie.epantry.UserLoginActivity">
 
 
     <Button
