@@ -40,13 +40,13 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
             Intent intent = new Intent(LandingPageActivity.this, ViewAllRecipesActivity.class);
             startActivity(intent);
         }
-//        else if(v.getId() == R.id.newRecipe){
-//            Intent intent = new Intent(LandingPageActivity.this, MakeFoodActivity.class);
-//            startActivity(intent);
-//        }
-//        else if(v.getId() == R.id.shop_list){
-//            Intent intent = new Intent(LandingPageActivity.this, FoodMaterialListActivity.class);
-//            startActivity(intent);
-//        }
+        else if(v.getId() == R.id.newRecipe){
+            Intent intent = new Intent(LandingPageActivity.this, MakeFoodActivity.class);
+            startActivity(intent);
+        }
+        else if(v.getId() == R.id.shop_list){
+            Intent intent = new Intent(LandingPageActivity.this, FoodMaterialListActivity.class);
+            startActivity(intent);
+        }
     }
 }

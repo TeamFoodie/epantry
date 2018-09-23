@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.setavita.epantry">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
 
 
         <activity android:name=".activity.AddIngredientActivity">
@@ -37,9 +44,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+=======
+        <activity android:name=".activity.AddIngredientActivity">
+        </activity>
+        <activity android:name=".activity.ViewPantryActivity">
+        </activity>
+        <activity android:name=".activity.PantryUpdateActivity">
+>>>>>>> AddNewRecipe
         </activity>
         <activity
             android:name=".activity.UserLoginActivity"
+<<<<<<< HEAD
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,16 +75,49 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+=======
+            android:label="@string/app_name"><intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+        <activity android:name=".activity.LandingPageActivity">
+        </activity>
+        <activity android:name=".activity.SignupFormActivity">
+>>>>>>> AddNewRecipe
         </activity>
         <activity
             android:name=".activity.ViewAllRecipesActivity"
             android:windowSoftInputMode="stateVisible|adjustNothing">
+        </activity>
+
+
+        <activity android:name=".activity.MakeFoodActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.SaveActivity" />
+        <activity android:name=".activity.FoodMaterialListActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.setavita.epantry.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity android:name=".activity.CaptureActivity"></activity>
 
     </application>
 

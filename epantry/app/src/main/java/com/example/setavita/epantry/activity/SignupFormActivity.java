@@ -18,6 +18,7 @@ import android.widget.EditText;
 
 import com.example.setavita.epantry.R;
 import com.example.setavita.epantry.database.DatabaseHandler;
+
 import com.example.setavita.epantry.models.User;
 
 public class SignupFormActivity extends AppCompatActivity {

@@ -9,8 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.setavita.epantry.R;
+
 import com.example.setavita.epantry.database.DatabaseHandler;
+import com.example.setavita.epantry.R;
 import com.example.setavita.epantry.models.PantryIngredient;
 
 public class PantryUpdateActivity extends AppCompatActivity implements View.OnClickListener {

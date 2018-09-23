@@ -4,10 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.example.setavita.epantry.models.PantryIngredient;
-
 import java.util.ArrayList;
 import java.util.List;
-
 public class PantryIngredientTable {
 
 

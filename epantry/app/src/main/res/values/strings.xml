@@ -10,4 +10,7 @@
         <item>liters</item>
         <item>milliliters</item>
     </string-array>
+
+    <string name="main_title">e-Pantry</string>
+    <string name="material_title">Shopping Lists</string>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background1"
-    tools:context=".LandingPageActivity">
+    tools:context=".activity.LandingPageActivity">
 
     <TextView
         android:id="@+id/textView15"
@@ -40,75 +40,34 @@
         app:layout_constraintVertical_bias="0.781" />
 
     <ImageView
-        android:id="@+id/searchRecipe"
-        android:layout_width="83dp"
-        android:layout_height="89dp"
-        android:layout_alignStart="@+id/myRecipes"
-        android:layout_alignTop="@+id/textView15"
-        app:srcCompat="@drawable/ic_search_black_24dp"
-        tools:layout_editor_absoluteX="79dp"
-        tools:layout_editor_absoluteY="153dp" />
-
-    <ImageView
         android:id="@+id/myPantry"
         android:layout_width="83dp"
         android:layout_height="89dp"
-        android:layout_alignStart="@+id/newRecipe"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/textView15"
+        android:layout_marginEnd="66dp"
         app:srcCompat="@drawable/ic_kitchen_black_24dp"
         tools:layout_editor_absoluteX="222dp"
         tools:layout_editor_absoluteY="153dp" />
-
-    <ImageView
-        android:id="@+id/myRecipes"
-        android:layout_width="82dp"
-        android:layout_height="192dp"
-        android:layout_below="@+id/findRecipeLabel"
-        android:layout_marginStart="83dp"
-        android:layout_marginTop="-24dp"
-        app:srcCompat="@drawable/ic_import_contacts_black_24dp"
-        tools:layout_editor_absoluteX="222dp"
-        tools:layout_editor_absoluteY="280dp" />
 
     <ImageView
         android:id="@+id/newRecipe"
         android:layout_width="84dp"
         android:layout_height="79dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/shoppingCart"
-        android:layout_marginBottom="218dp"
+        android:layout_alignStart="@+id/myPantry"
+        android:layout_marginBottom="217dp"
         app:srcCompat="@drawable/ic_add_circle_outline_black_24dp"
         tools:layout_editor_absoluteX="221dp"
         tools:layout_editor_absoluteY="280dp" />
-
-    <ImageView
-        android:id="@+id/shoppingCart"
-        android:layout_width="82dp"
-        android:layout_height="80dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/setGoals"
-        android:layout_marginEnd="72dp"
-        app:srcCompat="@drawable/ic_shopping_cart_black_24dp"
-        tools:layout_editor_absoluteX="223dp"
-        tools:layout_editor_absoluteY="397dp" />
-
-    <ImageView
-        android:id="@+id/setGoals"
-        android:layout_width="84dp"
-        android:layout_height="79dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/searchRecipe"
-        android:layout_marginBottom="102dp"
-        app:srcCompat="@drawable/ic_star_border_black_24dp"
-        tools:layout_editor_absoluteX="79dp"
-        tools:layout_editor_absoluteY="397dp" />
 
     <TextView
         android:id="@+id/findRecipeLabel"
         android:layout_width="wrap_content"
         android:layout_height="18dp"
-        android:layout_alignStart="@+id/searchRecipe"
-        android:layout_below="@+id/searchRecipe"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/myPantry"
+        android:layout_marginStart="88dp"
         android:text="Find Recipes"
         android:textColor="@android:color/black"
         tools:layout_editor_absoluteX="81dp"
@@ -130,7 +89,7 @@
         android:layout_width="93dp"
         android:layout_height="20dp"
         android:layout_alignStart="@+id/myPantry"
-        android:layout_below="@+id/shoppingCart"
+        android:layout_alignTop="@+id/setGoalsLabel"
         android:text="Shopping List"
         android:textColor="@android:color/black"
         tools:layout_editor_absoluteX="222dp"
@@ -140,9 +99,9 @@
         android:id="@+id/setGoalsLabel"
         android:layout_width="71dp"
         android:layout_height="19dp"
-        android:layout_alignEnd="@+id/setGoals"
-        android:layout_below="@+id/setGoals"
-        android:layout_marginTop="-102dp"
+        android:layout_alignEnd="@+id/findRecipeLabel"
+        android:layout_below="@+id/textView15"
+        android:layout_marginTop="-91dp"
         android:text="Set Goals"
         android:textColor="@android:color/black"
         tools:layout_editor_absoluteX="89dp"
@@ -164,15 +123,46 @@
         android:id="@+id/myRecipeLabel"
         android:layout_width="77dp"
         android:layout_height="19dp"
-        android:layout_alignStart="@+id/findRecipeLabel"
+
+        android:layout_alignEnd="@+id/findRecipeLabel"
         android:layout_below="@+id/newRecipe"
         android:layout_marginTop="-218dp"
-
         android:text="My Recipes"
-
         android:textColor="@android:color/black"
         tools:layout_editor_absoluteX="228dp"
         tools:layout_editor_absoluteY="356dp" />
+
+    <ImageView
+        android:id="@+id/find_recipe"
+        android:layout_width="83dp"
+        android:layout_height="89dp"
+        android:layout_alignStart="@+id/findRecipeLabel"
+        android:layout_alignTop="@+id/textView15"
+        app:srcCompat="@drawable/ic_search_black_24dp" />
+
+    <ImageView
+        android:id="@+id/home_recipe"
+        android:layout_width="83dp"
+        android:layout_height="89dp"
+        android:layout_alignBottom="@+id/newRecipe"
+        android:layout_alignStart="@+id/findRecipeLabel"
+        app:srcCompat="@drawable/ic_import_contacts_black_24dp" />
+
+    <ImageView
+        android:id="@+id/shop_list"
+        android:layout_width="83dp"
+        android:layout_height="89dp"
+        android:layout_alignBottom="@+id/textView15"
+        android:layout_alignStart="@+id/myPantry"
+        app:srcCompat="@drawable/ic_shopping_cart_black_24dp" />
+
+    <ImageView
+        android:id="@+id/home_goals"
+        android:layout_width="83dp"
+        android:layout_height="89dp"
+        android:layout_above="@+id/shoppingListLabel"
+        android:layout_alignStart="@+id/findRecipeLabel"
+        app:srcCompat="@drawable/ic_star_border_black_24dp" />
 
 
 </RelativeLayout>
