@@ -9,15 +9,6 @@
     android:background="@drawable/background2">
 
     <TextView
-        android:id="@+id/scan_format"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scan_button"
-        android:layout_centerHorizontal="true"
-        android:text="test"
-        android:textIsSelectable="true" />
-
-    <TextView
         android:id="@+id/scan_content"
         android:layout_width="wrap_content"
         android:layout_height="29dp"

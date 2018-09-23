@@ -8,11 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.models.PantryIngredient;
 
-public class AddIngredientActivity extends AppCompatActivity{
+public class AddIngredientActivity extends AppCompatActivity {
 
     private Button saveButton;
     private EditText ingredientName, unitCount;
@@ -64,25 +65,33 @@ public class AddIngredientActivity extends AppCompatActivity{
                 boolean ingredientCreated = false;
                 String name = ingredientName.getText().toString();
                 String total = unitCount.getText().toString();
-                int totals = Integer.parseInt(total);
-                String measure = unitMeasure.getSelectedItem().toString();
-                String messages = "";
 
-                PantryIngredient pantryIngredient = new PantryIngredient(actualIngredientID, name, totals, totals, measure, currentUSER_ID);
-                System.out.println("OWNER OF NEW PANTRY INGRIENT IS " + currentUSER_ID);
-                if (pantryIngredient != null){
-                    messages = "ingredient is empty!";
-                }else{
-                    messages = "ingredient is NOT empty";
+
+                if (name.isEmpty() || total.isEmpty()) {
+                    Toast noMatch = Toast.makeText(AddIngredientActivity.this, "Please make sure all fields are filled out", Toast.LENGTH_SHORT);
+                    noMatch.show();
+
+                } else {
+                    int totals = Integer.parseInt(total);
+                    String measure = unitMeasure.getSelectedItem().toString();
+                    String messages = "";
+
+                    PantryIngredient pantryIngredient = new PantryIngredient(actualIngredientID, name, totals, totals, measure, currentUSER_ID);
+                    System.out.println("OWNER OF NEW PANTRY INGRIENT IS " + currentUSER_ID);
+                    if (pantryIngredient != null) {
+                        messages = "ingredient is empty!";
+                    } else {
+                        messages = "ingredient is NOT empty";
+                    }
+                    ingredientCreated = database.addHandle(pantryIngredient);
+
+                    if (ingredientCreated) {
+                        showCustomDialog(R.string.dialog_addedIng, "Ingredient has successfully been added!");
+                    } else {
+                        showCustomDialog(R.string.dialog_addedIng, "Ingredient NOT added!");
+                    }
+
                 }
-                ingredientCreated = database.addHandle(pantryIngredient);
-
-                if(ingredientCreated) {
-                    showCustomDialog(R.string.dialog_addedIng, "Ingredient has successfully been added!");
-                }else{
-                    showCustomDialog(R.string.dialog_addedIng, "Ingredient NOT added!");
-                }
-
             }
         });
     }

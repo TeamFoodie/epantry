@@ -16,15 +16,12 @@ import java.util.List;
 public class DatabaseHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "EPANTRY";
+    private static final String DATABASE_NAME = "EPantry";
 
     //table names
-    private static final String TABLE_INGREDIENT = "P_INGREDIENTS";
-    private static final String TABLE_USERS = "USERS";
+    private static final String TABLE_INGREDIENT = "PantryIngredients";
+    private static final String TABLE_USERS = "Users";
 
-    //    //columns for Ingredient Table
-    private static final String INGREDIENT_ID = "IngredientID";
-    private static final String CURRENT_QUANTITY = "CurrentQuantity";
 
     private PantryIngredientTable pantryIngredientTable = new PantryIngredientTable();
     private UserTable userTable = new UserTable();
@@ -133,32 +130,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(CURRENT_QUANTITY, ingredient.getCurrentQuantity());
-        return db.update(TABLE_INGREDIENT, values, INGREDIENT_ID + "=" + ingredient.getIngredientID(), null) > 0;
+        values = pantryIngredientTable.updateQuantity(ingredient);
+        String query = "IngredientID =" + ingredient.getIngredientID();
+        return db.update(TABLE_INGREDIENT, values, query, null) > 0;
 
     }
-
-//    public User findExistingUser(int id) {
-//        User existingUser = new User();
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        String query = "Select * FROM " + TABLE_USERS + " WHERE UserID" + " = " + "'" + id + "'";
-//        Cursor cursor = getReadableDatabase().rawQuery(query, null);
-//
-//        if (cursor.moveToFirst()) {
-//            cursor.moveToFirst();
-//            existingUser.setID(cursor.getInt(0));
-//            existingUser.setUsername(cursor.getString(1));
-//            existingUser.setPassword(cursor.getString(2));
-//            existingUser.setEmail(cursor.getString(3));
-//            cursor.close();
-//        } else {
-//            return null;
-//        }
-//
-//        return existingUser;
-//    }
-
-
 
     public List<PantryIngredient> loadAllPantryIngredients(int id) {
         List<PantryIngredient> ingredientList = new ArrayList<>();

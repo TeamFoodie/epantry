@@ -50,11 +50,9 @@ public class UserLoginActivity extends AppCompatActivity {
             String strPass = b.getText().toString();
             UserTable userDB = new UserTable();
 
-//            User currentUser = userDB.checkLogin(strUser, strPass, dbHandler);
 
             DatabaseHandler dbHandler = new DatabaseHandler(this);
             currentUser = userDB.checkLogin(strUser, strPass, dbHandler);
-            System.out.println("current user is " + currentUser.toString());
 
             if(currentUser != null) {
                 Intent i = new Intent(UserLoginActivity.this, LandingPageActivity.class);

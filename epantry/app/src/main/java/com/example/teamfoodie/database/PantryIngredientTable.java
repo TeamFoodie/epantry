@@ -96,4 +96,11 @@ public class PantryIngredientTable {
         return  pantryList;
     }
 
+    public ContentValues updateQuantity(PantryIngredient ingredient){
+        ContentValues values = new ContentValues();
+        values.put(CURRENT_QUANTITY, ingredient.getCurrentQuantity());
+
+        return values;
+    }
+
 }

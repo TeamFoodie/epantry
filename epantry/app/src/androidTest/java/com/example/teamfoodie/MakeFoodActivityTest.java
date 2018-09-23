@@ -1,9 +1,12 @@
-package com.example.teamfoodie.epantry;
+package com.example.teamfoodie;
 
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 
 import com.example.teamfoodie.database.SQLiteDatabaseDao;
+import com.example.teamfoodie.epantry.MakeFoodActivity;
+import com.example.teamfoodie.epantry.R;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -46,7 +49,7 @@ public class MakeFoodActivityTest {
     @Test
     public void ingredientsTest() throws Exception {
         Log.d(TAG, "ingredientsTest: name==" + withText("ingredients").toString());
-        onView(withId(R.id.ingredients))
+        onView(ViewMatchers.withId(R.id.ingredients))
                 .check(matches(withText("ingredients11")));
     }
 
