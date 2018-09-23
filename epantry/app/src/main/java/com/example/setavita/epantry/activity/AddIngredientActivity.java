@@ -1,4 +1,4 @@
-package com.example.setavita.activity;
+package com.example.setavita.epantry.activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.setavita.epantry.R;
 import com.example.setavita.epantry.database.DatabaseHandler;
 import com.example.setavita.epantry.models.PantryIngredient;
 

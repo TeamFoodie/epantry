@@ -5,7 +5,7 @@
  * test method for any blank fields that button is disabled
  */
 
-package com.example.setavita.activity;
+package com.example.setavita.epantry.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
+import com.example.setavita.epantry.R;
 import com.example.setavita.epantry.database.DatabaseHandler;
 
 import com.example.setavita.epantry.database.UserTable;

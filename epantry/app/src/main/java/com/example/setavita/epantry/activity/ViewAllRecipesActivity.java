@@ -1,4 +1,4 @@
-package com.example.setavita.activity;
+package com.example.setavita.epantry.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.setavita.epantry.R;
 import com.example.setavita.epantry.models.Recipe;
 
 import java.util.ArrayList;

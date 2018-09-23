@@ -1,4 +1,4 @@
-package com.example.setavita.activity;
+package com.example.setavita.epantry.activity;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.setavita.epantry.R;
 import com.example.setavita.epantry.database.DatabaseHandler;
 import com.example.setavita.epantry.models.PantryIngredient;
 
