@@ -5,7 +5,7 @@
  * test method for any blank fields that button is disabled
  */
 
-package com.example.teamfoodie.activity;
+package com.example.teamfoodie.epantry;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 
 import com.example.teamfoodie.database.DatabaseHandler;
-import com.example.teamfoodie.epantry.R;
 
 import com.example.teamfoodie.database.UserTable;
 import com.example.teamfoodie.models.User;

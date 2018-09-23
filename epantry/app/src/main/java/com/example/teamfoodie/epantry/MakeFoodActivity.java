@@ -1,4 +1,4 @@
-package com.example.teamfoodie.activity;
+package com.example.teamfoodie.epantry;
 
 import android.Manifest;
 import android.content.Context;
@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.teamfoodie.database.SQLiteDatabaseDao;
-import com.example.teamfoodie.epantry.R;
 import com.example.teamfoodie.models.FoodMaterialBean;
 import com.example.teamfoodie.models.IngredientBean;
 import com.example.teamfoodie.models.MainContentBean;

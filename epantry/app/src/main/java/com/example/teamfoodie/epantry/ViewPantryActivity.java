@@ -1,4 +1,4 @@
-package com.example.teamfoodie.activity;
+package com.example.teamfoodie.epantry;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.widget.ListView;
 
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.models.PantryIngredient;
-import com.example.teamfoodie.epantry.R;
 
 import java.util.ArrayList;
 import java.util.List;

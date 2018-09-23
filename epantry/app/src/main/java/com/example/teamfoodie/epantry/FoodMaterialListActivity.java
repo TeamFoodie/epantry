@@ -1,4 +1,4 @@
-package com.example.teamfoodie.activity;
+package com.example.teamfoodie.epantry;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,7 +23,6 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.example.teamfoodie.database.SQLiteDatabaseDao;
-import com.example.teamfoodie.epantry.R;
 import com.example.teamfoodie.listener.IOnCheckedChangeListener;
 import com.example.teamfoodie.models.FoodMaterialBean;
 

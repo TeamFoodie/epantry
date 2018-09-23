@@ -1,4 +1,4 @@
-package com.example.teamfoodie.activity;
+package com.example.teamfoodie.epantry;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.teamfoodie.epantry.R;
 import com.example.teamfoodie.models.Recipe;
 
 import java.util.List;

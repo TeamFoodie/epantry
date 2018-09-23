@@ -1,10 +1,9 @@
-package com.example.teamfoodie.activity;
+package com.example.teamfoodie.epantry;
 
 import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 
 import com.example.teamfoodie.database.SQLiteDatabaseDao;
-import com.example.teamfoodie.epantry.R;
 
 import org.junit.Before;
 import org.junit.Rule;

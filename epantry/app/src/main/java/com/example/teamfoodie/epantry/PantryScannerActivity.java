@@ -1,4 +1,4 @@
-package com.example.teamfoodie.activity;
+package com.example.teamfoodie.epantry;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.teamfoodie.database.DatabaseHandler;
-import com.example.teamfoodie.epantry.R;
 import com.example.teamfoodie.models.PantryIngredient;
 
 import google.zxing.integration.android.IntentIntegrator;

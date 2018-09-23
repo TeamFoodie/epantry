@@ -4,7 +4,7 @@
  * test method that username field isn't empty
  * test method that it checks password matches confirmed password
  */
-package com.example.teamfoodie.activity;
+package com.example.teamfoodie.epantry;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,6 @@ import android.widget.EditText;
 
 
 import com.example.teamfoodie.database.DatabaseHandler;
-import com.example.teamfoodie.epantry.R;
 import com.example.teamfoodie.models.User;
 
 public class SignupFormActivity extends AppCompatActivity {
