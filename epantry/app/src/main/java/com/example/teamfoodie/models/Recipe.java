@@ -74,6 +74,6 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return this.recipeName;
+        return this.recipeID + this.recipeName + this.description;
     }
 }

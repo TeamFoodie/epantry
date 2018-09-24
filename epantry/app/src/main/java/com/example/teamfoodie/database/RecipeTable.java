@@ -31,7 +31,7 @@ public class RecipeTable {
         String createTable = "CREATE TABLE "+ TABLE_NAME +
                 "( " + RECIPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 RECIPE_NAME + " TEXT, "+
-                RECIPE_DESCRIPTION + " TEXT, "+
+                RECIPE_DESCRIPTION + " TEXT,"+
                 RECIPE_PHOTO + " INTEGER," +
                 RECIPE_URL + " TEXT );";
 
