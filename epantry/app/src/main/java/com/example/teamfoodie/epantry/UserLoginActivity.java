@@ -1,10 +1,3 @@
-/**
- * TODO: save new <User> signup in db, method to check login matches existing, method that blank fields make button disabled
- * test method for creating new login and making sure method returns match
- * test method for successful login to new activity?
- * test method for any blank fields that button is disabled
- */
-
 package com.example.teamfoodie.epantry;
 
 import android.content.Intent;

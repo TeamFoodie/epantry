@@ -25,9 +25,6 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new CustomRecipeListAdapter(this, image_details));
 
-
-        //TODO: create variable to store selected recipe
-        // When the user clicks on the ListItem
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -43,14 +40,6 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
         });
     }
 
-
-    /*
-    TODO: add database object to populate the Arraylist
-    TODO: remove external links and create racipe objects
-    IMPORT: populate with recipes from database
-    OUTPUT: selectd recipe
-    This section will be replaced by the database. Will need to populate the list with "Recipe" object.
-     */
     private List<Recipe> getListData() {
         List<Recipe> list = new ArrayList<Recipe>();
 

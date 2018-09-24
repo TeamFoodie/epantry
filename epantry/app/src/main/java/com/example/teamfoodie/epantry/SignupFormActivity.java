@@ -1,9 +1,3 @@
-/**
- * TODO:
- * test method to make sure it creates new user with login if no match - assertNotNull
- * test method that username field isn't empty
- * test method that it checks password matches confirmed password
- */
 package com.example.teamfoodie.epantry;
 
 import android.content.Intent;
