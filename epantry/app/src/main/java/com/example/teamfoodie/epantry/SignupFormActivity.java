@@ -14,6 +14,11 @@ import android.widget.EditText;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.models.User;
 
+/*
+ * The SignupFormActivity class stores information about a
+ * user's email, username and password to create
+ * an account.
+ */
 public class SignupFormActivity extends AppCompatActivity {
 
     EditText ETusername;
@@ -28,9 +33,6 @@ public class SignupFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
-
-        Log.i("SignupFormActivity", "Hello");
-        Log.i("SignupFormActivity", "Test");
 
         ETusername = (EditText) findViewById(R.id.TFname);
         ETemail = (EditText) findViewById(R.id.TFemail);
@@ -90,6 +92,9 @@ public class SignupFormActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Handles user interaction with GUI to signup as a user
+     */
     public void onClick(View v) {
         if (v.getId() == R.id.Bsignup) {
             String username = ETusername.getText().toString();

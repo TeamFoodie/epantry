@@ -13,6 +13,10 @@ import com.example.teamfoodie.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * The DatabaseHandler class contains methods to establish a database
+ * connection, read and store user details into a database.
+ */
 public class DatabaseHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;

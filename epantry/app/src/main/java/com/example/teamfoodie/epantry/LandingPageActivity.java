@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+/*
+ * The LandingPageActivity class contains the navigation to other activity
+ * pages such as the Pantry and Shopping List.
+ */
 public class LandingPageActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView restock;

@@ -14,6 +14,11 @@ import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.database.UserTable;
 import com.example.teamfoodie.models.User;
 
+/*
+ * The UserLoginActivity class stores information about a
+ * user's name and password and accesses the
+ * Database to authenticate an existing user.
+ */
 public class UserLoginActivity extends AppCompatActivity {
 
     EditText TFloginUsername;
@@ -26,11 +31,14 @@ public class UserLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
-        Log.i("UserLoginActivity", "Hello");
+
         this.currentUser = new User();
 
     }
 
+    /**
+     * Handles user interaction with GUI to login
+     */
     public void onClick(View v) {
         if(v.getId() == R.id.Bsignup) {
             Intent i = new Intent(UserLoginActivity.this, SignupFormActivity.class);
