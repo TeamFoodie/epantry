@@ -13,12 +13,4 @@
 
     <string name="main_title">e-Pantry</string>
     <string name="material_title">Shopping Lists</string>
-    <string name="scan">Scan</string>
-
-    <string name="action_settings">Settings</string>
-    <string name="emptyString"></string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_desc">Navigation header</string>
-
 </resources>

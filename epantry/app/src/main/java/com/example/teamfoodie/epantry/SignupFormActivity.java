@@ -112,8 +112,6 @@ public class SignupFormActivity extends AppCompatActivity {
 
                 Log.i("SignupFormActivity", "Confirmed login");
                 Intent i = new Intent(SignupFormActivity.this, LandingPageActivity.class);
-                i.putExtra("Username", username);
-                i.putExtra("Email", email);
                 startActivity(i);
             }
         }
