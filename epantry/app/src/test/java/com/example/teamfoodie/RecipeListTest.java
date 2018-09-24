@@ -26,7 +26,7 @@ public class RecipeListTest {
     }
 
 
-    //Testing List selection by trialing arraylist ID
+//    Testing List selection by trialing arraylist ID
     @Test
     public void testRecipeRetrival(){
         Object obj = new Object();
@@ -38,6 +38,7 @@ public class RecipeListTest {
 
     }
 
+//    Testing List that new Recipe is added
     @Test
     public void testAddRecipe(){
         Recipe recipe = new Recipe("New Recipe", 1, "This is a mock recipe", "www.mock.com");
@@ -46,6 +47,8 @@ public class RecipeListTest {
         assertTrue(inserted);
     }
 
+//    Testing that all recipes have been added
+//    Currently 17 items 24/09/2018
     @Test
     public void testRetrivalOfAllRecipes(){
         List<Recipe> foundList = new ArrayList<>();

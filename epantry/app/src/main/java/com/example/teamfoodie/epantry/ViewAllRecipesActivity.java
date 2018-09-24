@@ -15,7 +15,11 @@ import com.example.teamfoodie.models.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+* ViewAllRecipesActivity creates a list of all current recipes in the Database
+* Display Recipe image, name, brief discription 
+*
+ */
 public class ViewAllRecipesActivity extends AppCompatActivity {
 
     private ListView listView;
@@ -31,8 +35,6 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
 
 
         List<Recipe> image_details = dbHandler.loadAllRecipes();
-
-
 
 
         this.listView = (ListView) findViewById(R.id.listView);

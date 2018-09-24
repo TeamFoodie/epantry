@@ -12,7 +12,11 @@ import android.widget.TextView;
 import com.example.teamfoodie.models.Recipe;
 
 import java.util.List;
-
+/*
+This class is used to create the outline for the recipe list
+outlining variable attributes
+in which to streamline the performance
+ */
 public class CustomRecipeListAdapter extends BaseAdapter {
 
     private List<Recipe> listData;
@@ -39,7 +43,7 @@ public class CustomRecipeListAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-
+//    Hold the reference to the id of view resource instantiating its context
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
@@ -57,14 +61,14 @@ public class CustomRecipeListAdapter extends BaseAdapter {
         holder.RecipeNameView.setText(Recipe.getRecipeName());
         holder.descriptionView.setText(Recipe.getDescription());
 
-//        int imageId = this.getMipmapResIdByName(Recipe.getPhoto());
+        //int imageId = this.getMipmapResIdByName(Recipe.getPhoto());
 
         holder.recipePicView.setImageResource(Recipe.getPhoto());
 
         return convertView;
     }
 
-    // Find Image ID corresponding to the name of the image (in the directory mipmap).
+//  Find Image ID corresponding to the name of the image (in the directory mipmap).
     public int getMipmapResIdByName(String resName)  {
         String pkgName = context.getPackageName();
         // Return 0 if not found.
