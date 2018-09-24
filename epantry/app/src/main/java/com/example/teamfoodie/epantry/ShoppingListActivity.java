@@ -1,5 +1,8 @@
 package com.example.teamfoodie.epantry;
-
+/*
+ShoppingListActivity class shows Shopping List from database
+and user can delete items from database and take capture
+ */
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

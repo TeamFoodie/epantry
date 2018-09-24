@@ -1,5 +1,7 @@
 package com.example.teamfoodie.epantry;
-
+/*
+SaveActivity show what happened after clicking save button
+ */
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

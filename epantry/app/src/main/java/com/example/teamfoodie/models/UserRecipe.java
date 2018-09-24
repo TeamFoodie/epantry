@@ -1,6 +1,8 @@
 package com.example.teamfoodie.models;
 
-
+/*
+bean for user recipe
+ */
 import java.util.List;
 
 public class UserRecipe {

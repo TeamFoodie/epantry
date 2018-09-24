@@ -1,5 +1,7 @@
 package com.example.teamfoodie.database;
-
+/*
+* The SQLiteDatabaseDao class save the database of recipe and ingredients
+*/
 
 import android.content.ContentValues;
 import android.content.Context;

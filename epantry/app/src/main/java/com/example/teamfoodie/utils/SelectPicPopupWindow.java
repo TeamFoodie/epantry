@@ -1,5 +1,7 @@
 package com.example.teamfoodie.utils;
-
+/*
+pop up a window for user to select a way to add photo
+ */
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;

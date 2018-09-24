@@ -1,4 +1,6 @@
-package com.example.epantry;
+package com.example.teamfoodie;
+
+import com.example.teamfoodie.epantry.SignupFormActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,11 +11,11 @@ import static org.junit.Assert.assertTrue;
 
 public class SignupTest {
 
-    private Signup signupClass;
+    private SignupFormActivity signupClass;
 
     @Before
     public void setUp() {
-        signupClass = new Signup();
+        signupClass = new SignupFormActivity();
     }
 
     @After

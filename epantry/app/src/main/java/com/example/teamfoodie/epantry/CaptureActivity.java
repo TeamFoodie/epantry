@@ -1,5 +1,7 @@
 package com.example.teamfoodie.epantry;
-
+/*
+CaptureActivity is working in shopping list to capture list to photo
+ */
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
