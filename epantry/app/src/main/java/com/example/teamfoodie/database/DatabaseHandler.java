@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.example.teamfoodie.epantry.R;
 import com.example.teamfoodie.models.PantryIngredient;
@@ -196,8 +197,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return true;
         }
     }
+  
+    public String getUserEmail(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String email = null;
+        String query = "SELECT * FROM users WHERE username = '"+ username+"'";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            email = cursor.getString(3);
+        }
+
+        cursor.close();
 
 
+        Log.d("getAllUserDetails()", cursor.toString()+ " Email: "+email);
+
+        return email;
+    }
 
 //    public void populateRecipeDatabase(){
 //
