@@ -1,7 +1,9 @@
 package com.example.teamfoodie.models;
 
 public class Recipe {
-   
+/*
+bean for recipe
+ */
 
         private String recipeName;
 

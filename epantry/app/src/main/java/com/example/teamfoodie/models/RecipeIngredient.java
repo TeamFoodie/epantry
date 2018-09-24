@@ -1,5 +1,7 @@
 package com.example.teamfoodie.models;
-
+/*
+bean for ingredient
+ */
 
 public class RecipeIngredient {
     private String ingredient;

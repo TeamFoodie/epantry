@@ -4,7 +4,9 @@ package com.example.teamfoodie.models;
  */
 
 public class ShoppingList {
-
+    /*
+    bean for shopping list
+     */
     private int id;
     private String unit;
     private String materialName;
