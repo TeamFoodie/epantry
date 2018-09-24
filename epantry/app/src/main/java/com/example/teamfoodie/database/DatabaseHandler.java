@@ -63,6 +63,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Method handles the insertion of objects into database tables.
+     *
+     * objects are passed through as unknown object type and then passed through switch case
+     * to determine which class type the object belongs to and then inserted to appropriate table.
+     * @param object
+     * @return
+     */
     public boolean addHandle(Object object) {
         boolean createSuccessful = false;
         ContentValues values = null;
@@ -99,12 +107,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return createSuccessful;
     }
 
+    /**
+     * method sets user password and user name accordindly to be used in other queries.
+     * @param user
+     * @param pass
+     */
     public void setUser(String user, String pass) {
         this.username = user;
         this.password = pass;
 
     }
 
+    /**
+     * Method handles search queries. ID and table name is passed through parameters and then a switch case.
+     * Methods implement relies on the tablename entered from other classes and then ID is used to search actual
+     * database tables.
+     *
+     * @param id
+     * @param tableName
+     * @return
+     */
     public Object findHandle(String id, String tableName) {
         Object object = new Object();
         String query = "";
@@ -148,6 +170,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return object;
     }
 
+    /**
+     * Method executes update query to database - it is specific to update quantity of pantry ingredient
+     * as only our pantry ingredient requires update from database.
+     * @param ingredient
+     * @return
+     */
     public boolean updateQuantity(PantryIngredient ingredient) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -158,6 +186,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Method takes in userID of current user and loads all ingredients of current user
+     * only.
+     *
+     * @param id
+     * @return
+     */
     public List<PantryIngredient> loadAllPantryIngredients(int id) {
         List<PantryIngredient> ingredientList = new ArrayList<>();
         String query = "Select * FROM " + TABLE_INGREDIENT + " WHERE Owner" + " = " + "'" + id + "'";
@@ -171,6 +206,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Method handles the pulling of all recipes from the database.
+     * @return
+     */
     public List<Recipe> loadAllRecipes(){
         List<Recipe> recipeList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_STORED_RECIPE;
@@ -197,7 +236,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return true;
         }
     }
-  
+
+
     public String getUserEmail(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -218,6 +258,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return email;
     }
 
+    /**
+     * Method is used to populate database via code just for testing purposes.
+     */
 //    public void populateRecipeDatabase(){
 //
 //        Recipe r1 = new Recipe("Afghans", R.drawable.afghans, "Afghans are a kiwi classic","https://edmondscooking.co.nz/recipes/biscuits/afghans/");

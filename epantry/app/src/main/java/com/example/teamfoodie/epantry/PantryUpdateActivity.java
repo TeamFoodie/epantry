@@ -27,6 +27,10 @@ public class PantryUpdateActivity extends AppCompatActivity implements View.OnCl
         searchIngredient();
     }
 
+    /**
+     * Method implements the button to find using ingrdient ID or barcode manually input by user.
+     *
+     */
     public void searchIngredient() {
         searchButton = (Button) findViewById(R.id.find_button);
         ingredientID = (EditText) findViewById(R.id.ingredientID);

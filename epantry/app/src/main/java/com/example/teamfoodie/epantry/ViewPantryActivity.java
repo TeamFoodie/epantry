@@ -13,12 +13,21 @@ import com.example.teamfoodie.models.PantryIngredient;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class handles all activities from view_pantry xml.
+ */
 public class ViewPantryActivity extends AppCompatActivity {
 
     private int currentUSER_ID;
     private List<PantryIngredient> pantryList = new ArrayList<>();
     private DatabaseHandler dbHandler = new DatabaseHandler(this);
 
+    /**
+     * USER ID is passed through saved Instance state ensuring that only the ingredients belogining to the
+     * current user is displayed.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +57,10 @@ public class ViewPantryActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * method implements button present in the view_pantry xml.
+     * encodes the user id into intent and passes it onto the next implement activity.
+     */
     private void configureAddButton() {
         ImageView addButton = (ImageView) findViewById(R.id.addIngredient);
         addButton.setOnClickListener(new View.OnClickListener() {

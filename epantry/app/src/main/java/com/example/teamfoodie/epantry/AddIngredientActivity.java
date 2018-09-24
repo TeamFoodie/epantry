@@ -1,7 +1,8 @@
 package com.example.teamfoodie.epantry;
 /*
-AddIngredientActivity is for adding ingredient
+AddIngredientActivity is used to save pantry ingredient when user registers new ingredient.
  */
+
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,12 @@ public class AddIngredientActivity extends AppCompatActivity {
     private String actualIngredientID;
 
 
+    /**
+     * On Create method - the USER ID is passed through the intent allowing users to create pantries that are specific to them;
+     * this allows each user to have a single pantry unique to their account.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +66,10 @@ public class AddIngredientActivity extends AppCompatActivity {
         this.actualIngredientID = id;
     }
 
+    /**
+     * Method does that actual saving of data from add_ingredient form to the database.
+     * However, all fields must be filled out before i can actually be saved.
+     */
     public void saveIngredient() {
         Button saveButton = (Button) findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {

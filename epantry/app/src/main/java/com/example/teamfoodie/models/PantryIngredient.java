@@ -1,6 +1,7 @@
 package com.example.teamfoodie.models;
-/*
-bean for ingredient
+
+/**
+ * Class for creating a pantry ingredient object
  */
 public class PantryIngredient {
     private String ingredientID;
@@ -10,6 +11,23 @@ public class PantryIngredient {
     private String unitMeasure;
     private int owner;
 
+    /**
+     * Default Pantry ingredient - allows object to be instantiated without any parameters
+     */
+    public PantryIngredient(){
+
+    }
+
+    /**
+     * Main constructor with all variables instantiated through parameters
+     *
+     * @param id
+     * @param name
+     * @param total
+     * @param current
+     * @param unitMeasure
+     * @param owner
+     */
     public PantryIngredient(String id, String name, int total, int current, String unitMeasure, int owner){
         this.ingredientID = id;
         this.ingredientName = name;
@@ -19,10 +37,8 @@ public class PantryIngredient {
         this.owner = owner;
     }
 
-    public PantryIngredient(){
 
-    }
-
+    //All setters and getters for variables
     public void setIngredientID(String id){
         this.ingredientID = id;
     }

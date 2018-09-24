@@ -1,5 +1,8 @@
 package com.example.teamfoodie.epantry;
 
+/**
+ * Adapter is used to handle the display of Pantry Ingredients through list view in ViewPantryActivity.
+ */
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -44,7 +47,15 @@ public class CustomIngredientAdapter extends BaseAdapter{
     }
 
 
-
+    /**
+     * ndividual components in view_pantry_contents xml file is pulled and assigned values
+     * according the the current ingredient present in array from database.
+     *
+     * @param position
+     * @param view
+     * @param parent
+     * @return
+     */
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder viewHolder;
         if (view == null) {
@@ -64,6 +75,7 @@ public class CustomIngredientAdapter extends BaseAdapter{
 
         return view;
     }
+
     static class ViewHolder {
         TextView itemName;
         TextView itemTotal;

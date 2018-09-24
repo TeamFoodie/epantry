@@ -9,23 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PantryIngredientTable {
-
-
-
     //columns for Ingredient Table
-    public static final String INGREDIENT_ID = "IngredientID";
-    public static final String INGREDIENT_NAME = "IngredientName";
-    public static final String TOTAL_QUANTITY = "TotalQuantity";
-    public static final String CURRENT_QUANTITY = "CurrentQuantity";
-    public static final String UNIT_MEASURE = "UnitMeasure";
-    public static final String OWNER = "Owner";
+    public final String INGREDIENT_ID = "IngredientID";
+    public final String INGREDIENT_NAME = "IngredientName";
+    public final String TOTAL_QUANTITY = "TotalQuantity";
+    public final String CURRENT_QUANTITY = "CurrentQuantity";
+    public final String UNIT_MEASURE = "UnitMeasure";
+    public final String OWNER = "Owner";
 
-
-
-    //Details for Cart
-
-
-
+    //Returns create string for creating Pantry ingredient table.
     public String createIngredientTable(String TABLE_NAME) {
         String createTable =  "CREATE TABLE " + TABLE_NAME +
                 "(" + INGREDIENT_ID + " NVARCHAR PRIMARY KEY," +
@@ -38,7 +30,13 @@ public class PantryIngredientTable {
         return createTable;
     }
 
-
+    /**
+     * Method takes in a PantryIngredient object allocate them appropriate into the ContentValue
+     * format for query execution.
+     *
+     * @param pIngredients
+     * @return
+     */
     public ContentValues getIngredientContents(PantryIngredient pIngredients) {
         ContentValues values = new ContentValues();
         values.put(INGREDIENT_ID , pIngredients.getIngredientID());
@@ -47,16 +45,16 @@ public class PantryIngredientTable {
         values.put(CURRENT_QUANTITY, pIngredients.getCurrentQuantity());
         values.put(UNIT_MEASURE, pIngredients.getUnitMeasure());
         values.put(OWNER, pIngredients.getOwner());
-
-        System.out.println("PANTRY table!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
         return values;
     }
 
-
-
-
-
+    /**
+     * Result cursor from database is passed through parameters and used to set pantry ingredient
+     * details and then return a PantryIngredient type objectd
+     *
+     * @param cursor
+     * @return
+     */
     public PantryIngredient findIngredient(Cursor cursor){
         PantryIngredient ingredient = new PantryIngredient();
         if (cursor.moveToFirst()) {
@@ -75,6 +73,12 @@ public class PantryIngredientTable {
         return ingredient;
     }
 
+    /**
+     * Cursor from database query is used to compile a PantryIngredient
+     * type array and insert objects into array and reutrn the array.
+     * @param cursor
+     * @return
+     */
     public List<PantryIngredient> loadAllPantryIngredients(Cursor cursor){
         List<PantryIngredient> pantryList = new ArrayList<>();
 
@@ -96,6 +100,12 @@ public class PantryIngredientTable {
         return  pantryList;
     }
 
+    /**
+     * method takes in PantryIngredient object and congiures content value
+     * to include only the quantity needed for db update
+     * @param ingredient
+     * @return
+     */
     public ContentValues updateQuantity(PantryIngredient ingredient){
         ContentValues values = new ContentValues();
         values.put(CURRENT_QUANTITY, ingredient.getCurrentQuantity());

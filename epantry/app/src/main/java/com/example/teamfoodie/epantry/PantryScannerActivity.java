@@ -15,6 +15,9 @@ import com.example.teamfoodie.models.PantryIngredient;
 import google.zxing.integration.android.IntentIntegrator;
 import google.zxing.integration.android.IntentResult;
 
+/**
+ * Class is used to implement Barcode scanner an handle all activities from pantry_scanner xml file.
+ */
 public class PantryScannerActivity extends AppCompatActivity implements OnClickListener {
 
     DatabaseHandler database;
@@ -22,6 +25,12 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
     private Button scanBtn, enterButton;
     private int currentUSER_ID;
 
+    /**
+     * On create passes through the current User's ID which is used to identify
+     * which user the ingredients and pantry belongs to.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +55,14 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
         }
     }
 
+    /**
+     * Method identifies which button is pressed and applies appropriate correspondence.
+     *
+     * scan button will implement the IntentIntegrator class - which opens up the barcode scanner but
+     * look up button will switch the view to pantry_update for manual input of barcode.
+     * @param v
+     */
     public void onClick(View v) {
-
-
         if (v.getId() == R.id.scan_button) {
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
@@ -61,6 +75,14 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
 
     }
 
+    /**
+     * Method returns or sets the value obtained from the barcode scanner and coducts the actual search of ingredient in the pantry from the database.
+     * If ingredeint is found - then ingredient object is returned and only the quantity is updated to reflect the replenishment of the ingredient.
+     * Otherwise - ingredient is not recongnized and user is prompted to register the ingredient.
+     * @param requestCode
+     * @param resultCode
+     * @param intent
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult.getContents() != null) {
@@ -71,7 +93,7 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
             Object object = database.findHandle(scanContent, "PantryIngredient");
             ingredient = (PantryIngredient) object;
             if (ingredient != null) {
-                message = "Do you want to add " + ingredient.getTotalQuantity() + ingredient.getUnitMeasure()+ " of " + ingredient.getIngredientName() + " to your pantry?";
+                message = "Do you want to add " + ingredient.getTotalQuantity() + ingredient.getUnitMeasure() + " of " + ingredient.getIngredientName() + " to your pantry?";
                 itemFound = true;
                 currentUSER_ID = ingredient.getOwner();
             } else {
@@ -89,6 +111,15 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
 
     }
 
+    /**
+     * Dialog box has if statement and message displayed relies on whether or not item was found
+     * inside the database.
+     *
+     * @param type
+     * @param message
+     * @param id
+     * @param itemFound
+     */
     private void showCustomDialog(int type, String message, final String id, boolean itemFound) {
         final android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(this);
         dialog.setTitle("Add Ingredient");
