@@ -3,32 +3,13 @@ package com.example.teamfoodie.models;
 /**
  */
 
-public class FoodMaterialBean {
+public class ShoppingList {
 
     private int id;
-
-    /**
-     * unit
-     *
-     */
     private String unit;
-
-    /**
-     *
-     * the name of material
-     *
-     */
     private String materialName;
-
-    /**
-     * the value of material
-     */
     private String materialValue;
 
-    /**
-     * if the selected
-     *
-     */
     private boolean isChecked;
 
     public int getId() {
@@ -73,7 +54,7 @@ public class FoodMaterialBean {
 
     @Override
     public String toString() {
-        return "FoodMaterialBean{" +
+        return "ShoppingList{" +
                 "id='" + id + '\'' +
                 "unit='" + unit + '\'' +
                 ", materialName='" + materialName + '\'' +

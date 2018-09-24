@@ -1,7 +1,7 @@
 package com.example.teamfoodie.models;
 
 
-public class IngredientBean {
+public class RecipeIngredient {
     private String ingredient;
     private String quantity;
 
@@ -23,7 +23,7 @@ public class IngredientBean {
 
     @Override
     public String toString() {
-        return "IngredientBean{" +
+        return "RecipeIngredient{" +
                 "ingredient='" + ingredient + '\'' +
                 ", quantity='" + quantity + '\'' +
                 '}';

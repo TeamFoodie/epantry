@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.teamfoodie.database.SQLiteDatabaseDao;
-import com.example.teamfoodie.models.MainContentBean;
+import com.example.teamfoodie.models.UserRecipe;
 
 import java.util.List;
 
@@ -28,14 +28,14 @@ public class SaveActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 super.run();
-                List<MainContentBean> mainContentBeanList = SQLiteDatabaseDao.getInstance().init(SaveActivity.this).queryMainContent();
+                List<UserRecipe> userRecipeList = SQLiteDatabaseDao.getInstance().init(SaveActivity.this).queryMainContent();
                 //This is just for display, so we only got the latest one.
-                Log.e(TAG, "run: mainContentBeanList ==" + mainContentBeanList.size());
-                final MainContentBean mainContentBean = mainContentBeanList.get(mainContentBeanList.size() - 1);
+                Log.e(TAG, "run: userRecipeList ==" + userRecipeList.size());
+                final UserRecipe userRecipe = userRecipeList.get(userRecipeList.size() - 1);
                 SaveActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        idTvContent.setText(mainContentBean.toString());
+                        idTvContent.setText(userRecipe.toString());
                     }
                 });
             }
@@ -51,7 +51,7 @@ public class SaveActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.id_btn_show) {
-            startActivity(new Intent(SaveActivity.this, FoodMaterialListActivity.class));
+            startActivity(new Intent(SaveActivity.this, ShoppingListActivity.class));
         }
     }
 }

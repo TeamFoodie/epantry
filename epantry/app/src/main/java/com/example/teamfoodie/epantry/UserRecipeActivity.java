@@ -21,9 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.teamfoodie.database.SQLiteDatabaseDao;
-import com.example.teamfoodie.models.FoodMaterialBean;
-import com.example.teamfoodie.models.IngredientBean;
-import com.example.teamfoodie.models.MainContentBean;
+import com.example.teamfoodie.models.ShoppingList;
+import com.example.teamfoodie.models.RecipeIngredient;
+import com.example.teamfoodie.models.UserRecipe;
 import com.example.teamfoodie.utils.AboutBitmap;
 import com.example.teamfoodie.utils.SelectPicPopupWindow;
 import com.yanzhenjie.permission.AndPermission;
@@ -34,8 +34,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MakeFoodActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "MakeFoodActivity";
+public class UserRecipeActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "UserRecipeActivity";
     protected EditText title;
     protected EditText introduce;
     protected LinearLayout idLlIngredient;
@@ -52,7 +52,7 @@ public class MakeFoodActivity extends AppCompatActivity implements View.OnClickL
     protected LinearLayout idLlRoot;
 
 
-    private List<IngredientBean> mIngredientBeanList;
+    private List<RecipeIngredient> mRecipeIngredientList;
     private List<String> mProcudureList;
 
     private SelectPicPopupWindow menuWindow;
@@ -62,7 +62,7 @@ public class MakeFoodActivity extends AppCompatActivity implements View.OnClickL
 
     private Bitmap mBitmap;
 
-    private MakeFoodActivity mActivity;
+    private UserRecipeActivity mActivity;
     private Context mContext;
 
     private SharedPreferences mSharedPreferences;
@@ -74,7 +74,7 @@ public class MakeFoodActivity extends AppCompatActivity implements View.OnClickL
         mContext = this;
         super.setContentView(R.layout.activity_make_food);
         initView();
-        mIngredientBeanList = new ArrayList<>();
+        mRecipeIngredientList = new ArrayList<>();
         mProcudureList = new ArrayList<>();
 
         mSharedPreferences = mContext.getSharedPreferences("cache",
@@ -100,16 +100,16 @@ public class MakeFoodActivity extends AppCompatActivity implements View.OnClickL
         Log.d(TAG, "addIngredientView: position==" + position);
         final EditText idEtIngredient = ingredientView.findViewById(R.id.id_et_ingredient);
         final EditText idEtQuantity = ingredientView.findViewById(R.id.id_et_quantity);
-        final IngredientBean ingredientBean = new IngredientBean();
-        mIngredientBeanList.add(ingredientBean);
+        final RecipeIngredient recipeIngredient = new RecipeIngredient();
+        mRecipeIngredientList.add(recipeIngredient);
         idEtIngredient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    IngredientBean ingredientBean = mIngredientBeanList.get(position);
-                    ingredientBean.setIngredient(idEtIngredient.getText().toString().trim());
-                    mIngredientBeanList.set(position, ingredientBean);
-                    Log.d(TAG, "Ingredient  onFocusChange: dismiss fouces ingredientBean===" + ingredientBean.toString());
+                    RecipeIngredient recipeIngredient = mRecipeIngredientList.get(position);
+                    recipeIngredient.setIngredient(idEtIngredient.getText().toString().trim());
+                    mRecipeIngredientList.set(position, recipeIngredient);
+                    Log.d(TAG, "Ingredient  onFocusChange: dismiss fouces recipeIngredient===" + recipeIngredient.toString());
                 }
             }
         });
@@ -117,10 +117,10 @@ public class MakeFoodActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    IngredientBean ingredientBean = mIngredientBeanList.get(position);
-                    ingredientBean.setQuantity(idEtQuantity.getText().toString().trim());
-                    mIngredientBeanList.set(position, ingredientBean);
-                    Log.d(TAG, "Quantity  onFocusChange: dismiss fouces ingredientBean===" + ingredientBean.toString());
+                    RecipeIngredient recipeIngredient = mRecipeIngredientList.get(position);
+                    recipeIngredient.setQuantity(idEtQuantity.getText().toString().trim());
+                    mRecipeIngredientList.set(position, recipeIngredient);
+                    Log.d(TAG, "Quantity  onFocusChange: dismiss fouces recipeIngredient===" + recipeIngredient.toString());
                 }
             }
         });
@@ -156,7 +156,7 @@ public class MakeFoodActivity extends AppCompatActivity implements View.OnClickL
                 // from 0 start
                 addIngredientView();
 
-                Log.d(TAG, "onClick: mIngredientBeanList==" + mIngredientBeanList.toString());
+                Log.d(TAG, "onClick: mRecipeIngredientList==" + mRecipeIngredientList.toString());
                 break;
             case R.id.addstep:
                 //add step
@@ -173,7 +173,7 @@ public class MakeFoodActivity extends AppCompatActivity implements View.OnClickL
                 if (checkEmpty(titleStr, "The title cannot be empty ", title)) return;
                 final String indroductionStr = introduce.getText().toString().trim();
                 if (checkEmpty(indroductionStr, "The indroduction cannot be empty ", introduce)) return;
-                String ingredientStr = mIngredientBeanList.toString();
+                String ingredientStr = mRecipeIngredientList.toString();
                 if (ingredientStr.contains("null")){
                     showToast("The ingredients have not finished ");
                     return;
@@ -197,20 +197,20 @@ public class MakeFoodActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void run() {
                         super.run();
-                        MainContentBean mainContentBean = new MainContentBean();
-                        mainContentBean.setTitle(titleStr);
-                        mainContentBean.setIntroduction(indroductionStr);
-                        mainContentBean.setIngredientBeanList(mIngredientBeanList);
-                        mainContentBean.setProcedureList(mProcudureList);
-                        mainContentBean.setCookingTime(cookingTimeStr);
-                        mainContentBean.setNutritionalCount(nutritionalCountStr);
-                        mainContentBean.setNumberOfPeople(NumberOfPeopleStr);
+                        UserRecipe userRecipe = new UserRecipe();
+                        userRecipe.setTitle(titleStr);
+                        userRecipe.setIntroduction(indroductionStr);
+                        userRecipe.setRecipeIngredientList(mRecipeIngredientList);
+                        userRecipe.setProcedureList(mProcudureList);
+                        userRecipe.setCookingTime(cookingTimeStr);
+                        userRecipe.setNutritionalCount(nutritionalCountStr);
+                        userRecipe.setNumberOfPeople(NumberOfPeopleStr);
                         Log.e(TAG, "run: ==" + (mBitmap==null));
                         if (mBitmap != null) {
                             ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
                             mBitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
                             String photoUrl = new String(Base64.encodeToString(byteArrayOutputStream.toByteArray(),Base64.DEFAULT));
-                            mainContentBean.setPhotoUrl(photoUrl);
+                            userRecipe.setPhotoUrl(photoUrl);
                             SharedPreferences.Editor editor = mSharedPreferences.edit();
                             editor.putString("photoUrl", photoUrl);
                             editor.commit();
@@ -219,9 +219,9 @@ public class MakeFoodActivity extends AppCompatActivity implements View.OnClickL
                             String photoUrlTMp = mSharedPreferences.getString("photoUrl", "");
                             Log.e(TAG, "run: photo===" + photoUrlTMp);
                         }
-                        mainContentBean.setTags(tagStr);
+                        userRecipe.setTags(tagStr);
                         SQLiteDatabaseDao sqLiteDatabaseDao = SQLiteDatabaseDao.getInstance().init(mContext);
-                        long isSucess = sqLiteDatabaseDao.insertMainContent(mainContentBean);
+                        long isSucess = sqLiteDatabaseDao.insertMainContent(userRecipe);
                         if (isSucess!=-1){
                             Log.e(TAG, "run: 1111111111");
                             addFoodMaterial(sqLiteDatabaseDao);
@@ -243,33 +243,33 @@ public class MakeFoodActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void addFoodMaterial(SQLiteDatabaseDao sqLiteDatabaseDao) {
-        List<FoodMaterialBean> foodMaterialBeans = sqLiteDatabaseDao.queryFoodMaterial();
-        if (foodMaterialBeans.size()==0){
-            FoodMaterialBean foodMaterialBean = new FoodMaterialBean();
-            foodMaterialBean.setUnit("g");
-            foodMaterialBean.setMaterialValue("50");
-            foodMaterialBean.setMaterialName("Cheese");
-            sqLiteDatabaseDao.insertFoodMaterial(foodMaterialBean);
-            FoodMaterialBean foodMaterialBean1 = new FoodMaterialBean();
-            foodMaterialBean1.setUnit("ml");
-            foodMaterialBean1.setMaterialValue("200");
-            foodMaterialBean1.setMaterialName("coconut milk");
-            sqLiteDatabaseDao.insertFoodMaterial(foodMaterialBean1);
-            FoodMaterialBean foodMaterialBean2 = new FoodMaterialBean();
-            foodMaterialBean2.setUnit("g");
-            foodMaterialBean2.setMaterialValue("50");
-            foodMaterialBean2.setMaterialName("mayonnaise");
-            sqLiteDatabaseDao.insertFoodMaterial(foodMaterialBean2);
-            FoodMaterialBean foodMaterialBean3 = new FoodMaterialBean();
-            foodMaterialBean3.setUnit("g");
-            foodMaterialBean3.setMaterialValue("250");
-            foodMaterialBean3.setMaterialName("butter");
-            sqLiteDatabaseDao.insertFoodMaterial(foodMaterialBean3);
-            FoodMaterialBean foodMaterialBean4 = new FoodMaterialBean();
-            foodMaterialBean4.setUnit("g");
-            foodMaterialBean4.setMaterialValue("50");
-            foodMaterialBean4.setMaterialName("chicken");
-            sqLiteDatabaseDao.insertFoodMaterial(foodMaterialBean4);
+        List<ShoppingList> shoppingLists = sqLiteDatabaseDao.queryFoodMaterial();
+        if (shoppingLists.size()==0){
+            ShoppingList shoppingList = new ShoppingList();
+            shoppingList.setUnit("g");
+            shoppingList.setMaterialValue("50");
+            shoppingList.setMaterialName("Cheese");
+            sqLiteDatabaseDao.insertFoodMaterial(shoppingList);
+            ShoppingList shoppingList1 = new ShoppingList();
+            shoppingList1.setUnit("ml");
+            shoppingList1.setMaterialValue("200");
+            shoppingList1.setMaterialName("coconut milk");
+            sqLiteDatabaseDao.insertFoodMaterial(shoppingList1);
+            ShoppingList shoppingList2 = new ShoppingList();
+            shoppingList2.setUnit("g");
+            shoppingList2.setMaterialValue("50");
+            shoppingList2.setMaterialName("mayonnaise");
+            sqLiteDatabaseDao.insertFoodMaterial(shoppingList2);
+            ShoppingList shoppingList3 = new ShoppingList();
+            shoppingList3.setUnit("g");
+            shoppingList3.setMaterialValue("250");
+            shoppingList3.setMaterialName("butter");
+            sqLiteDatabaseDao.insertFoodMaterial(shoppingList3);
+            ShoppingList shoppingList4 = new ShoppingList();
+            shoppingList4.setUnit("g");
+            shoppingList4.setMaterialValue("50");
+            shoppingList4.setMaterialName("chicken");
+            sqLiteDatabaseDao.insertFoodMaterial(shoppingList4);
         }
     }
 

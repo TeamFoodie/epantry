@@ -5,7 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 
 import com.example.teamfoodie.database.SQLiteDatabaseDao;
-import com.example.teamfoodie.epantry.MakeFoodActivity;
+import com.example.teamfoodie.epantry.UserRecipeActivity;
 import com.example.teamfoodie.epantry.R;
 
 import org.junit.Before;
@@ -20,11 +20,11 @@ import static org.junit.Assert.assertEquals;
 
 /**
  */
-public class MakeFoodActivityTest {
-    private static final String TAG = "MakeFoodActivityTest";
+public class UserRecipeActivityTest {
+    private static final String TAG = "UserRecipeActivityTest";
 
     @Rule
-    public ActivityTestRule<MakeFoodActivity> mActivityTestRule = new ActivityTestRule<>(MakeFoodActivity.class);
+    public ActivityTestRule<UserRecipeActivity> mActivityTestRule = new ActivityTestRule<>(UserRecipeActivity.class);
 
     @Before
     public void setUp() throws Exception {
@@ -34,7 +34,7 @@ public class MakeFoodActivityTest {
     @Test
     public void isMakeFoodActivity(){
         Log.d(TAG, "isMakeFoodActivity: 是否是makefoodActivity==" + mActivityTestRule.getActivity().getClass().getSimpleName());
-        assertEquals("MakeFoodActivity", mActivityTestRule.getActivity().getClass().getSimpleName());
+        assertEquals("UserRecipeActivity", mActivityTestRule.getActivity().getClass().getSimpleName());
     }
 
     @Test

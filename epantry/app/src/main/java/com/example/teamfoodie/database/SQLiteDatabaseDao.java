@@ -9,9 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.teamfoodie.models.FoodMaterialBean;
-import com.example.teamfoodie.models.IngredientBean;
-import com.example.teamfoodie.models.MainContentBean;
+import com.example.teamfoodie.models.ShoppingList;
+import com.example.teamfoodie.models.RecipeIngredient;
+import com.example.teamfoodie.models.UserRecipe;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -119,24 +119,24 @@ public class SQLiteDatabaseDao {
     /**
      * insert content in initial page
      *
-     * @param mainContentBean
+     * @param userRecipe
      * @return
      */
-    public long insertMainContent(MainContentBean mainContentBean) {
+    public long insertMainContent(UserRecipe userRecipe) {
         long result = -1;
         mDb.beginTransaction();
         try {
             ContentValues cityValue = new ContentValues();
-            cityValue.put(KEY_TITLE, mainContentBean.getTitle());
-            cityValue.put(KEY_INTRODUCTION, mainContentBean.getIntroduction());
+            cityValue.put(KEY_TITLE, userRecipe.getTitle());
+            cityValue.put(KEY_INTRODUCTION, userRecipe.getIntroduction());
             Gson gson = new Gson();
-            cityValue.put(KEY_INGREDIENTS, gson.toJson(mainContentBean.getIngredientBeanList()));
-            cityValue.put(KEY_PROCEDURES, gson.toJson(mainContentBean.getProcedureList()));
-            cityValue.put(KEY_COOKING_TIME, mainContentBean.getCookingTime());
-            cityValue.put(KEY_NUTRITIONAL_COUNT, mainContentBean.getNutritionalCount());
-            cityValue.put(KEY_NUMBEROFPEOPLE, mainContentBean.getNumberOfPeople());
-//            cityValue.put(KEY_PHOTO_URL, mainContentBean.getPhotoUrl());
-            cityValue.put(KEY_TAGS, mainContentBean.getTags());
+            cityValue.put(KEY_INGREDIENTS, gson.toJson(userRecipe.getRecipeIngredientList()));
+            cityValue.put(KEY_PROCEDURES, gson.toJson(userRecipe.getProcedureList()));
+            cityValue.put(KEY_COOKING_TIME, userRecipe.getCookingTime());
+            cityValue.put(KEY_NUTRITIONAL_COUNT, userRecipe.getNutritionalCount());
+            cityValue.put(KEY_NUMBEROFPEOPLE, userRecipe.getNumberOfPeople());
+//            cityValue.put(KEY_PHOTO_URL, userRecipe.getPhotoUrl());
+            cityValue.put(KEY_TAGS, userRecipe.getTags());
             result = mDb.insert(DATABASE_MAIN_CONTENT_TABLE, null, cityValue);
             Log.e(TAG, "insertMainContent: result==" + result);
             mDb.setTransactionSuccessful();
@@ -153,51 +153,51 @@ public class SQLiteDatabaseDao {
      *
      * @return
      */
-    public List<MainContentBean> queryMainContent() {
-        List<MainContentBean> mainContentBeanList = new ArrayList<>();
+    public List<UserRecipe> queryMainContent() {
+        List<UserRecipe> userRecipeList = new ArrayList<>();
         Cursor cursor = null;
         if (cursor == null) {
             String sql = "select * from " + DATABASE_MAIN_CONTENT_TABLE;
             cursor = mDb.rawQuery(sql, null);
         }
         while (cursor.moveToNext()) {
-            MainContentBean mainContentBean = new MainContentBean();
-            mainContentBean.setTitle(cursor.getString(cursor.getColumnIndex(KEY_TITLE)));
-            mainContentBean.setIntroduction(cursor.getString(cursor.getColumnIndex(KEY_INTRODUCTION)));
+            UserRecipe userRecipe = new UserRecipe();
+            userRecipe.setTitle(cursor.getString(cursor.getColumnIndex(KEY_TITLE)));
+            userRecipe.setIntroduction(cursor.getString(cursor.getColumnIndex(KEY_INTRODUCTION)));
             String ingredientsStr = cursor.getString(cursor.getColumnIndex(KEY_INGREDIENTS));
-            List<IngredientBean> ingredientBeanList = new Gson().fromJson(ingredientsStr, new TypeToken<List<IngredientBean>>() {
+            List<RecipeIngredient> recipeIngredientList = new Gson().fromJson(ingredientsStr, new TypeToken<List<RecipeIngredient>>() {
             }.getType());
             String proceduresStr = cursor.getString(cursor.getColumnIndex(KEY_PROCEDURES));
             List<String> procedureList = new Gson().fromJson(proceduresStr, new TypeToken<List<String>>() {
             }.getType());
-            mainContentBean.setIngredientBeanList(ingredientBeanList);
-            mainContentBean.setProcedureList(procedureList);
-            mainContentBean.setCookingTime(cursor.getString(cursor.getColumnIndex(KEY_COOKING_TIME)));
-            mainContentBean.setNutritionalCount(cursor.getString(cursor.getColumnIndex(KEY_NUTRITIONAL_COUNT)));
-            mainContentBean.setNumberOfPeople(cursor.getString(cursor.getColumnIndex(KEY_NUMBEROFPEOPLE)));
-//            mainContentBean.setPhotoUrl(cursor.getString(cursor.getColumnIndex(KEY_PHOTO_URL)));
-            mainContentBean.setTags(cursor.getString(cursor.getColumnIndex(KEY_TAGS)));
-            mainContentBeanList.add(mainContentBean);
-            Log.d(TAG, "queryMainContent: mainContentBeanList==" +mainContentBeanList.size());
+            userRecipe.setRecipeIngredientList(recipeIngredientList);
+            userRecipe.setProcedureList(procedureList);
+            userRecipe.setCookingTime(cursor.getString(cursor.getColumnIndex(KEY_COOKING_TIME)));
+            userRecipe.setNutritionalCount(cursor.getString(cursor.getColumnIndex(KEY_NUTRITIONAL_COUNT)));
+            userRecipe.setNumberOfPeople(cursor.getString(cursor.getColumnIndex(KEY_NUMBEROFPEOPLE)));
+//            userRecipe.setPhotoUrl(cursor.getString(cursor.getColumnIndex(KEY_PHOTO_URL)));
+            userRecipe.setTags(cursor.getString(cursor.getColumnIndex(KEY_TAGS)));
+            userRecipeList.add(userRecipe);
+            Log.d(TAG, "queryMainContent: userRecipeList==" + userRecipeList.size());
         }
         cursor.close();
-        return mainContentBeanList;
+        return userRecipeList;
     }
 
     /**
      * insert food MaterialBean
      *
-     * @param foodMaterialBean
+     * @param shoppingList
      * @return
      */
-    public long insertFoodMaterial(FoodMaterialBean foodMaterialBean) {
+    public long insertFoodMaterial(ShoppingList shoppingList) {
         long result = -1;
         mDb.beginTransaction();
         try {
             ContentValues materialValue = new ContentValues();
-            materialValue.put(KEY_FOOD_MATERIAL_NAME, foodMaterialBean.getMaterialName());
-            materialValue.put(KEY_FOOD_MATERIAL_VALUE, foodMaterialBean.getMaterialValue());
-            materialValue.put(KEY_FOOD_MATERIAL_UNIT, foodMaterialBean.getUnit());
+            materialValue.put(KEY_FOOD_MATERIAL_NAME, shoppingList.getMaterialName());
+            materialValue.put(KEY_FOOD_MATERIAL_VALUE, shoppingList.getMaterialValue());
+            materialValue.put(KEY_FOOD_MATERIAL_UNIT, shoppingList.getUnit());
             result = mDb.insert(DATABASE_FOOD_MATERIAL_TABLE, null, materialValue);
             Log.e(TAG, "insertCity: relt==" + result);
             mDb.setTransactionSuccessful();
@@ -229,24 +229,24 @@ public class SQLiteDatabaseDao {
      *
      * @return
      */
-    public List<FoodMaterialBean> queryFoodMaterial() {
-        List<FoodMaterialBean> foodMaterialBeanList = new ArrayList<>();
+    public List<ShoppingList> queryFoodMaterial() {
+        List<ShoppingList> shoppingListList = new ArrayList<>();
         Cursor cursor = null;
         if (cursor == null) {
             String sql = "select * from " + DATABASE_FOOD_MATERIAL_TABLE;
             cursor = mDb.rawQuery(sql, null);
         }
         while (cursor.moveToNext()) {
-            FoodMaterialBean foodMaterialBean = new FoodMaterialBean();
-            foodMaterialBean.setId(cursor.getInt(cursor.getColumnIndex("id")));
-            foodMaterialBean.setMaterialName(cursor.getString(cursor.getColumnIndex(KEY_FOOD_MATERIAL_NAME)));
-            foodMaterialBean.setMaterialValue(cursor.getString(cursor.getColumnIndex(KEY_FOOD_MATERIAL_VALUE)));
-            foodMaterialBean.setUnit(cursor.getString(cursor.getColumnIndex(KEY_FOOD_MATERIAL_UNIT)));
-            foodMaterialBean.setChecked(false);
-            foodMaterialBeanList.add(foodMaterialBean);
+            ShoppingList shoppingList = new ShoppingList();
+            shoppingList.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            shoppingList.setMaterialName(cursor.getString(cursor.getColumnIndex(KEY_FOOD_MATERIAL_NAME)));
+            shoppingList.setMaterialValue(cursor.getString(cursor.getColumnIndex(KEY_FOOD_MATERIAL_VALUE)));
+            shoppingList.setUnit(cursor.getString(cursor.getColumnIndex(KEY_FOOD_MATERIAL_UNIT)));
+            shoppingList.setChecked(false);
+            shoppingListList.add(shoppingList);
         }
         cursor.close();
-        return foodMaterialBeanList;
+        return shoppingListList;
     }
 
 

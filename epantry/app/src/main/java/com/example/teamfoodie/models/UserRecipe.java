@@ -3,11 +3,11 @@ package com.example.teamfoodie.models;
 
 import java.util.List;
 
-public class MainContentBean {
+public class UserRecipe {
 
     private String title;
     private String introduction;
-    private List<IngredientBean> ingredientBeanList;
+    private List<RecipeIngredient> recipeIngredientList;
     private List<String> procedureList;
     private String cookingTime;
     private String nutritionalCount;
@@ -31,12 +31,12 @@ public class MainContentBean {
         this.introduction = introduction;
     }
 
-    public List<IngredientBean> getIngredientBeanList() {
-        return ingredientBeanList;
+    public List<RecipeIngredient> getRecipeIngredientList() {
+        return recipeIngredientList;
     }
 
-    public void setIngredientBeanList(List<IngredientBean> ingredientBeanList) {
-        this.ingredientBeanList = ingredientBeanList;
+    public void setRecipeIngredientList(List<RecipeIngredient> recipeIngredientList) {
+        this.recipeIngredientList = recipeIngredientList;
     }
 
     public List<String> getProcedureList() {
@@ -88,10 +88,10 @@ public class MainContentBean {
 
     @Override
     public String toString() {
-        return "MainContentBean{" +
+        return "UserRecipe{" +
                 "title='" + title + '\'' +
                 ", introduction='" + introduction + '\'' +
-                ", ingredientBeanList=" + ingredientBeanList +
+                ", recipeIngredientList=" + recipeIngredientList +
                 ", procedureList=" + procedureList +
                 ", cookingTime='" + cookingTime + '\'' +
                 ", nutritionalCount='" + nutritionalCount + '\'' +
