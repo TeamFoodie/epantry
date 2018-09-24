@@ -33,7 +33,7 @@ public class UserRecipeActivityTest {
 
     @Test
     public void isMakeFoodActivity(){
-        Log.d(TAG, "isMakeFoodActivity: 是否是makefoodActivity==" + mActivityTestRule.getActivity().getClass().getSimpleName());
+        Log.d(TAG, "isMakeFoodActivity: if it is makefoodActivity==" + mActivityTestRule.getActivity().getClass().getSimpleName());
         assertEquals("UserRecipeActivity", mActivityTestRule.getActivity().getClass().getSimpleName());
     }
 
@@ -42,7 +42,7 @@ public class UserRecipeActivityTest {
         SQLiteDatabaseDao sqLiteDatabaseDao = SQLiteDatabaseDao.getInstance();
         sqLiteDatabaseDao.init(mActivityTestRule.getActivity());
         mActivityTestRule.getActivity().addFoodMaterial(sqLiteDatabaseDao);
-        Log.d(TAG, "addFoodMaterial: 添加了几条数据==" + sqLiteDatabaseDao.queryFoodMaterial().toString());
+        Log.d(TAG, "addFoodMaterial: how many data exists ==" + sqLiteDatabaseDao.queryFoodMaterial().toString());
         assertEquals(3, sqLiteDatabaseDao.queryFoodMaterial().size());
     }
 
