@@ -1,168 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background1"
-    tools:context="com.example.teamfoodie.epantry.LandingPageActivity">
+    tools:context=".LandingPageActivity">
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="9dp"
-        android:layout_height="350dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="91dp"
-        android:layout_marginEnd="177dp"
-        android:background="#c1ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.705" />
-
-    <TextView
-        android:layout_width="287dp"
-        android:layout_height="420dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/textView15"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="-22dp"
-        android:background="#c1ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.781" />
-
-    <ImageView
-        android:id="@+id/myPantry"
-        android:layout_width="83dp"
-        android:layout_height="89dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/textView15"
-        android:layout_marginEnd="66dp"
-        app:srcCompat="@drawable/ic_kitchen_black_24dp"
-        tools:layout_editor_absoluteX="222dp"
-        tools:layout_editor_absoluteY="153dp" />
-
-    <ImageView
-        android:id="@+id/newRecipe"
-        android:layout_width="84dp"
-        android:layout_height="79dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/myPantry"
-        android:layout_marginBottom="217dp"
-        app:srcCompat="@drawable/ic_add_circle_outline_black_24dp"
-        tools:layout_editor_absoluteX="221dp"
-        tools:layout_editor_absoluteY="280dp" />
-
-    <TextView
-        android:id="@+id/findRecipeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/myPantry"
-        android:layout_marginStart="88dp"
-        android:text="Find Recipes"
-        android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="81dp"
-        tools:layout_editor_absoluteY="242dp" />
+        android:layout_alignParentTop="true"
+        android:background="@drawable/toolbar_bg"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        tools:ignore="RtlCompat" />
 
-    <TextView
-        android:id="@+id/myPantryLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/newRecipeLabel"
-        android:layout_below="@+id/myPantry"
-        android:text="My Pantry"
-        android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="234dp"
-        tools:layout_editor_absoluteY="242dp" />
-
-    <TextView
-        android:id="@+id/shoppingListLabel"
-        android:layout_width="93dp"
-        android:layout_height="20dp"
-        android:layout_alignStart="@+id/myPantry"
-        android:layout_alignTop="@+id/setGoalsLabel"
-        android:text="Shopping List"
-        android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="222dp"
-        tools:layout_editor_absoluteY="477dp" />
-
-    <TextView
-        android:id="@+id/setGoalsLabel"
-        android:layout_width="71dp"
-        android:layout_height="19dp"
-        android:layout_alignEnd="@+id/findRecipeLabel"
-        android:layout_below="@+id/textView15"
-        android:layout_marginTop="-91dp"
-        android:text="Set Goals"
-        android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="89dp"
-        tools:layout_editor_absoluteY="476dp" />
-
-    <TextView
-        android:id="@+id/newRecipeLabel"
-        android:layout_width="77dp"
-        android:layout_height="19dp"
-        android:layout_alignStart="@+id/myPantry"
-        android:layout_below="@+id/newRecipe"
-        android:layout_marginTop="-218dp"
-        android:text="New Recipe"
-        android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="228dp"
-        tools:layout_editor_absoluteY="356dp" />
-
-    <TextView
-        android:id="@+id/myRecipeLabel"
-        android:layout_width="77dp"
-        android:layout_height="19dp"
-
-        android:layout_alignEnd="@+id/findRecipeLabel"
-        android:layout_below="@+id/newRecipe"
-        android:layout_marginTop="-218dp"
-        android:text="My Recipes"
-        android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="228dp"
-        tools:layout_editor_absoluteY="356dp" />
-
-    <ImageView
-        android:id="@+id/find_recipe"
-        android:layout_width="83dp"
-        android:layout_height="89dp"
-        android:layout_alignStart="@+id/findRecipeLabel"
-        android:layout_alignTop="@+id/textView15"
-        app:srcCompat="@drawable/ic_search_black_24dp" />
-
-    <ImageView
-        android:id="@+id/home_recipe"
-        android:layout_width="83dp"
-        android:layout_height="89dp"
-        android:layout_alignBottom="@+id/newRecipe"
-        android:layout_alignStart="@+id/findRecipeLabel"
-        app:srcCompat="@drawable/ic_import_contacts_black_24dp" />
-
-    <ImageView
-        android:id="@+id/shop_list"
-        android:layout_width="83dp"
-        android:layout_height="89dp"
-        android:layout_alignBottom="@+id/textView15"
-        android:layout_alignStart="@+id/myPantry"
-        app:srcCompat="@drawable/ic_shopping_cart_black_24dp" />
-
-    <ImageView
-        android:id="@+id/home_goals"
-        android:layout_width="83dp"
-        android:layout_height="89dp"
-        android:layout_above="@+id/shoppingListLabel"
-        android:layout_alignStart="@+id/findRecipeLabel"
-        app:srcCompat="@drawable/ic_star_border_black_24dp" />
+    <include layout="@layout/content_main" />
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
