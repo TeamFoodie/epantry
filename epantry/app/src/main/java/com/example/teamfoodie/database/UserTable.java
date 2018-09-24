@@ -23,6 +23,11 @@ public class UserTable {
     private User currentUser;
     private Object object;
 
+    /**
+     * Create string for creating user table in database
+     * @param TABLE_NAME
+     * @return
+     */
     public String createUserTable(String TABLE_NAME) {
         String createTable = "CREATE TABLE "+ TABLE_NAME +
                 "( " + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -33,6 +38,15 @@ public class UserTable {
         return createTable;
     }
 
+    /**
+     *
+     * Method takes in a User object allocate them appropriate into the ContentValue
+     * format for query execution.
+     *
+     *
+     * @param userObject
+     * @return
+     */
     public ContentValues addNewUser(User userObject) {
         ContentValues values = new ContentValues();
         values.put(USER_NAME, userObject.getUsername());
@@ -41,6 +55,13 @@ public class UserTable {
         return values;
     }
 
+    /**
+     * Result cursor from database is passed through parameters and used to set user
+     * details and then return a PantryIngredient type object
+     *
+     * @param cursor
+     * @return
+     */
     public User findUser(Cursor cursor) {
         User existingUser = new User();
         if (cursor.moveToFirst()) {
@@ -57,7 +78,15 @@ public class UserTable {
         return existingUser;
     }
 
-
+    /**
+     * method takes in username, password, and database and uses the information to set variables within
+     * database handler file before conducting search for user
+     * with the use of the findhandle method in the database handler file.
+     * @param user
+     * @param pass
+     * @param db
+     * @return
+     */
     public User checkLogin(String user, String pass, DatabaseHandler db){
 
         this.dbHandler = db;

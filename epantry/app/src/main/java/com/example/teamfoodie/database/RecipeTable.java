@@ -20,12 +20,6 @@ public class RecipeTable {
     private static final String RECIPE_DESCRIPTION = "Description";
     private static final String RECIPE_PHOTO = "Photo";
     private static final String RECIPE_URL = "URL";
-//    private static final String[] USER_COLUMNS = {RECIPE_ID, RECIPE_NAME, RECIPE_DESCRIPTION, RECIPE_URL};
-//
-//
-//    private DatabaseHandler dbHandler;
-//    private User currentUser;
-//    private Object object;
 
     public String createRecipeTable(String TABLE_NAME) {
         String createTable = "CREATE TABLE "+ TABLE_NAME +
@@ -38,6 +32,14 @@ public class RecipeTable {
         return createTable;
     }
 
+    /**
+     *  Method takes in a Recipe object allocate them appropriate into the ContentValue
+     * format for query execution.
+     *
+     * @param recipeObject
+     * @return
+     */
+
     public ContentValues addNewRecipe(Recipe recipeObject) {
         ContentValues values = new ContentValues();
         values.put(RECIPE_NAME, recipeObject.getRecipeName());
@@ -47,6 +49,13 @@ public class RecipeTable {
         return values;
     }
 
+    /**
+     * Result cursor from database is passed through parameters and used to set recipe
+     * details and then return a PantryIngredient type object
+     *
+     * @param cursor
+     * @return
+     */
     public Recipe findRecipe(Cursor cursor) {
         Recipe existingRecipe = new Recipe();
         if (cursor.moveToFirst()) {
@@ -64,6 +73,12 @@ public class RecipeTable {
         return existingRecipe;
     }
 
+    /**
+     * method takes in result cursor for database and populates recipe objects to be
+     * added to array list before return Recipe type object
+     * @param cursor
+     * @return
+     */
     public List<Recipe> loadAllRecipes(Cursor cursor){
         List<Recipe> recipeList = new ArrayList<>();
 
