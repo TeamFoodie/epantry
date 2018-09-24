@@ -21,7 +21,7 @@ import java.util.List;
 public class DatabaseHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "EPantry";
+    private static final String DATABASE_NAME = "PANTRY";
 
     //table names
     private static final String TABLE_INGREDIENT = "PantryIngredients";
@@ -161,6 +161,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    public List<Recipe> loadAllRecipes(){
+        List<Recipe> recipeList = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_STORED_RECIPE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = getReadableDatabase().rawQuery(query, null);
+
+        recipeList = recipeTable.loadAllRecipes(cursor);
+
+        return recipeList;
+    }
     public boolean checkExistingUser(String username) {
         String query = "SELECT * FROM " + TABLE_USERS + " WHERE username = '" + username + "'";
 

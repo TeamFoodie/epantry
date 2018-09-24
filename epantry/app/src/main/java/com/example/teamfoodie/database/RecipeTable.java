@@ -6,6 +6,9 @@ import android.database.Cursor;
 import com.example.teamfoodie.models.Recipe;
 import com.example.teamfoodie.models.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RecipeTable {
 
     private String username;
@@ -61,22 +64,24 @@ public class RecipeTable {
         return existingRecipe;
     }
 
-//
-//    public User checkLogin(String user, String pass, DatabaseHandler db){
-//
-//        this.dbHandler = db;
-//        dbHandler.setUser(user, pass);
-//
-//        object = dbHandler.findHandle(user, "User");
-//        if(object == null){
-//            System.out.println("check login was  null");
-//            return null;
-//        }else{
-//            currentUser = (User) object;
-//
-//        }
-//        return currentUser;
-//    }
+    public List<Recipe> loadAllRecipes(Cursor cursor){
+        List<Recipe> recipeList = new ArrayList<>();
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Recipe recipeObject = new Recipe();
+            recipeObject.setRecipeID(cursor.getInt(0));
+            recipeObject.setRecipeName(cursor.getString(1));
+            recipeObject.setDescription(cursor.getString(2));
+            recipeObject.setPhoto(cursor.getInt(3));
+            recipeObject.setURL(cursor.getString(4));
+            recipeList.add(recipeObject);
+            cursor.moveToNext();
+        }
+
+        return  recipeList;
+    }
+
 
 
 }
