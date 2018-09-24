@@ -1,5 +1,3 @@
-//package com.example.teamfoodie;
-
 package com.example.teamfoodie;
 
 import com.example.teamfoodie.database.DatabaseHandler;

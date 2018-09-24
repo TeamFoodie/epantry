@@ -1,5 +1,6 @@
 package com.example.teamfoodie.epantry;
 
+import android.arch.persistence.room.Database;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.models.Recipe;
 
 import java.util.ArrayList;
@@ -16,13 +18,20 @@ import java.util.List;
 
 public class ViewAllRecipesActivity extends AppCompatActivity {
 
+    private ListView listView;
+    private List<Recipe> recipeList;
+    private DatabaseHandler dbHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_all_recipes);
 
+        this.dbHandler = new DatabaseHandler(this);
         List<Recipe> image_details = getListData();
-        final ListView listView = (ListView) findViewById(R.id.listView);
+
+
+        this.listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new CustomRecipeListAdapter(this, image_details));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -33,20 +42,36 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
                 Recipe recipe = (Recipe) o;
                 Toast.makeText(ViewAllRecipesActivity.this, "Selected :" + " " + recipe, Toast.LENGTH_LONG).show();
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(recipe.getUrl()));
+                i.setData(Uri.parse(recipe.getURL()));
                 startActivity(i);
 
             }
         });
     }
 
-    private List<Recipe> getListData() {
-        List<Recipe> list = new ArrayList<Recipe>();
+    public Recipe getCurrentRecipe(int id){
+        List<Recipe> populated = getListData();
+//        currentRecipe = new Recipe();
+        Recipe currentRecipe = populated.get(id);
+        return currentRecipe;
+    }
 
-        Recipe afghans = new Recipe("Afghans", "afghans", "Afghans are a kiwi classic","https://edmondscooking.co.nz/recipes/biscuits/afghans/");
-        Recipe anzac_biscuits = new Recipe("Anzac Biscuits", "anzac_biscuits", "These are a soft chewy","https://edmondscooking.co.nz/recipes/biscuits/anzac-biscuits/" );
-        Recipe apricot_balls = new Recipe("Apricot Balls", "apricot_balls", "These are quickly","https://edmondscooking.co.nz/recipes/bliss-balls/apricot-bliss-balls/");
-        Recipe apricot_jam= new Recipe("Apricot Jam", "apricot_jam", "Simple Jam","https://edmondscooking.co.nz/recipes/jams-jellies/apricot-jam/");
+    private List<Recipe> getListData() {
+
+        public Recipe(String recipeName, int recipePhoto, String description, String URL) {
+            this.recipeName = recipeName;
+            this.recipePhoto = recipePhoto;
+            this.description = description;
+            this.URL = URL;
+        }
+
+
+
+        this.recipeList = new ArrayList<>();
+        Recipe afghans = new Recipe("Afghans", "Afghans are a kiwi classic","https://edmondscooking.co.nz/recipes/biscuits/afghans/");
+        Recipe anzac_biscuits = new Recipe("Anzac Biscuits", "These are a soft chewy","https://edmondscooking.co.nz/recipes/biscuits/anzac-biscuits/" );
+        Recipe apricot_balls = new Recipe("Apricot Balls", "These are quickly","https://edmondscooking.co.nz/recipes/bliss-balls/apricot-bliss-balls/");
+        Recipe apricot_jam= new Recipe("Apricot Jam", "Simple Jam","https://edmondscooking.co.nz/recipes/jams-jellies/apricot-jam/");
         Recipe basic_biscuits = new Recipe("Basic Biscuits", "basic_biscuits", "Make one simple dough","https://edmondscooking.co.nz/recipes/biscuits/basic-refrigerator-biscuits/");
         Recipe bliss_balls= new Recipe("Bliss Balls", "bliss_balls", "Bliss balls","https://edmondscooking.co.nz/recipes/bliss-balls/apricot-cashew-bliss-balls/");
         Recipe chelsea_buns= new Recipe("Chelsea Buns", "chelsea_buns", "Chelsea Buns","https://edmondscooking.co.nz/recipes/breads-and-buns/chelsea-buns/");
@@ -61,25 +86,25 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
         Recipe soft_white_loaf= new Recipe("Soft White Loaf", "soft_white_loaf", "Hot bread and the paper","https://edmondscooking.co.nz/recipes/breads-and-buns/edmonds-soft-white-loaf/");
         Recipe wagyu_burger= new Recipe("Wagyu Burger", "wagyu_burgers", "What on earth is a Wagyu?","https://edmondscooking.co.nz/recipes/burgers-and-pizzas/wagyu-beef-burger-with-caramelised-onion-mayo/");
 
-        list.add(afghans);
-        list.add(anzac_biscuits);
-        list.add(apricot_balls);
-        list.add(apricot_jam);
-        list.add(basic_biscuits);
-        list.add(bliss_balls);
-        list.add(chelsea_buns);
-        list.add(chocolate_cake);
-        list.add(chocolate_gateau);
-        list.add(chocolate_meringue);
-        list.add(chorizo_and_tomato_salad);
-        list.add(crumpets);
-        list.add(lamb_and_feta_sliders);
-        list.add(potato_slad);
-        list.add(raspberry_jam);
-        list.add(soft_white_loaf);
-        list.add(wagyu_burger);
+        recipeList.add(afghans);
+        recipeList.add(anzac_biscuits);
+        recipeList.add(apricot_balls);
+        recipeList.add(apricot_jam);
+        recipeList.add(basic_biscuits);
+        recipeList.add(bliss_balls);
+        recipeList.add(chelsea_buns);
+        recipeList.add(chocolate_cake);
+        recipeList.add(chocolate_gateau);
+        recipeList.add(chocolate_meringue);
+        recipeList.add(chorizo_and_tomato_salad);
+        recipeList.add(crumpets);
+        recipeList.add(lamb_and_feta_sliders);
+        recipeList.add(potato_slad);
+        recipeList.add(raspberry_jam);
+        recipeList.add(soft_white_loaf);
+        recipeList.add(wagyu_burger);
 
-        return list;
+        return recipeList;
 
     }
 }

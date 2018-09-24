@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.example.teamfoodie.models.PantryIngredient;
+import com.example.teamfoodie.models.Recipe;
 import com.example.teamfoodie.models.User;
 
 import java.util.ArrayList;
@@ -25,10 +26,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //table names
     private static final String TABLE_INGREDIENT = "PantryIngredients";
     private static final String TABLE_USERS = "Users";
+    private static final String TABLE_STORED_RECIPE = "StoredRecipe";
 
 
     private PantryIngredientTable pantryIngredientTable = new PantryIngredientTable();
     private UserTable userTable = new UserTable();
+    private RecipeTable recipeTable = new RecipeTable();
 
     private String username = "";
     private String password = "";
@@ -45,6 +48,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(pantryIngredientTable.createIngredientTable(TABLE_INGREDIENT));
         db.execSQL(userTable.createUserTable(TABLE_USERS));
+        db.execSQL(recipeTable.createRecipeTable(TABLE_STORED_RECIPE));
     }
 
 
@@ -52,6 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_INGREDIENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STORED_RECIPE);
         onCreate(db);
     }
 
@@ -61,7 +66,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = null;
         String tableName = "";
 
-
         if (object instanceof PantryIngredient) {
             PantryIngredient ingredientObject = (PantryIngredient) object;
             tableName = TABLE_INGREDIENT;
@@ -70,6 +74,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             User userObject = (User) object;
             tableName = TABLE_USERS;
             values = userTable.addNewUser(userObject);
+        } else if (object instanceof Recipe){
+            Recipe recipeObject = (Recipe) object;
+            tableName = TABLE_STORED_RECIPE;
+            values = recipeTable.addNewRecipe(recipeObject);
         }
         SQLiteDatabase db = this.getWritableDatabase();
         long i = db.insert(tableName, null, values);

@@ -54,10 +54,10 @@ public class CustomRecipeListAdapter extends BaseAdapter {
         }
 
         Recipe Recipe = this.listData.get(position);
-        holder.RecipeNameView.setText(Recipe.getrecipeName());
-        holder.descriptionView.setText(Recipe.getdescription());
+        holder.RecipeNameView.setText(Recipe.getRecipeName());
+        holder.descriptionView.setText(Recipe.getDescription());
 
-        int imageId = this.getMipmapResIdByName(Recipe.getrecipePicName());
+        int imageId = this.getMipmapResIdByName(Recipe.getPhoto());
 
         holder.recipePicView.setImageResource(imageId);
 
