@@ -1,5 +1,7 @@
 package com.example.teamfoodie.epantry;
-
+/*
+UserRecipeActivity include all main activity for user to add recipe
+ */
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;

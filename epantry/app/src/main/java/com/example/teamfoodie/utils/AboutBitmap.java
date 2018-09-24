@@ -1,5 +1,7 @@
 package com.example.teamfoodie.utils;
-
+/*
+activity of camera and taking photo
+ */
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

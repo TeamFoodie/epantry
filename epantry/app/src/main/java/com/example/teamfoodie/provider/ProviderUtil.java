@@ -1,5 +1,7 @@
 package com.example.teamfoodie.provider;
-
+/*
+get package name of current stage
+ */
 import android.content.Context;
 import android.util.Log;
 

@@ -3,6 +3,7 @@ package com.example.teamfoodie.models;
 public class Recipe {
 
 
+
     private String recipeName;
 
     // Image name (Without extension)

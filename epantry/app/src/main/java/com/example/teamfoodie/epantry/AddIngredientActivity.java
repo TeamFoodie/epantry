@@ -1,5 +1,7 @@
 package com.example.teamfoodie.epantry;
-
+/*
+AddIngredientActivity is for adding ingredient
+ */
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

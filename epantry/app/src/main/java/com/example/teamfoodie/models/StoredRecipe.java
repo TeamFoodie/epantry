@@ -1,5 +1,7 @@
 package com.example.teamfoodie.models;
-
+/*
+bean for store recipe
+ */
 public class StoredRecipe {
 
     public String recipeID;
