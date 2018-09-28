@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="com.example.myapplication.activity.FoodMaterialListActivity">
+    tools:context="com.example.teamfoodie.epantry.ShoppingListActivity">
 
     <TextView
         android:id="@+id/id_tv_title_material"

@@ -51,7 +51,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-        super.setContentView(R.layout.activity_food_material_list);
+        super.setContentView(R.layout.shopping_list);
         shoppingListList = new ArrayList<>();
         shoppingListSelectList = new ArrayList<>();
 
@@ -186,7 +186,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         @Override
         public FoodMaterialViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_food_material, viewGroup, false);
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shopping_list_item, viewGroup, false);
 
             return new FoodMaterialViewHolder(v);
         }
