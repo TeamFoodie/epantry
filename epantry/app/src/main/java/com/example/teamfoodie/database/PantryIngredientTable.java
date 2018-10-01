@@ -15,6 +15,7 @@ public class PantryIngredientTable {
     public final String TOTAL_QUANTITY = "TotalQuantity";
     public final String CURRENT_QUANTITY = "CurrentQuantity";
     public final String UNIT_MEASURE = "UnitMeasure";
+    public final String FOOD_GROUP = "FoodGroup";
     public final String OWNER = "Owner";
 
     //Returns create string for creating Pantry ingredient table.
@@ -25,6 +26,7 @@ public class PantryIngredientTable {
                 TOTAL_QUANTITY + " INTEGER," +
                 CURRENT_QUANTITY + " INTEGER," +
                 UNIT_MEASURE + " NVARCHAR," +
+                FOOD_GROUP + " NVARCHAR," +
                 OWNER + " INTEGER" + ");";
 
         return createTable;
@@ -44,6 +46,7 @@ public class PantryIngredientTable {
         values.put(TOTAL_QUANTITY, pIngredients.getTotalQuantity());
         values.put(CURRENT_QUANTITY, pIngredients.getCurrentQuantity());
         values.put(UNIT_MEASURE, pIngredients.getUnitMeasure());
+        values.put(FOOD_GROUP, pIngredients.getFoodGroup());
         values.put(OWNER, pIngredients.getOwner());
         return values;
     }
@@ -64,7 +67,8 @@ public class PantryIngredientTable {
             ingredient.setTotalQuantity(cursor.getInt(2));
             ingredient.setCurrentQuantity(cursor.getInt(3));
             ingredient.setUnitMeasure(cursor.getString(4));
-            ingredient.setOwner(cursor.getInt(5));
+            ingredient.setFoodGroup(cursor.getString(5));
+            ingredient.setOwner(cursor.getInt(6));
             cursor.close();
         }else{
             return null;
@@ -90,7 +94,8 @@ public class PantryIngredientTable {
             pantryObject.setTotalQuantity(cursor.getInt(2));
             pantryObject.setCurrentQuantity(cursor.getInt(3));
             pantryObject.setUnitMeasure(cursor.getString(4));
-            pantryObject.setOwner(cursor.getInt(5));
+            pantryObject.setFoodGroup(cursor.getString(5));
+            pantryObject.setOwner(cursor.getInt(6));
             pantryList.add(pantryObject);
             System.out.println("THIS IS THE PANTRY INGREDIENT TABLE");
             System.out.println(pantryObject.toString());

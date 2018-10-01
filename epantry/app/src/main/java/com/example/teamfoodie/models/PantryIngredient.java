@@ -1,5 +1,7 @@
 package com.example.teamfoodie.models;
 
+import java.text.BreakIterator;
+
 /**
  * Class for creating a pantry ingredient object
  */
@@ -9,6 +11,7 @@ public class PantryIngredient {
     private int totalQuantity;
     private int currentQuantity;
     private String unitMeasure;
+    private FoodGroup foodGroup;
     private int owner;
 
     /**
@@ -28,13 +31,14 @@ public class PantryIngredient {
      * @param unitMeasure
      * @param owner
      */
-    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, int owner){
-        this.ingredientID = id;
-        this.ingredientName = name;
-        this.totalQuantity = total;
-        this.currentQuantity = current;
-        this.unitMeasure = unitMeasure;
-        this.owner = owner;
+    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, String foodGroup, int owner){
+        this.setIngredientID(id);
+        this.setIngredientName(name);
+        this.setTotalQuantity(total);
+        this.setCurrentQuantity(current);
+        this.setUnitMeasure(unitMeasure);
+        this.setFoodGroup(foodGroup);
+        this.setOwner(owner);
     }
 
 
@@ -82,6 +86,40 @@ public class PantryIngredient {
     public String getUnitMeasure(){
         return this.unitMeasure;
     }
+
+
+    public String getFoodGroup() {
+        return foodGroup.toString();
+    }
+
+    public void setFoodGroup(String food) {
+        switch (food){
+            case "Spices":
+                this.foodGroup = FoodGroup.SPICES;
+                break;
+            case "Poultry":
+                this.foodGroup = FoodGroup.POULTRY;
+                break;
+            case "Basic Neccesities":
+                this.foodGroup = FoodGroup.STAPLE;
+                break;
+            case "Vegetables":
+                this.foodGroup = FoodGroup.VEGETABLES;
+                break;
+            case "Meats":
+                this.foodGroup = FoodGroup.MEATS;
+                break;
+            case "Sauces":
+                this.foodGroup = FoodGroup.SAUCES;
+                break;
+            case "Oils":
+                this.foodGroup = FoodGroup.OILS;
+                break;
+        }
+
+    }
+
+
 
     public int getOwner(){
         return this.owner;

@@ -3,49 +3,54 @@ package com.example.teamfoodie.models;
 public class Recipe {
 
 
-
-    private String recipeName;
-
-    // Image name (Without extension)
     private int recipeID;
-    private int recipePhoto;
+    private String recipeName;
     private String description;
-    private String URL;
+    private int recipePhoto;
+    private int calorieCount;
+    private int cookingTime;
+    private int author;
+    private int numberOfPeople;
+    private Dietary dietary;
 
 
     public Recipe() {
 
     }
 
-    public Recipe(int id, int photo, String description, String url){
+    public Recipe(int id, String recipeName, int photo, String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup) {
         this.setRecipeID(id);
+        this.setRecipeName(recipeName);
         this.setPhoto(photo);
         this.setDescription(description);
-        this.setURL(url);
+        this.setCalorieCount(calorieCount);
+        this.setCookingTime(cookingTime);
+        this.setAuthor(author);
+        this.setNumberOfPeople(numberOfPeople);
+        this.setDietary(foodGroup);
     }
 
-    public Recipe(String recipeName, int recipePhoto, String description, String URL) {
-        this.recipeName = recipeName;
-        this.recipePhoto = recipePhoto;
-        this.description = description;
-        this.URL = URL;
+    public Recipe(String recipeName, int photo, String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup) {
+        this.setRecipeName(recipeName);
+        this.setPhoto(photo);
+        this.setDescription(description);
+        this.setCalorieCount(calorieCount);
+        this.setCookingTime(cookingTime);
+        this.setAuthor(author);
+        this.setNumberOfPeople(numberOfPeople);
+        this.setDietary(foodGroup);
+//        this.URL = URL;
     }
 
 
-    public void setRecipeID(int id){
+    public void setRecipeID(int id) {
         this.recipeID = id;
     }
 
-    public int getRecipeID(){
+    public int getRecipeID() {
         return this.recipeID;
     }
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getRecipeName() {
         return recipeName;
@@ -53,6 +58,15 @@ public class Recipe {
 
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public int getPhoto() {
@@ -63,12 +77,63 @@ public class Recipe {
         this.recipePhoto = recipePicName;
     }
 
-    public String getURL() {
-        return URL;
+
+    public int getCalorieCount() {
+        return calorieCount;
     }
 
-    public void setURL(String url) {
-        this.URL = url;
+    public void setCalorieCount(int calorieCount) {
+        this.calorieCount = calorieCount;
+    }
+
+    public int getCookingTime() {
+        return cookingTime;
+    }
+
+    public void setCookingTime(int cookingTime) {
+        this.cookingTime = cookingTime;
+    }
+
+    public int getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(int author) {
+        this.author = author;
+    }
+
+    public int getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(int numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
+    }
+
+    public String getDietary() {
+        return dietary.toString();
+    }
+
+    public void setDietary(String stringFoodGroup) {
+        switch (stringFoodGroup){
+            case "Vegetarian":
+                this.dietary = Dietary.VEGETARIAN;
+                break;
+            case "Vegan":
+                this.dietary = Dietary.VEGAN;
+                break;
+            case "Gluten Free":
+                this.dietary = Dietary.GLUTEN_FREE;
+                break;
+            case "Dairy Free":
+                this.dietary = Dietary.DAIRY_FREE;
+                break;
+            case "Comfort Food":
+                this.dietary = Dietary.COMFORT;
+                break;
+        }
+
+        this.dietary = dietary;
     }
 
 

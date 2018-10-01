@@ -21,6 +21,7 @@ public class AddIngredientActivity extends AppCompatActivity {
     private Button saveButton;
     private EditText ingredientName, unitCount;
     private Spinner unitMeasure;
+    private Spinner foodGroup;
     private TextView ingredientID;
     public static String ingID;
     private DatabaseHandler database;
@@ -41,6 +42,7 @@ public class AddIngredientActivity extends AppCompatActivity {
         ingredientName = (EditText) findViewById(R.id.ingredientName);
         unitCount = (EditText) findViewById(R.id.unitCount);
         unitMeasure = (Spinner) findViewById(R.id.unitMeasureDropDown);
+        foodGroup = (Spinner) findViewById(R.id.foodGroupID);
         ingredientID = (TextView) findViewById(R.id.ingredientID);
         database = new DatabaseHandler(this);
         setID(ingID);
@@ -87,9 +89,10 @@ public class AddIngredientActivity extends AppCompatActivity {
                 } else {
                     int totals = Integer.parseInt(total);
                     String measure = unitMeasure.getSelectedItem().toString();
+                    String group = foodGroup.getSelectedItem().toString();
                     String messages = "";
 
-                    PantryIngredient pantryIngredient = new PantryIngredient(actualIngredientID, name, totals, totals, measure, currentUSER_ID);
+                    PantryIngredient pantryIngredient = new PantryIngredient(actualIngredientID, name, totals, totals, measure, group, currentUSER_ID);
                     System.out.println("OWNER OF NEW PANTRY INGRIENT IS " + currentUSER_ID);
                     if (pantryIngredient != null) {
                         messages = "ingredient is empty!";

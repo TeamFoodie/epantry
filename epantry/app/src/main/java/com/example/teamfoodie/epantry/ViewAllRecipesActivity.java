@@ -48,7 +48,7 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
                 Recipe recipe = (Recipe) o;
                 Toast.makeText(ViewAllRecipesActivity.this, "Selected :" + " " + recipe, Toast.LENGTH_LONG).show();
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(recipe.getURL()));
+//                i.setData(Uri.parse(recipe.getURL()));
                 startActivity(i);
 
             }

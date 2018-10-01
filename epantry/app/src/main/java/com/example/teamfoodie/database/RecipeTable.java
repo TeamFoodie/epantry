@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.example.teamfoodie.models.Recipe;
-import com.example.teamfoodie.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,12 @@ public class RecipeTable {
     private static final String RECIPE_NAME = "Name";
     private static final String RECIPE_DESCRIPTION = "Description";
     private static final String RECIPE_PHOTO = "Photo";
-    private static final String RECIPE_URL = "URL";
+    private static final String CALORIE_COUNT = "CalorieCount";
+    private static final String COOKING_TIME = "CookingTime";
+    private static final String AUTHOR = "Author";
+    private static final String NUMBER_OF_PEOPLE = "Number of People";
+    private static final String FOODGROUP = "Dietary";
+//    private static final String RECIPE_URL = "URL";
 
     public String createRecipeTable(String TABLE_NAME) {
         String createTable = "CREATE TABLE "+ TABLE_NAME +
@@ -27,7 +31,11 @@ public class RecipeTable {
                 RECIPE_NAME + " TEXT, "+
                 RECIPE_DESCRIPTION + " TEXT,"+
                 RECIPE_PHOTO + " INTEGER," +
-                RECIPE_URL + " TEXT );";
+                CALORIE_COUNT + " INTEGER," +
+                COOKING_TIME + " INTEGER," +
+                AUTHOR + " INTEGER," +
+                NUMBER_OF_PEOPLE + " INTEGER," +
+                FOODGROUP + " TEXT );";
 
         return createTable;
     }
@@ -43,9 +51,14 @@ public class RecipeTable {
     public ContentValues addNewRecipe(Recipe recipeObject) {
         ContentValues values = new ContentValues();
         values.put(RECIPE_NAME, recipeObject.getRecipeName());
-        values.put(RECIPE_PHOTO, recipeObject.getPhoto());
         values.put(RECIPE_DESCRIPTION, recipeObject.getDescription());
-        values.put(RECIPE_URL, recipeObject.getURL());
+        values.put(RECIPE_PHOTO, recipeObject.getPhoto());
+        values.put(CALORIE_COUNT, recipeObject.getCalorieCount());
+        values.put(COOKING_TIME, recipeObject.getCookingTime());
+        values.put(AUTHOR, recipeObject.getAuthor());
+        values.put(NUMBER_OF_PEOPLE, recipeObject.getNumberOfPeople());
+        values.put(FOODGROUP, recipeObject.getDietary());
+//        values.put(RECIPE_URL, recipeObject.getURL());
         return values;
     }
 
@@ -62,9 +75,13 @@ public class RecipeTable {
             cursor.moveToFirst();
             existingRecipe.setRecipeID(cursor.getInt(0));
             existingRecipe.setRecipeName(cursor.getString(1));
-            existingRecipe.setPhoto(cursor.getInt(2));
-            existingRecipe.setDescription(cursor.getString(3));
-            existingRecipe.setURL(cursor.getString(4));
+            existingRecipe.setDescription(cursor.getString(2));
+            existingRecipe.setPhoto(cursor.getInt(3));
+            existingRecipe.setCalorieCount(cursor.getInt(4));
+            existingRecipe.setCookingTime(cursor.getInt(5));
+            existingRecipe.setAuthor(cursor.getInt(6));
+            existingRecipe.setNumberOfPeople(cursor.getInt(7));
+            existingRecipe.setDietary(cursor.getString(8));
             cursor.close();
         } else {
             return null;
@@ -89,7 +106,11 @@ public class RecipeTable {
             recipeObject.setRecipeName(cursor.getString(1));
             recipeObject.setDescription(cursor.getString(2));
             recipeObject.setPhoto(cursor.getInt(3));
-            recipeObject.setURL(cursor.getString(4));
+            recipeObject.setCalorieCount(cursor.getInt(4));
+            recipeObject.setCookingTime(cursor.getInt(5));
+            recipeObject.setAuthor(cursor.getInt(6));
+            recipeObject.setNumberOfPeople(cursor.getInt(7));
+            recipeObject.setDietary(cursor.getString(8));
             recipeList.add(recipeObject);
             cursor.moveToNext();
         }
