@@ -117,7 +117,8 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
         if (id == R.id.nav_profile) {
         // Handle the camera action
         } else if (id == R.id.nav_preferences) {
-
+            Intent intent = new Intent(LandingPageActivity.this, MyPreferencesActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_dietary) {
 
         } else if (id == R.id.nav_settings) {
