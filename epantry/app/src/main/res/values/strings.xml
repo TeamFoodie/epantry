@@ -28,4 +28,5 @@
         <item>Sauces</item>
         <item>Oils</item>
     </string-array>
-</resources>
+    <string name="allergies"><u>Allergies</u></string>
+    </resources>

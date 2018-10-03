@@ -258,6 +258,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return email;
     }
 
+    /*
+    test method for populating pantry (myPreferences class) *********
+     */
+    public PantryIngredient populatePantry() {
+//        PantryIngredient ing = new PantryIngredient();
+//        ing.setIngredientName("Cereal");
+//        ing.setTotalQuantity(3);
+//        ing.setCurrentQuantity(3);
+//        ing.setUnitMeasure("g");
+//        ing.setFoodGroup("Breakfast");
+//        ing.setOwner(1);
+
+      PantryIngredient ing = new PantryIngredient("1", "Cereal", 3, 3, "g", "Poultry", 0);
+
+        return ing;
+    }
+
     /**
      * Method is used to populate database via code just for testing purposes.
      */

@@ -15,10 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LandingPageActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".AddIngredientActivity"></activity>
         <activity android:name=".ViewPantryActivity"></activity>
@@ -36,6 +36,11 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         </activity>
+        <activity android:name=".DietaryRequirementsActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+        </activity>
+
         <activity android:name=".PantryScannerActivity"></activity>
         <activity android:name=".SignupFormActivity"></activity>
         <activity
