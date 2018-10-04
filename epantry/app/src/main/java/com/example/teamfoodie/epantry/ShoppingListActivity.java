@@ -3,6 +3,7 @@ package com.example.teamfoodie.epantry;
 ShoppingListActivity class shows Shopping List from database
 and user can delete items from database and take capture
  */
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,7 +23,6 @@ import android.widget.Toast;
 
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.SQLiteDatabaseDao;
-import com.example.teamfoodie.listener.IOnCheckedChangeListener;
 import com.example.teamfoodie.models.ShoppingList;
 
 import java.util.ArrayList;
@@ -55,13 +55,14 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         initView();
 
+
         final FoodMaterialAdapter foodMaterialAdapter = new FoodMaterialAdapter(shoppingListList);
         foodMaterialAdapter.setIOnCheckedChangeListener(new IOnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(boolean b, ShoppingList shoppingList, int position) {
-                if (b){
+                if (b) {
                     shoppingListSelectList.add(shoppingList);
-                }else{
+                } else {
                     shoppingListSelectList.remove(shoppingList);
                 }
             }
@@ -101,14 +102,15 @@ public class ShoppingListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SQLiteDatabaseDao sqLiteDatabaseDao = SQLiteDatabaseDao.getInstance();
-                if (idCbSelect.isChecked()){
+                if (idCbSelect.isChecked()) {
                     shoppingListSelectList = shoppingListList;
                 }
                 int len = shoppingListSelectList.size();
                 for (int i = 0; i < len; i++) {
                     ShoppingList shoppingList = shoppingListSelectList.get(i);
                     sqLiteDatabaseDao.deleteCity(shoppingList.getId());
-                }                if (len > 0) {
+                }
+                if (len > 0) {
                     shoppingListSelectList.size();
                 }
                 Toast.makeText(mContext, "Deleted successfully, quit after 10 seconds.", Toast.LENGTH_SHORT).show();
@@ -154,6 +156,10 @@ public class ShoppingListActivity extends AppCompatActivity {
 //        return bmp;
 //    }
 
+    public interface IOnCheckedChangeListener {
+
+        void onCheckedChanged(boolean b, ShoppingList shoppingList, int position);
+    }
 
     public class FoodMaterialAdapter extends RecyclerView.Adapter<FoodMaterialAdapter.FoodMaterialViewHolder> {
         private final String TAG = "FoodMaterialAdapter";
