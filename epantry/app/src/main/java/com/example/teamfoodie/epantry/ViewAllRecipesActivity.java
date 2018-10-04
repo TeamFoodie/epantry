@@ -8,12 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.models.Recipe;
 
-import java.util.ArrayList;
 import java.util.List;
 /*
 * ViewAllRecipesActivity creates a list of all current recipes in the Database
@@ -46,10 +45,9 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = listView.getItemAtPosition(position);
                 Recipe recipe = (Recipe) o;
-                Toast.makeText(ViewAllRecipesActivity.this, "Selected :" + " " + recipe, Toast.LENGTH_LONG).show();
-                Intent i = new Intent(Intent.ACTION_VIEW);
-//                i.setData(Uri.parse(recipe.getURL()));
-                startActivity(i);
+                Intent intent = new Intent(ViewAllRecipesActivity.this, ViewSelectedRecipeActivity.class);
+                intent.putExtra("RECIPE_ID", recipe.getRecipeID());
+                startActivity(intent);
 
             }
         });

@@ -3,19 +3,14 @@ package com.example.teamfoodie.epantry;
 ShoppingListActivity class shows Shopping List from database
 and user can delete items from database and take capture
  */
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +20,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.SQLiteDatabaseDao;
 import com.example.teamfoodie.listener.IOnCheckedChangeListener;
 import com.example.teamfoodie.models.ShoppingList;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,25 +118,25 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
         });
 
-        idBtnCapture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bitmap captureBitmap = capture(ShoppingListActivity.this);
-                ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-                captureBitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
-                String captureUrl = new String(Base64.encodeToString(byteArrayOutputStream.toByteArray(),Base64.DEFAULT));
-                SharedPreferences.Editor editor = mSharedPreferences.edit();
-                editor.putString("captureUrl", captureUrl);
-                editor.commit();
-                if (!TextUtils.isEmpty(captureUrl)){
-                    Toast.makeText(mContext, "capture sucess", Toast.LENGTH_SHORT).show();
-                    ShoppingListActivity.this.startActivity(new Intent(mContext, CaptureActivity.class));
-                }
-                String captureUrlTMp = mSharedPreferences.getString("captureUrl", "");
-                Log.e(TAG, "run: captureUrl===" + captureUrlTMp);
-
-            }
-        });
+//        idBtnCapture.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Bitmap captureBitmap = capture(ShoppingListActivity.this);
+//                ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+//                captureBitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
+//                String captureUrl = new String(Base64.encodeToString(byteArrayOutputStream.toByteArray(),Base64.DEFAULT));
+//                SharedPreferences.Editor editor = mSharedPreferences.edit();
+//                editor.putString("captureUrl", captureUrl);
+//                editor.commit();
+//                if (!TextUtils.isEmpty(captureUrl)){
+//                    Toast.makeText(mContext, "capture sucess", Toast.LENGTH_SHORT).show();
+//                    ShoppingListActivity.this.startActivity(new Intent(mContext, CaptureActivity.class));
+//                }
+//                String captureUrlTMp = mSharedPreferences.getString("captureUrl", "");
+//                Log.e(TAG, "run: captureUrl===" + captureUrlTMp);
+//
+//            }
+//        });
 
 
     }
@@ -152,12 +147,12 @@ public class ShoppingListActivity extends AppCompatActivity {
         idBtnDelete = findViewById(R.id.id_btn_delete);
         idBtnCapture = findViewById(R.id.id_btn_capture);
     }
-
-    public Bitmap capture(Activity activity) {
-        activity.getWindow().getDecorView().setDrawingCacheEnabled(true);
-        Bitmap bmp = activity.getWindow().getDecorView().getDrawingCache();
-        return bmp;
-    }
+//
+//    public Bitmap capture(Activity activity) {
+//        activity.getWindow().getDecorView().setDrawingCacheEnabled(true);
+//        Bitmap bmp = activity.getWindow().getDecorView().getDrawingCache();
+//        return bmp;
+//    }
 
 
     public class FoodMaterialAdapter extends RecyclerView.Adapter<FoodMaterialAdapter.FoodMaterialViewHolder> {

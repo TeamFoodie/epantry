@@ -1,5 +1,7 @@
 package com.example.teamfoodie.models;
 
+import java.util.ArrayList;
+
 public class Recipe {
 
 
@@ -12,6 +14,8 @@ public class Recipe {
     private int author;
     private int numberOfPeople;
     private Dietary dietary;
+    private ArrayList<Ingredient> ingredients;
+    private ArrayList<Procedure> procedures;
 
 
     public Recipe() {
@@ -30,7 +34,7 @@ public class Recipe {
         this.setDietary(foodGroup);
     }
 
-    public Recipe(String recipeName, int photo, String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup) {
+    public Recipe(String recipeName, int photo, String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup, ArrayList<Ingredient> ingredients, ArrayList<Procedure> procedures) {
         this.setRecipeName(recipeName);
         this.setPhoto(photo);
         this.setDescription(description);
@@ -39,7 +43,8 @@ public class Recipe {
         this.setAuthor(author);
         this.setNumberOfPeople(numberOfPeople);
         this.setDietary(foodGroup);
-//        this.URL = URL;
+        this.setIngredients(ingredients);
+        this.setProcedures(procedures);
     }
 
 
@@ -136,6 +141,23 @@ public class Recipe {
         this.dietary = dietary;
     }
 
+
+
+    public ArrayList<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public ArrayList<Procedure> getProcedures() {
+        return procedures;
+    }
+
+    public void setProcedures(ArrayList<Procedure> procedures) {
+        this.procedures = procedures;
+    }
 
     @Override
     public String toString() {

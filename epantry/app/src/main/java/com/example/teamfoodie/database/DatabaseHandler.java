@@ -6,10 +6,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.util.Log;
 
-import com.example.teamfoodie.epantry.R;
+import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.PantryIngredient;
+import com.example.teamfoodie.models.Procedure;
 import com.example.teamfoodie.models.Recipe;
 import com.example.teamfoodie.models.User;
 
@@ -23,17 +23,21 @@ import java.util.List;
 public class DatabaseHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "PANTRY";
+    private static final String DATABASE_NAME = "PAANTRY";
 
     //table names
-    private static final String TABLE_INGREDIENT = "PantryIngredients";
+    private static final String TABLE_PANTRY = "PantryIngredients";
     private static final String TABLE_USERS = "Users";
-    private static final String TABLE_STORED_RECIPE = "StoredRecipe";
+    private static final String TABLE_RECIPE = "Recipe";
+    private static final String TABLE_INGREDIENTS = "RecipeIngredients";
+    private static final String TABLE_PROCEDURES = "RecipeProcedures";
 
 
     private PantryIngredientTable pantryIngredientTable = new PantryIngredientTable();
     private UserTable userTable = new UserTable();
     private RecipeTable recipeTable = new RecipeTable();
+    private RecipeIngredientsTable ingredientsTable = new RecipeIngredientsTable();
+    private RecipeProceduresTable proceduresTable = new RecipeProceduresTable();
 
     private String username = "";
     private String password = "";
@@ -48,26 +52,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(pantryIngredientTable.createIngredientTable(TABLE_INGREDIENT));
+        db.execSQL(pantryIngredientTable.createIngredientTable(TABLE_PANTRY));
         db.execSQL(userTable.createUserTable(TABLE_USERS));
-        db.execSQL(recipeTable.createRecipeTable(TABLE_STORED_RECIPE));
+        db.execSQL(recipeTable.createRecipeTable(TABLE_RECIPE));
+        db.execSQL(ingredientsTable.createRecipeIngredientTable(TABLE_INGREDIENTS));
+        db.execSQL(proceduresTable.createRecipeProcedureTable(TABLE_PROCEDURES));
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_INGREDIENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PANTRY);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STORED_RECIPE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_INGREDIENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROCEDURES);
         onCreate(db);
     }
 
 
     /**
      * Method handles the insertion of objects into database tables.
-     *
+     * <p>
      * objects are passed through as unknown object type and then passed through switch case
      * to determine which class type the object belongs to and then inserted to appropriate table.
+     *
      * @param object
      * @return
      */
@@ -75,20 +84,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         boolean createSuccessful = false;
         ContentValues values = null;
         String tableName = "";
+        boolean newRecipe = false;
+        Recipe recipeObject = new Recipe();
 
         if (object instanceof PantryIngredient) {
             PantryIngredient ingredientObject = (PantryIngredient) object;
-            tableName = TABLE_INGREDIENT;
+            tableName = TABLE_PANTRY;
             values = pantryIngredientTable.getIngredientContents(ingredientObject);
         } else if (object instanceof User) {
             User userObject = (User) object;
             tableName = TABLE_USERS;
             values = userTable.addNewUser(userObject);
-        } else if (object instanceof Recipe){
+        } else if (object instanceof Recipe) {
             System.out.println("Database handler add handle");
-            Recipe recipeObject = (Recipe) object;
-            tableName = TABLE_STORED_RECIPE;
+            recipeObject = (Recipe) object;
+            tableName = TABLE_RECIPE;
             values = recipeTable.addNewRecipe(recipeObject);
+            newRecipe = true;
+
         }
         SQLiteDatabase db = this.getWritableDatabase();
         long i = db.insert(tableName, null, values);
@@ -100,15 +113,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } else {
             createSuccessful = true;
             System.out.println("table populated");
+            if (newRecipe) {
+                addRecipeDetails(i, recipeObject);
+            }
         }
         System.out.println(createSuccessful);
         db.close();
 
+
         return createSuccessful;
     }
 
+    private void addRecipeDetails(double id, Recipe recipe) {
+        List<Ingredient> rList = recipe.getIngredients();
+        List<Procedure> pList = recipe.getProcedures();
+
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues ingredientValues = new ContentValues();
+        for (int i = 0; i < rList.size(); i++) {
+            ingredientValues.put(ingredientsTable.RECIPE_ID, id);
+            ingredientValues.put(ingredientsTable.INGREDIENT_NAME, rList.get(i).getName());
+            ingredientValues.put(ingredientsTable.MEASUREMENT, rList.get(i).getMeasurement());
+            ingredientValues.put(ingredientsTable.UNIT_COUNT, rList.get(i).getUnitCount());
+            DB.insert(TABLE_INGREDIENTS, null, ingredientValues);
+        }
+
+        ContentValues procedureValues = new ContentValues();
+        for (int i = 0; i < pList.size(); i++) {
+            procedureValues.put(proceduresTable.RECIPE_ID, id);
+            procedureValues.put(proceduresTable.PROCEDURE, pList.get(i).getStep());
+            DB.insert(TABLE_PROCEDURES, null, procedureValues);
+        }
+        DB.close(); // Now close the DB Object
+
+}
+
     /**
      * method sets user password and user name accordindly to be used in other queries.
+     *
      * @param user
      * @param pass
      */
@@ -138,7 +180,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         switch (tableName) {
             case "PantryIngredient":
-                query = "Select * FROM " + TABLE_INGREDIENT + " WHERE IngredientID" + " = " + "'" + id + "'";
+                query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientID" + " = " + "'" + id + "'";
                 cursor = getReadableDatabase().rawQuery(query, null);
                 foundIngredient = pantryIngredientTable.findIngredient(cursor);
                 System.out.println("FIND HANDLE FOR PANTRY INGREDIENT!!!!!!");
@@ -154,13 +196,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 object = (Object) foundUser;
                 break;
             case "StoredRecipe":
-                query = "SELECT * FROM " + TABLE_STORED_RECIPE + " WHERE RecipeID = '" + Integer.parseInt(id);
+                query = "SELECT * FROM " + TABLE_RECIPE + " WHERE RecipeID = '" + Integer.parseInt(id) + "'";
                 cursor = db.rawQuery(query, null);
                 storedRecipe = recipeTable.findRecipe(cursor);
                 object = (Object) storedRecipe;
                 break;
             default:
-                query = "Select * FROM " + TABLE_INGREDIENT + " WHERE IngredientID" + " = " + "'" + id + "'";
+                query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientID" + " = " + "'" + id + "'";
                 cursor = getReadableDatabase().rawQuery(query, null);
                 foundIngredient = pantryIngredientTable.findIngredient(cursor);
                 object = (Object) foundIngredient;
@@ -173,6 +215,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * Method executes update query to database - it is specific to update quantity of pantry ingredient
      * as only our pantry ingredient requires update from database.
+     *
      * @param ingredient
      * @return
      */
@@ -182,7 +225,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values = pantryIngredientTable.updateQuantity(ingredient);
         String query = "IngredientID =" + ingredient.getIngredientID();
-        return db.update(TABLE_INGREDIENT, values, query, null) > 0;
+        return db.update(TABLE_PANTRY, values, query, null) > 0;
 
     }
 
@@ -195,7 +238,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     public List<PantryIngredient> loadAllPantryIngredients(int id) {
         List<PantryIngredient> ingredientList = new ArrayList<>();
-        String query = "Select * FROM " + TABLE_INGREDIENT + " WHERE Owner" + " = " + "'" + id + "'";
+        String query = "Select * FROM " + TABLE_PANTRY + " WHERE Owner" + " = " + "'" + id + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = getReadableDatabase().rawQuery(query, null);
 
@@ -205,24 +248,53 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return ingredientList;
     }
 
+    public List<Object> loadAllRecipeDetails(int id, int type) {
+        List<Ingredient> ingredientList = new ArrayList<>();
+        List<Procedure> procedureList = new ArrayList<>();
+        List<Object> objects = new ArrayList<>();
+        String query = "";
+        Cursor cursor = null;
+
+        switch (type) {
+            case 1:
+                query = "Select * FROM " + TABLE_INGREDIENTS + " WHERE RecipeID" + " = " + "'" + id + "'";
+                cursor = getReadableDatabase().rawQuery(query, null);
+                ingredientList = ingredientsTable.loadAllRecipeIngredients(cursor);//.findIngredient(cursor);
+                objects.addAll(ingredientList);
+                break;
+            case 2:
+                query = "Select * FROM " + TABLE_PROCEDURES + " WHERE RecipeID" + " = " + "'" + id + "'";
+                cursor = getReadableDatabase().rawQuery(query, null);
+                procedureList = proceduresTable.loadAllRecipeProcedures(cursor);//.findIngredient(cursor);
+                objects.addAll(procedureList);
+                break;
+            default:
+                objects = null;
+        }
+
+        return objects;
+
+
+    }
+
 
     /**
      * Method handles the pulling of all recipes from the database.
+     *
      * @return
      */
-    public List<Recipe> loadAllRecipes(){
+    public List<Recipe> loadAllRecipes() {
         List<Recipe> recipeList = new ArrayList<>();
-        String query = "SELECT * FROM " + TABLE_STORED_RECIPE;
         SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_RECIPE;
         Cursor cursor = getReadableDatabase().rawQuery(query, null);
-
         recipeList = recipeTable.loadAllRecipes(cursor);
 
         return recipeList;
     }
+
     public boolean checkExistingUser(String username) {
         String query = "SELECT * FROM " + TABLE_USERS + " WHERE username = '" + username + "'";
-
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
@@ -238,65 +310,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public String getUserEmail(String username) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String email = null;
-        String query = "SELECT * FROM users WHERE username = '"+ username+"'";
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        while (cursor.moveToNext()) {
-            email = cursor.getString(3);
-        }
-
-        cursor.close();
-
-
-        Log.d("getAllUserDetails()", cursor.toString()+ " Email: "+email);
-
-        return email;
+    public void populateRecipeDatabase() {
+        PopulateRecipeTable.populateRecipeDatabase(this);
     }
-
-    /**
-     * Method is used to populate database via code just for testing purposes.
-     */
-//    public void populateRecipeDatabase(){
-//
-//        Recipe r1 = new Recipe("Afghans", R.drawable.afghans, "Afghans are a kiwi classic","https://edmondscooking.co.nz/recipes/biscuits/afghans/");
-//        Recipe r2 = new Recipe("Anzac Biscuits", R.drawable.anzac_biscuits, "These are a soft chewy","https://edmondscooking.co.nz/recipes/biscuits/anzac-biscuits/" );
-//        Recipe r3 = new Recipe("Apricot Balls", R.drawable.apricot_balls,"These are quickly","https://edmondscooking.co.nz/recipes/bliss-balls/apricot-bliss-balls/");
-//        Recipe r4 = new Recipe("Apricot Jam", R.drawable.apricot_jam, "Simple Jam","https://edmondscooking.co.nz/recipes/jams-jellies/apricot-jam/");
-//        Recipe r5 = new Recipe("Basic Biscuits", R.drawable.basic_biscuits, "Make one simple dough","https://edmondscooking.co.nz/recipes/biscuits/basic-refrigerator-biscuits/");
-//        Recipe r6= new Recipe("Bliss Balls", R.drawable.bliss_balls, "Bliss balls","https://edmondscooking.co.nz/recipes/bliss-balls/apricot-cashew-bliss-balls/");
-//        Recipe r7= new Recipe("Chelsea Buns", R.drawable.chelsea_buns, "Chelsea Buns","https://edmondscooking.co.nz/recipes/breads-and-buns/chelsea-buns/");
-//        Recipe r8= new Recipe("Chocolate Cake", R.drawable.chocolate_cake, "Chocolate Cake ","https://edmondscooking.co.nz/recipes/cakes/chocolate-cake/");
-//        Recipe r9= new Recipe("Chocolate Gateau", R.drawable.chocolate_gateau, "MMMMMM Gateau","https://edmondscooking.co.nz/recipes/cakes/christmas-chocolate-gateau/");
-//        Recipe r10= new Recipe("Chocolate Meringue", R.drawable.chocolate_meringue_cake, "Meringue what?","https://edmondscooking.co.nz/recipes/cakes/chocolate-meringue-cake/");
-//        Recipe r11=new Recipe("Chorizo and Tomato Salad", R.drawable.chorizo_and_tomato_salad, "Chorizo what a lovely sausage","https://edmondscooking.co.nz/recipes/salad/crisp-chorizo-tomato-salad-with-french-vinaigrette/");
-//        Recipe r12= new Recipe("Crumpets", R.drawable.crumpets, "Ahhh the breakfast classic","https://edmondscooking.co.nz/recipes/breads-and-buns/crumpets/");
-//        Recipe r13= new Recipe("Lamb and Feta Sliders", R.drawable.lamb_and_feta_sliders, "Sliders?! Miniture burgers!!","https://edmondscooking.co.nz/recipes/beef-pork-and-lamb/succulent-lamb-and-feta-sliders-with-minted-aioli/");
-//        Recipe r14= new Recipe("Potato Salad", R.drawable.potato_salad, "Summer BBQ classic","https://edmondscooking.co.nz/recipes/salad/potato-salad/");
-//        Recipe r15= new Recipe("Raspberry Jam", R.drawable.raspberry_jam, "Is the 'p' silent?","https://edmondscooking.co.nz/recipes/jams-jellies/raspberry-jam/");
-//        Recipe r16= new Recipe("Soft White Loaf", R.drawable.soft_white_loaf, "Hot bread and the paper","https://edmondscooking.co.nz/recipes/breads-and-buns/edmonds-soft-white-loaf/");
-//        Recipe r17= new Recipe("Wagyu Burger", R.drawable.wagyu_burgers, "What on earth is a Wagyu?","https://edmondscooking.co.nz/recipes/burgers-and-pizzas/wagyu-beef-burger-with-caramelised-onion-mayo/");
-//
-//
-//        addHandle(r3);
-//        addHandle(r4);
-//        addHandle(r5);
-//        addHandle(r6);
-//        addHandle(r7);
-//        addHandle(r8);
-//        addHandle(r9);
-//        addHandle(r10);
-//        addHandle(r11);
-//        addHandle(r12);
-//        addHandle(r13);
-//        addHandle(r14);
-//        addHandle(r15);
-//        addHandle(r16);
-//        addHandle(r17);
-//
-//    }
 }
