@@ -31,4 +31,13 @@ public class Procedure {
         this.step = step;
     }
 
+    public int getTextSize(){
+        int textSize = step.length();
+
+
+
+        return textSize;
+
+    }
+
 }

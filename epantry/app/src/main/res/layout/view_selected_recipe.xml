@@ -63,18 +63,21 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/text_view"
-                    android:layout_width="310dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Ingredients" />
+                    android:text="Ingredients"
+                    android:textSize="18sp"
+                    android:textStyle="bold|italic" />
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:id="@+id/recipeProcedureList"
@@ -91,13 +94,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Procedures" />
+                    android:text="Procedures"
+                    android:textSize="18sp"
+                    android:textStyle="bold|italic" />
             </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
 
-
+    <Button
+        android:id="@+id/makeRecipeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="152dp"
+        android:layout_marginLeft="152dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/buttonColor"
+        android:text="MAKE RECIPE"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp" />
 
 
 </RelativeLayout>

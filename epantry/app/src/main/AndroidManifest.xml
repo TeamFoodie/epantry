@@ -12,32 +12,28 @@
         android:icon="@mipmap/ic_logo"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity android:name=".epantry.PantryScannerActivity"/>
         <activity android:name=".epantry.AddIngredientActivity" />
         <activity android:name=".epantry.ViewPantryActivity" />
         <activity android:name=".epantry.PantryUpdateActivity" />
-        <activity android:name=".epantry.UserLoginActivity"
-            android:label="@string/app_name">
+        <activity android:name=".epantry.UserLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".epantry.LandingPageActivity" />
         <activity android:name=".epantry.SignupFormActivity" />
         <activity android:name=".epantry.ViewAllRecipesActivity"
-            android:windowSoftInputMode="stateVisible|adjustNothing">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustNothing"/>
         <activity android:name=".epantry.UserRecipeActivity"/>
         <activity android:name=".epantry.SaveActivity" />
         <activity android:name=".epantry.ShoppingListActivity"/>
+        <activity android:name=".epantry.CaptureActivity" />
+        <activity android:name=".epantry.ViewSelectedRecipeActivity"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.teamfoodie.provider"
@@ -47,16 +43,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
-        <activity android:name=".epantry.CaptureActivity" />
-        <activity android:name=".epantry.ViewSelectedRecipeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
     </application>
 
 </manifest>

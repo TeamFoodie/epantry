@@ -39,6 +39,7 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity {
         this.recipeName = (TextView) findViewById(R.id.recipe_name);
         this.recipeCooking = (TextView) findViewById(R.id.recipe_cooking_time);
         this.recipeCalories = (TextView) findViewById(R.id.recipe_calories);
+        this.recipePeople = (TextView) findViewById(R.id.recipe_number_of_people);
         this.ingredientsList = (LinearLayout) findViewById(R.id.recipeIngredientsList);
         this.proceduresList = (LinearLayout) findViewById(R.id.recipeProcedureList);
         this.dbHandler = new DatabaseHandler(this);
@@ -62,42 +63,42 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity {
         compileRecipeDetails();
     }
 
-    public void setInformation(Recipe recipe){
+    public void setInformation(Recipe recipe) {
         this.recipePhoto.setImageResource(recipe.getPhoto());
         this.recipeName.setText("Name: " + recipe.getRecipeName());
-        this.recipeCooking.setText("Cooking Time: " + recipe.getCookingTime());
+        this.recipeCooking.setText("Cooking Time: " + recipe.getCookingTime() + " minutes");
         this.recipeCalories.setText("Calorie Count: " + recipe.getCalorieCount());
+        this.recipePeople.setText("Serves: " + recipe.getNumberOfPeople() + " people");
 
 
     }
 
-    public void compileRecipeDetails(){
-        List<Object> objectList = new ArrayList<>();
+    public void compileRecipeDetails() {
+        List<Object> objectList;
         List<Ingredient> ingredientList = new ArrayList<>();
-        List<String> procedureList = new ArrayList<>();
+        List<Procedure> procedureList = new ArrayList<>();
 
         objectList = dbHandler.loadAllRecipeDetails(currentRECIPE_ID, 1);
-        for(int i = 0; i < objectList.size(); i++){
+        for (int i = 0; i < objectList.size(); i++) {
             Ingredient ingredient = (Ingredient) objectList.get(i);
             ingredientList.add(ingredient);
         }
         objectList = dbHandler.loadAllRecipeDetails(currentRECIPE_ID, 2);
-        for(int i = 0; i < objectList.size(); i++){
+        for (int i = 0; i < objectList.size(); i++) {
             Procedure procedure = (Procedure) objectList.get(i);
-            procedureList.add(procedure.getStep());
+            procedureList.add(procedure);
         }
 
         CustomRecipeAdapter adapter = new CustomRecipeAdapter(this, ingredientList);
-        for(int i = 0; i < adapter.getCount(); i++){
+        for (int i = 0; i < adapter.getCount(); i++) {
             View view = adapter.getView(i, null, ingredientsList);
             ingredientsList.addView(view);
         }
-        ArrayAdapter<String> procedureAdapter = new ArrayAdapter<String>(this, R.layout.procedure_list);
-        for(int i = 0; i < procedureAdapter.getCount(); i++){
+
+        CustomProcedureAdapter procedureAdapter = new CustomProcedureAdapter(this, procedureList);
+        for (int i = 0; i < procedureAdapter.getCount(); i++) {
             View view = procedureAdapter.getView(i, null, proceduresList);
             proceduresList.addView(view);
         }
-
-
     }
 }
