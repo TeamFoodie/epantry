@@ -9,11 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.teamfoodie.R;
-import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.models.Recipe;
 
-import java.util.ArrayList;
 import java.util.List;
 /*
 This class is used to create the outline for the recipe list
@@ -22,25 +19,24 @@ in which to streamline the performance
  */
 public class CustomRecipeListAdapter extends BaseAdapter {
 
-    private List<Recipe> recipeList;
-    private List<Recipe> searchList;
+    private List<Recipe> listData;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public CustomRecipeListAdapter(Context aContext, List<Recipe> recipeList) {
+    public CustomRecipeListAdapter(Context aContext, List<Recipe> listData) {
         this.context = aContext;
-        this.recipeList = recipeList;
+        this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
     }
 
     @Override
     public int getCount() {
-        return recipeList.size();
+        return listData.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return recipeList.get(position);
+        return listData.get(position);
     }
 
     @Override
@@ -61,7 +57,7 @@ public class CustomRecipeListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Recipe Recipe = this.recipeList.get(position);
+        Recipe Recipe = this.listData.get(position);
         holder.RecipeNameView.setText(Recipe.getRecipeName());
         holder.descriptionView.setText(Recipe.getDescription());
 
@@ -85,29 +81,6 @@ public class CustomRecipeListAdapter extends BaseAdapter {
         ImageView recipePicView;
         TextView RecipeNameView;
         TextView descriptionView;
-    }
-
-    public void filter(String charText, DatabaseHandler db) {
-        charText = charText.toLowerCase();
-        searchList = new ArrayList<>();
-        searchList.addAll(recipeList);
-        if (charText.length() == 0) {
-            recipeList.clear();
-            List<Recipe> fullList = db.loadAllRecipes();
-//            for(int i = 0; i < obj.size(); i++){
-//                Tree tree = (Tree) obj.get(i);
-//                fullList.add(tree);
-//            }
-            recipeList.addAll(fullList);
-        } else {
-            recipeList.clear();
-            for (Recipe recipe: searchList) {
-                if (recipe.getRecipeName().toLowerCase().contains(charText)) {
-                    recipeList.add(recipe);
-                }
-            }
-        }
-        notifyDataSetChanged();
     }
 
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ePantry</string>
+    <string name="app_name">epantry</string>
     <string name="start"> Press Start to scan</string>
     <string name="unit_measure">Choose a measurement</string>
     <string name="dialog_restock">Add ingredient to your pantry?</string>

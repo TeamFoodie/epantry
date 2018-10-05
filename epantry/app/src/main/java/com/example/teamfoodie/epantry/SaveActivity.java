@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.SQLiteDatabaseDao;
 import com.example.teamfoodie.models.UserRecipe;
 

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.models.PantryIngredient;
 

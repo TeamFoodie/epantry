@@ -1,5 +1,6 @@
 package com.example.teamfoodie.epantry;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,8 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.teamfoodie.R;
 
 /*
  * The LandingPageActivity class contains the navigation to other activity

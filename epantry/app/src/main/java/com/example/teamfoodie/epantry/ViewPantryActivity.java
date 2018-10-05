@@ -6,14 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.models.PantryIngredient;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class handles all activities from view_pantry xml.
