@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.SQLiteDatabaseDao;
 import com.example.teamfoodie.models.ShoppingList;
 import com.example.teamfoodie.models.RecipeIngredient;

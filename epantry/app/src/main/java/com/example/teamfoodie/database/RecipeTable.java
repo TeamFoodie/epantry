@@ -21,9 +21,8 @@ public class RecipeTable {
     private static final String CALORIE_COUNT = "CalorieCount";
     private static final String COOKING_TIME = "CookingTime";
     private static final String AUTHOR = "Author";
-    private static final String NUMBER_OF_PEOPLE = "Number of People";
+    private static final String NUMBER_OF_PEOPLE = "NumberOfPeople";
     private static final String FOODGROUP = "Dietary";
-//    private static final String RECIPE_URL = "URL";
 
     public String createRecipeTable(String TABLE_NAME) {
         String createTable = "CREATE TABLE "+ TABLE_NAME +

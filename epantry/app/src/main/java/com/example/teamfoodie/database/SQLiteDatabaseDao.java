@@ -1,7 +1,8 @@
 package com.example.teamfoodie.database;
 /*
-* The SQLiteDatabaseDao class save the database of recipe and ingredients
-*/
+ *TheSQLiteDatabaseDao class save the database of recipe and ingredients
+ *DAO pattern offers a logic to structure your persistence mechanism (the glue between your database and the model of your MVC)
+ */
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -42,6 +43,9 @@ public class SQLiteDatabaseDao {
     public static final String KEY_NUMBEROFPEOPLE = "NumberOfPeople";
     public static final String KEY_TAGS = "tags";
 
+    /**
+     * create table for recipe and ingredients
+     */
     private static final String CREATE_CITY_TABLE = "CREATE TABLE IF NOT EXISTS " + DATABASE_MAIN_CONTENT_TABLE + " (id integer primary key autoincrement, "
             + KEY_TITLE + " text not null,  " + KEY_INTRODUCTION + " text not null, " + KEY_INGREDIENTS + " text not null, " + KEY_PROCEDURES
             + " text not null, " + KEY_COOKING_TIME + " text not null, " + KEY_NUTRITIONAL_COUNT + " text not null, " + KEY_NUMBEROFPEOPLE
@@ -51,6 +55,9 @@ public class SQLiteDatabaseDao {
     public static final String KEY_FOOD_MATERIAL_NAME = "material_name";
     public static final String KEY_FOOD_MATERIAL_VALUE = "material_value";
     public static final String KEY_FOOD_MATERIAL_UNIT = "material_unit";
+    /**
+     * create table for shopping list
+     */
 
     private static final String CREATE_MATERIAL_TABLE = "CREATE TABLE IF NOT EXISTS " + DATABASE_FOOD_MATERIAL_TABLE + " (id integer primary key autoincrement, "
             + KEY_FOOD_MATERIAL_NAME + " text not null,  " + KEY_FOOD_MATERIAL_VALUE + " text not null, " + KEY_FOOD_MATERIAL_UNIT + " text not null);";
@@ -102,7 +109,9 @@ public class SQLiteDatabaseDao {
         return this;
     }
 
-    /*open database     */
+    /**
+     * open database
+     */
     private SQLiteDatabaseDao openDb() throws SQLException {
         if (mCtx != null) {
             mDbHelper = new DatabaseHelper(mCtx);
@@ -250,7 +259,6 @@ public class SQLiteDatabaseDao {
         cursor.close();
         return shoppingListList;
     }
-
 
 
 }
