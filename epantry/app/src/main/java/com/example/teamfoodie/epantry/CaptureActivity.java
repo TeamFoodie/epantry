@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.widget.ImageView;
 
+import com.example.teamfoodie.R;
+
 public class CaptureActivity extends AppCompatActivity {
 
     protected ImageView idIvCapture;
