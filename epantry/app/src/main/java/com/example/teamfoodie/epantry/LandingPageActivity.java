@@ -122,8 +122,9 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
         } else if (id == R.id.nav_dietary) {
             Intent intent = new Intent(LandingPageActivity.this, DietaryRequirementsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_settings) {
-
+        } else if (id == R.id.nav_settings) { //at the moment goes to RecyclerView screen
+            Intent intent = new Intent(LandingPageActivity.this, MainActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

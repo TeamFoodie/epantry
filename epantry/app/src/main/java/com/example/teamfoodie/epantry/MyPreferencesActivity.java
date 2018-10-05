@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 import com.example.teamfoodie.database.DatabaseHandler;
@@ -59,11 +60,11 @@ public class MyPreferencesActivity extends AppCompatActivity{
        PantryIngredient ing = new PantryIngredient("1", "Cereal", 3, 3, "g", "Poultry", 0);
         this.dbHandler = new DatabaseHandler(this);
         ing = dbHandler.populatePantry();
-        dbHandler.addHandle(ing);
+        //dbHandler.addHandle(ing);
 
         pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
         for(int i = 0; i < pantryList.size(); ++i) {
-            Log.i("MyPreferences:",""+pantryList.get(0));
+            Log.i("MyPreferences:",""+pantryList.get(i));
         }
         Log.i("MyPreferences","after load ing loop");
 

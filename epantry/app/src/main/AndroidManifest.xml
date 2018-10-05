@@ -41,6 +41,7 @@
             android:theme="@style/AppTheme">
         </activity>
 
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".PantryScannerActivity"></activity>
         <activity android:name=".SignupFormActivity"></activity>
         <activity
