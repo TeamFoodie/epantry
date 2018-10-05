@@ -104,7 +104,7 @@ public class SignupFormActivity extends AppCompatActivity {
 
             if (ETusername.getError() == null && ETemail.getError() == null &&
                     ETpassword.getError() == null && ETconfirmpassword.getError() == null
-                    && db.checkExistingUser(username) == false) {
+                    && !db.checkExistingUser(username) && checkPasswords(password,confirmpassword)) {
                 User user = new User(username, password, email);
 
                 db.addHandle(user);
