@@ -14,7 +14,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
-import com.example.teamfoodie.R;
+import com.example.teamfoodie.epantry.R;
 
 
 public class SelectPicPopupWindow extends PopupWindow {
