@@ -57,4 +57,8 @@ public class Ingredient {
         this.setMeasurement(measurement);
         this.setUnitCount(unitCount);
     }
+
+    public String toString(){
+        return this.getMeasurement() + this.getUnitCount() + " of " + this.getName();
+    }
 }

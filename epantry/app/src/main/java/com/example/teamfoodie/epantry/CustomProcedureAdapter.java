@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.Procedure;
+import com.example.teamfoodie.models.Recipe;
 
 import java.util.List;
 
@@ -20,14 +21,16 @@ in which to streamline the performance
  */
 public class CustomProcedureAdapter extends BaseAdapter {
 
-    private List<Procedure> listData;
+    private List<Object> listData;
     private LayoutInflater layoutInflater;
     private Context context;
+    private int listType;
 
-    public CustomProcedureAdapter(Context aContext, List<Procedure> listData) {
+    public CustomProcedureAdapter(Context aContext, List<Object> listData, int type) {
         this.context = aContext;
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
+        this.listType = type;
     }
 
     @Override
@@ -56,15 +59,29 @@ public class CustomProcedureAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Procedure procedure = this.listData.get(position);
-        int textSize = procedure.getTextSize();
-        holder.procedres.setText(procedure.getStep());
+        if(listType == 1){
+            Object obj = this.listData.get(position);
+            Ingredient ingredient = (Ingredient) obj;
+            holder.procedres.setText(ingredient.toString());
+
+        }
+        else if(listType == 2){
+            Object obj = this.listData.get(position);
+            Procedure procedure = (Procedure) obj;
+            holder.procedres.setText(procedure.getStep());
+        }
+
 
         return convertView;
     }
 
+    public void setListType(int i,List<Object> listData){
+        this.listData = listData;
+        this.listType = i;
+    }
     static class ViewHolder {
         TextView procedres;
     }
+
 
 }
