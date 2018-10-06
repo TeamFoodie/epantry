@@ -1,6 +1,6 @@
 package com.example.teamfoodie.database;
 
-//import com.amitshekhar.utils.DatabaseHelper;
+
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.Procedure;

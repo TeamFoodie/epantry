@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
 
-
+import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.models.PantryIngredient;
 

@@ -25,6 +25,7 @@ import com.example.teamfoodie.models.PantryIngredient;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.teamfoodie.R;
 public class MyPreferencesActivity extends AppCompatActivity{
 
     int currentUSER_ID;

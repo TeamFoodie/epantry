@@ -13,6 +13,8 @@ import android.widget.Toast;
 import android.widget.ListView;
 import android.view.View;
 
+import com.example.teamfoodie.R;
+
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> selectedItems;
     protected void onCreate(Bundle savedInstanceState) {

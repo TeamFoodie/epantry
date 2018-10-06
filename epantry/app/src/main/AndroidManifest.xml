@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.teamfoodie.epantry">
+    package="com.example.teamfoodie">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -10,65 +10,36 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".LandingPageActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity android:name=".AddIngredientActivity"></activity>
-        <activity android:name=".ViewPantryActivity"></activity>
-        <activity android:name=".PantryUpdateActivity"></activity>
 
         <activity
-            android:name=".UserLoginActivity"
+            android:name=".epantry.UserLoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyPreferencesActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity android:name=".DietaryRequirementsActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".PantryScannerActivity"></activity>
-        <activity android:name=".SignupFormActivity"></activity>
-        <activity
-            android:name=".ViewAllRecipesActivity"
-            android:windowSoftInputMode="stateVisible|adjustNothing">
-
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-
-        <activity android:name=".UserRecipeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".SaveActivity" />
-        <activity android:name=".ShoppingListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".epantry.LandingPageActivity"/>
+        <activity android:name=".epantry.AddIngredientActivity"/>
+        <activity android:name=".epantry.ViewPantryActivity"/>
+        <activity android:name=".epantry.PantryUpdateActivity"/>
+        <activity android:name=".epantry.MyPreferencesActivity"/>
+        <activity android:name=".epantry.DietaryRequirementsActivity"/>
+        <activity android:name=".epantry.MainActivity"/>
+        <activity android:name=".epantry.PantryScannerActivity"/>
+        <activity android:name=".epantry.SignupFormActivity"/>
+        <activity android:name=".epantry.ViewAllRecipesActivity"
+            android:windowSoftInputMode="stateVisible|adjustNothing"/>
+        <activity android:name=".epantry.UserRecipeActivity"/>
+        <activity android:name=".epantry.ViewSelectedRecipeActivity"/>
+        <activity android:name=".epantry.SaveActivity" />
+        <activity android:name=".epantry.ShoppingListActivity"/>
+        <activity android:name=".epantry.CaptureActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -80,7 +51,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".CaptureActivity"></activity>
+
 
 
     </application>
