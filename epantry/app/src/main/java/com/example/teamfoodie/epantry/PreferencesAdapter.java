@@ -1,10 +1,7 @@
 package com.example.teamfoodie.epantry;
 
-/**
- * Adapter is used to handle the display of Pantry Ingredients through list view in ViewPantryActivity.
- */
-
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +14,14 @@ import com.example.teamfoodie.models.PantryIngredient;
 
 import java.util.List;
 
-public class CustomIngredientAdapter extends BaseAdapter{
+public class PreferencesAdapter extends BaseAdapter {
 
-
-    private List<PantryIngredient> ingredientList;
+    private List<String> ingredientList;
     private LayoutInflater layoutInflater;
     private Context context;
     private DatabaseHandler databaseHelper;
 
-    public CustomIngredientAdapter(Context cont, List<PantryIngredient> list, DatabaseHandler db){
+    public PreferencesAdapter(Context cont, List<String> list, DatabaseHandler db){
         this.context = cont;
         this.ingredientList = list;
         this.layoutInflater = LayoutInflater.from(context);
@@ -38,7 +34,7 @@ public class CustomIngredientAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int position) {
+    public String getItem(int position) {
         return ingredientList.get(position);
     }
 
@@ -60,28 +56,22 @@ public class CustomIngredientAdapter extends BaseAdapter{
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder viewHolder;
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.view_pantry_contents, null);
+            view = layoutInflater.inflate(R.layout.view_preferences_contents, null);
             viewHolder = new ViewHolder();
             viewHolder.itemName = (TextView) view.findViewById(R.id.listIngredientName);
-            viewHolder.itemTotal = (TextView) view.findViewById(R.id.listIngredientCurrent);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        PantryIngredient ingredientItem = this.ingredientList.get(position);
-        viewHolder.itemName.setText(ingredientItem.getIngredientName());
-        viewHolder.itemTotal.setText(String.valueOf(ingredientItem.getCurrentQuantity()) + ingredientItem.getUnitMeasure());
-
+        String ingredientItem = this.ingredientList.get(position);
+        viewHolder.itemName.setText(ingredientItem.toString());
 
         return view;
     }
 
     static class ViewHolder {
         TextView itemName;
-        TextView itemTotal;
     }
 
-
 }
-

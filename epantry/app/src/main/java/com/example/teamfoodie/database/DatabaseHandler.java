@@ -309,6 +309,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * This method is used in the Navigation Drawer to display the
+     * User's email details.
+     *
+     * @param username          String
+     * @return User's email     String
+     */
+    public String getUserEmail(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String email = null;
+        String query = "SELECT * FROM users WHERE username = '"+ username+"'";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            email = cursor.getString(3);
+        }
+
+        cursor.close();
+
+        return email;
+    }
+
+
     public PantryIngredient populatePantry() {
 //        PantryIngredient ing = new PantryIngredient();
 //        ing.setIngredientName("Cereal");
@@ -318,7 +343,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        ing.setFoodGroup("Breakfast");
 //        ing.setOwner(1);
 
-        PantryIngredient ing = new PantryIngredient("1", "Cereal", 3, 3, "g", "Poultry", 0);
+        PantryIngredient ing = new PantryIngredient("1", "Cereal", 3, 3, "g", "Poultry", 0, false);
 
         return ing;
     }

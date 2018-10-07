@@ -116,9 +116,9 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-        // Handle the camera action
+            // Handle the camera action
         } else if (id == R.id.nav_preferences) {
-            Intent intent = new Intent(LandingPageActivity.this, MyPreferencesActivity.class);
+            Intent intent = new Intent(LandingPageActivity.this, MyPreferences.class);
             startActivity(intent);
         } else if (id == R.id.nav_dietary) {
             Intent intent = new Intent(LandingPageActivity.this, DietaryRequirementsActivity.class);
@@ -133,7 +133,7 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
         return true;
     }
 
-//    @Override
+    //    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.myPantry) {
             Intent intent = new Intent(LandingPageActivity.this, ViewPantryActivity.class);

@@ -57,8 +57,8 @@ public class UserLoginActivity extends AppCompatActivity {
             if(currentUser != null) {
                 Intent i = new Intent(UserLoginActivity.this, LandingPageActivity.class);
                 i.putExtra("USER_ID", currentUser.getUserID());
-//                i.putExtra("Username", strUser);
-//                i.putExtra("Email", dbHandler.getUserEmail(strUser)); //pass values to other activity
+                i.putExtra("Username", strUser);
+                i.putExtra("Email", dbHandler.getUserEmail(strUser)); //pass values to other activity
                 System.out.println("USER ID FROM LOGIN IS " + currentUser.getUserID());
                 startActivity(i);
             } else {

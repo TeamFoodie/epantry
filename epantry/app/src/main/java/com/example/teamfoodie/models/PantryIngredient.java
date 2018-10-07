@@ -13,6 +13,7 @@ public class PantryIngredient {
     private String unitMeasure;
     private FoodGroup foodGroup;
     private int owner;
+    private boolean priority;
 
     /**
      * Default Pantry ingredient - allows object to be instantiated without any parameters
@@ -31,7 +32,7 @@ public class PantryIngredient {
      * @param unitMeasure
      * @param owner
      */
-    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, String foodGroup, int owner){
+    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, String foodGroup, int owner, boolean priority){
         this.setIngredientID(id);
         this.setIngredientName(name);
         this.setTotalQuantity(total);
@@ -39,6 +40,7 @@ public class PantryIngredient {
         this.setUnitMeasure(unitMeasure);
         this.setFoodGroup(foodGroup);
         this.setOwner(owner);
+        this.setPriority(priority);
     }
 
 
@@ -65,6 +67,10 @@ public class PantryIngredient {
 
     public void setOwner(int owner){
         this.owner = owner;
+    }
+
+    public void setPriority(boolean priority){
+        this.priority = priority;
     }
 
     public String getIngredientID(){
@@ -123,6 +129,10 @@ public class PantryIngredient {
 
     public int getOwner(){
         return this.owner;
+    }
+
+    public boolean getPriority(){
+        return this.priority;
     }
 
     public String getIngredientInformation(){
