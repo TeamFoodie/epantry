@@ -2,10 +2,9 @@
 //
 // TODO:
 //2) checkboxes:
+//      - calculateThreshold() - this will be called from Se's "Make" button after it decreases
 //      * if ticked:
-//              - calculateThreshold()
 //              - set each ingredient's threshold to "threshold"
-//              - boolean priority = true
 //      * if priority == true
 //              - ... send alert to phone every "alertDays"... **** get rid of this???
 //                                                               just do send alert immediately
@@ -13,7 +12,14 @@
 
 package com.example.teamfoodie.epantry;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -36,8 +42,9 @@ public class MyPreferences extends AppCompatActivity {
 
     int currentUSER_ID;
     List<PantryIngredient> pantryList = new ArrayList<>();
+    ArrayList<String> selectedItems = new ArrayList<>();
+    ArrayList<String> lowStock = new ArrayList<>();
     DatabaseHandler dbHandler = new DatabaseHandler(this);
-    ArrayList<String> selectedItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +69,6 @@ public class MyPreferences extends AppCompatActivity {
             currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
             System.out.println("savedInstance was NULL");
         }
-
-        selectedItems = new ArrayList<String>();
     }
 
     @Override
@@ -136,9 +141,60 @@ public class MyPreferences extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
 
+        //go through pantryList
         for (PantryIngredient ing : pantryList) {
-            ing.setPriority(true);
+            for(int i = 0; i < pantryList.size(); ++i) {
+                if (ing.getIngredientName().contains(selectedItems.get(i))) { //if selectedItem (String) is in pantry
+                    ing.setPriority(true);                                    //set priority to true
+                }
+            }
         }
+    }
+
+    public void calculateThreshold() {
+        for (PantryIngredient ing : pantryList) {
+    //        if(ing.getThreshold <= threshold)
+    //        lowStock.add("- "+ing"\n");
+    //        sendNotification();
+        }
+    }
+
+    public void sendNotification(View view) {
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_HIGH);
+
+            // Configure the notification channel.
+            notificationChannel.setDescription("Channel description");
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            notificationChannel.enableVibration(true);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+
+        notificationBuilder.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_logo)
+                .setTicker("e-Pantry Ingredients Low Stock")
+                .setContentTitle("Low-Stock Ingredients:")
+                .setContentText(""+pantryList)
+                .setStyle(new NotificationCompat.BigTextStyle()
+//                        .bigText(lowStock.toString()));
+                        .bigText("HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE " +
+                                 "HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE " +
+                                 "HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE " +
+                                 "HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE"));
+                //.setContentInfo("Info");
+
+        notificationManager.notify(/*notification id*/1, notificationBuilder.build());
     }
 
     public void showSelectedItems(View view) {
