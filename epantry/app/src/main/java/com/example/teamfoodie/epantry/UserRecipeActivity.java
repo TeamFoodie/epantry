@@ -75,7 +75,7 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         mActivity = this;
         mContext = this;
-        super.setContentView(R.layout.activity_make_food);
+        super.setContentView(R.layout.upload_recipe);
         initView();
         mRecipeIngredientList = new ArrayList<>();
         mProcudureList = new ArrayList<>();
