@@ -121,7 +121,7 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
             Intent intent = new Intent(LandingPageActivity.this, MyPreferences.class);
             startActivity(intent);
         } else if (id == R.id.nav_dietary) {
-            Intent intent = new Intent(LandingPageActivity.this, DietaryRequirementsActivity.class);
+            Intent intent = new Intent(LandingPageActivity.this, DietaryRequirements.class);
             startActivity(intent);
         } else if (id == R.id.nav_settings) { //at the moment goes to RecyclerView screen
             Intent intent = new Intent(LandingPageActivity.this, MainActivity.class);

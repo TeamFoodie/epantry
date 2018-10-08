@@ -1,181 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".epantry.DietaryRequirements">
+
+    <CheckBox
+        android:id="@+id/CBegg"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Egg"
+        app:layout_constraintStart_toEndOf="@+id/CBshelfish"
+        app:layout_constraintTop_toBottomOf="@+id/CBseafood" />
+
+    <CheckBox
+        android:id="@+id/CBkosher"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Kosher"
+        app:layout_constraintStart_toEndOf="@+id/CBhalal"
+        app:layout_constraintTop_toBottomOf="@+id/CBgluten_free" />
 
     <include
         layout="@layout/toolbar"
         android:id="@+id/toolbar"/>
 
-    <CheckBox
-        android:id="@+id/vegeCB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="242dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginRight="242dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="21dp"
-        android:text="Vegetarian"
-        app:layout_constraintBottom_toTopOf="@+id/veganCB"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <CheckBox
-        android:id="@+id/veganCB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="270dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginRight="270dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="10dp"
-        android:text="Vegan"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vegeCB" />
-
-    <CheckBox
-        android:id="@+id/lactoseIntCB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="195dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginRight="195dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="7dp"
-        android:text="Lactose Intolerant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/veganCB" />
-
-    <CheckBox
-        android:id="@+id/gluent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="238dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginRight="238dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="7dp"
-        android:text="Gluten-free"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lactoseIntCB" />
-
-    <CheckBox
-        android:id="@+id/otherCB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="274dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginRight="274dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="10dp"
-        android:text="Other"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gluent" />
 
     <TextView
-        android:id="@+id/allergiesTV"
+        android:id="@+id/TVdietry_requirements"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="165dp"
-        android:layout_marginLeft="165dp"
-        android:layout_marginRight="165dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="114dp"
-        android:text="@string/allergies"
+        android:layout_marginStart="122dp"
+        android:layout_marginLeft="122dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginRight="122dp"
+        android:inputType="textMultiLine"
+        android:text="dietary requirements"
+        android:textAllCaps="true"
+        android:textColor="#4960b9"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lactoseIntCB" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
-        android:id="@+id/checkBox9"
+        android:id="@+id/CBvegetarian"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="4dp"
+        android:text="Vegetarian"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TVdietry_requirements" />
+
+    <CheckBox
+        android:id="@+id/CBvegan"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="4dp"
+        android:text="Vegan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CBvegetarian" />
+
+    <CheckBox
+        android:id="@+id/CBdairy_free"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="4dp"
+        android:text="Dairy Free"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CBhigh_fiber" />
+
+    <CheckBox
+        android:id="@+id/CBgluten_free"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Gluten Free"
+        app:layout_constraintStart_toEndOf="@+id/CBdairy_free"
+        app:layout_constraintTop_toBottomOf="@+id/CBlow_carb" />
+
+    <CheckBox
+        android:id="@+id/CBhalal"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="4dp"
+        android:text="Halal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CBdairy_free" />
+
+    <CheckBox
+        android:id="@+id/CBlow_fat"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Low Fat"
+        app:layout_constraintStart_toEndOf="@+id/CBvegetarian"
+        app:layout_constraintTop_toBottomOf="@+id/TVdietry_requirements" />
+
+    <CheckBox
+        android:id="@+id/CBlow_salt"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Low Salt"
+        app:layout_constraintStart_toEndOf="@+id/CBvegan"
+        app:layout_constraintTop_toBottomOf="@+id/CBlow_fat" />
+
+    <CheckBox
+        android:id="@+id/CBhigh_fiber"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="4dp"
+        android:text="High Fiber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CBvegan" />
+
+    <CheckBox
+        android:id="@+id/CBlow_carb"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Low Carb"
+        app:layout_constraintStart_toEndOf="@+id/CBhigh_fiber"
+        app:layout_constraintTop_toBottomOf="@+id/CBlow_salt" />
+
+    <TextView
+        android:id="@+id/TVallergies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="258dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginRight="258dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="352dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:inputType="textMultiLine"
+        android:text="allergies"
+        android:textAllCaps="true"
+        android:textColor="#4960b9"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/CBpeanuts"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="4dp"
         android:text="Peanuts"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allergiesTV" />
+        app:layout_constraintTop_toBottomOf="@+id/TVallergies" />
 
     <CheckBox
-        android:id="@+id/seafoodCB"
-        android:layout_width="wrap_content"
+        android:id="@+id/CBseafood"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="256dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginRight="256dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
         android:text="Seafood"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox9" />
+        app:layout_constraintStart_toEndOf="@+id/CBpeanuts"
+        app:layout_constraintTop_toBottomOf="@+id/TVallergies" />
 
     <CheckBox
-        android:id="@+id/otherAllergyCB"
-        android:layout_width="wrap_content"
+        android:id="@+id/CBshelfish"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="274dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginRight="274dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="8dp"
-        android:text="Other"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="4dp"
+        android:text="Shellfish"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seafoodCB" />
+        app:layout_constraintTop_toBottomOf="@+id/CBpeanuts" />
 
-    <EditText
-        android:id="@+id/otherInput"
+
+    <Button
+        android:id="@+id/BTNupdate_preference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
-        android:layout_marginEnd="92dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginRight="92dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="83dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="14sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/otherAllergyCB"
-        app:layout_constraintTop_toBottomOf="@+id/allergiesTV"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="21dp"
-        android:layout_marginEnd="129dp"
-        android:layout_marginLeft="129dp"
-        android:layout_marginRight="129dp"
-        android:layout_marginStart="129dp"
-        android:layout_marginTop="24dp"
-        android:text="Check all that apply:"
-        app:layout_constraintBottom_toTopOf="@+id/vegeCB"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.49"
-        app:layout_constraintVertical_chainStyle="packed" />
-
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
