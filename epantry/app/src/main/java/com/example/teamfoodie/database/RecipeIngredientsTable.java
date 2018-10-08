@@ -26,20 +26,6 @@ public class RecipeIngredientsTable {
         return createTable;
     }
 
-//    public ContentValues addNewRecipe(Recipe recipeObject) {
-//        ContentValues values = new ContentValues();
-//        values.put(RECIPE_NAME, recipeObject.getRecipeName());
-//        values.put(RECIPE_DESCRIPTION, recipeObject.getDescription());
-//        values.put(RECIPE_PHOTO, recipeObject.getPhoto());
-//        values.put(CALORIE_COUNT, recipeObject.getCalorieCount());
-//        values.put(COOKING_TIME, recipeObject.getCookingTime());
-//        values.put(AUTHOR, recipeObject.getAuthor());
-//        values.put(NUMBER_OF_PEOPLE, recipeObject.getNumberOfPeople());
-//        values.put(FOODGROUP, recipeObject.getDietary());
-////        values.put(RECIPE_URL, recipeObject.getURL());
-//        return values;
-//    }
-
     public ContentValues getIngredientContents(Ingredient ingredient) {
         ContentValues values = new ContentValues();
         values.put(RECIPE_ID, ingredient.getRecipeID());
@@ -65,5 +51,17 @@ public class RecipeIngredientsTable {
         return ingredientList;
     }
 
+    public static List<Object> calculateNewMeasurements(List<Object> currentList, int currentServes, int newServes){
+        List<Object> newList = new ArrayList<>();
+
+        if(currentServes > 1){
+            
+        }
+
+
+
+
+        return newList;
+    }
 
 }
