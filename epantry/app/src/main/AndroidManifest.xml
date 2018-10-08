@@ -28,7 +28,7 @@
         <activity android:name=".epantry.AddIngredientActivity"/>
         <activity android:name=".epantry.ViewPantryActivity"/>
         <activity android:name=".epantry.PantryUpdateActivity"/>
-        <activity android:name=".epantry.DietaryRequirementsActivity"/>
+        <activity android:name=".epantry.DietaryRequirements"/>
         <activity android:name=".epantry.MainActivity"/>
         <activity android:name=".epantry.MyPreferences"/>
         <activity android:name=".epantry.PantryScannerActivity"/>
