@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class DietaryRequirements extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class DietaryRequirementActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     CheckBox cbvegetarian, cbvegan, cbhighfiber, cbdairyfree, cbhalal, cblowfat, cblowsalt, cblowcarb, cbglutenfree, cbkosher;
 
@@ -115,7 +115,7 @@ public class DietaryRequirements extends AppCompatActivity implements View.OnCli
             switch (v.getId()) {
                 case R.id.BTNupdate_preference:
                     Toast.makeText(this, "Profile updated", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(DietaryRequirements.this, LandingPageActivity.class);
+                    Intent intent = new Intent(DietaryRequirementActivity.this, LandingPageActivity.class);
                     startActivity(intent);
                     break;
 

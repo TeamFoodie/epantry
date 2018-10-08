@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".epantry.DietaryRequirements">
+    tools:context=".epantry.DietaryRequirementActivity">
 
     <CheckBox
         android:id="@+id/CBegg"

@@ -53,8 +53,15 @@ public class RecipeIngredientsTable {
 
     public static List<Object> calculateNewMeasurements(List<Object> currentList, int currentServes, int newServes){
         List<Object> newList = new ArrayList<>();
+        List<Ingredient> ingredientList = new ArrayList<>();
 
+        for(int i = 0; i < currentList.size(); i++){
+            Ingredient ingredient = (Ingredient) currentList.get(i);
+            double curentMeasurement = ingredient.getMeasurement();
+//            double newMeasurement =
+        }
         if(currentServes > 1){
+//            for()
             
         }
 

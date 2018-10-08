@@ -9,6 +9,7 @@ public enum Dietary {
         this.stringValue = s;
     }
 
+
     public String toString(){
         return stringValue;
     }

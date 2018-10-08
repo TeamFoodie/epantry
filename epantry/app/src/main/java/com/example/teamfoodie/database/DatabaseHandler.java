@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.example.teamfoodie.models.Dietary;
+import com.example.teamfoodie.models.DietaryRequirement;
 import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.PantryIngredient;
 import com.example.teamfoodie.models.Procedure;
@@ -31,6 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_RECIPE = "Recipe";
     private static final String TABLE_INGREDIENTS = "RecipeIngredients";
     private static final String TABLE_PROCEDURES = "RecipeProcedures";
+    private static final String TABLE_DIETARY_REQUIREMENTS = "DietaryRequirements";
 
 
     private PantryIngredientTable pantryIngredientTable = new PantryIngredientTable();
@@ -38,6 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private RecipeTable recipeTable = new RecipeTable();
     private RecipeIngredientsTable ingredientsTable = new RecipeIngredientsTable();
     private RecipeProceduresTable proceduresTable = new RecipeProceduresTable();
+    private DietaryRequirementsTable dietaryTable = new DietaryRequirementsTable();
 
     private String username = "";
     private String password = "";
@@ -57,6 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(recipeTable.createRecipeTable(TABLE_RECIPE));
         db.execSQL(ingredientsTable.createRecipeIngredientTable(TABLE_INGREDIENTS));
         db.execSQL(proceduresTable.createRecipeProcedureTable(TABLE_PROCEDURES));
+        db.execSQL(dietaryTable.createDietaryTable(TABLE_DIETARY_REQUIREMENTS));
     }
 
 
@@ -67,6 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_INGREDIENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROCEDURES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DIETARY_REQUIREMENTS);
         onCreate(db);
     }
 
@@ -96,12 +102,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             tableName = TABLE_USERS;
             values = userTable.addNewUser(userObject);
         } else if (object instanceof Recipe) {
-            System.out.println("Database handler add handle");
             recipeObject = (Recipe) object;
             tableName = TABLE_RECIPE;
             values = recipeTable.addNewRecipe(recipeObject);
             newRecipe = true;
-
+        } else if(object instanceof DietaryRequirement){
+            DietaryRequirement dietary = (DietaryRequirement) object;
+            tableName = TABLE_DIETARY_REQUIREMENTS;
+            values = dietaryTable.addNewDietaryRequirement(dietary);
         }
         SQLiteDatabase db = this.getWritableDatabase();
         long i = db.insert(tableName, null, values);
@@ -144,6 +152,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             procedureValues.put(proceduresTable.PROCEDURE, pList.get(i).getStep());
             DB.insert(TABLE_PROCEDURES, null, procedureValues);
         }
+
+
         DB.close(); // Now close the DB Object
 
     }
