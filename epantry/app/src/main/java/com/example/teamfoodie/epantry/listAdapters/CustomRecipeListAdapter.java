@@ -1,4 +1,4 @@
-package com.example.teamfoodie.epantry;
+package com.example.teamfoodie.epantry.listAdapters;
 
 import android.content.Context;
 import android.util.Log;

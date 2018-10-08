@@ -1,7 +1,6 @@
 package com.example.teamfoodie.epantry;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +13,10 @@ import android.widget.TextView;
 
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
+import com.example.teamfoodie.database.RecipeIngredientsTable;
+import com.example.teamfoodie.epantry.listAdapters.CustomProcedureAdapter;
+import com.example.teamfoodie.models.Ingredient;
+import com.example.teamfoodie.models.Procedure;
 import com.example.teamfoodie.models.Recipe;
 
 import java.util.List;
@@ -25,10 +28,13 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
     private TextView recipeCooking;
     private TextView recipeCalories;
     private TextView recipePeople;
-    private LinearLayout ingredientsList;
-    private LinearLayout proceduresList;
+    private LinearLayout ingredientsListView;
+    private LinearLayout proceduresListView;
     private DatabaseHandler dbHandler;
     private Button makeRecipe;
+    private Button changeServes;
+    private List<Object> ingredientList;
+    private List<Object> procedureList;
     private int currentRECIPE_ID;
     private int currentNumberOfPeople;
 
@@ -36,18 +42,6 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_selected_recipe);
-
-
-        this.recipePhoto = (ImageView) findViewById(R.id.recipe_photo);
-        this.recipeName = (TextView) findViewById(R.id.recipe_name);
-        this.recipeCooking = (TextView) findViewById(R.id.recipe_cooking_time);
-        this.recipeCalories = (TextView) findViewById(R.id.recipe_calories);
-        this.recipePeople = (TextView) findViewById(R.id.recipe_number_of_people);
-        this.ingredientsList = (LinearLayout) findViewById(R.id.recipeIngredientsList);
-        this.proceduresList = (LinearLayout) findViewById(R.id.recipeProcedureList);
-        this.makeRecipe = (Button) findViewById(R.id.makeRecipeBtn);
-        this.dbHandler = new DatabaseHandler(this);
-
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
@@ -60,12 +54,27 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
             System.out.println("savedInstance was NULL");
         }
 
+        this.recipePhoto = (ImageView) findViewById(R.id.recipe_photo);
+        this.recipeName = (TextView) findViewById(R.id.recipe_name);
+        this.recipeCooking = (TextView) findViewById(R.id.recipe_cooking_time);
+        this.recipeCalories = (TextView) findViewById(R.id.recipe_calories);
+        this.recipePeople = (TextView) findViewById(R.id.recipe_number_of_people);
+        this.ingredientsListView = (LinearLayout) findViewById(R.id.recipeIngredientsList);
+        this.proceduresListView = (LinearLayout) findViewById(R.id.recipeProcedureList);
+        this.makeRecipe = (Button) findViewById(R.id.makeRecipeBtn);
+        this.changeServes = (Button) findViewById(R.id.btnChangeServes);
+        this.dbHandler = new DatabaseHandler(this);
+
+        this.changeServes.setOnClickListener(this);
+
         Object obj = dbHandler.findHandle(String.valueOf(currentRECIPE_ID), "StoredRecipe");
         Recipe recipe = (Recipe) obj;
-
         setInformation(recipe);
-        compileRecipeDetails();
-        this.makeRecipe.setOnClickListener(this);
+
+        this.ingredientList = dbHandler.loadAllRecipeDetails(currentRECIPE_ID, 1);
+        this.procedureList = dbHandler.loadAllRecipeDetails(currentRECIPE_ID, 2);
+        compileRecipeDetails(ingredientList, procedureList);
+
     }
 
     public void setInformation(Recipe recipe) {
@@ -79,41 +88,43 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
 
     }
 
-    public void compileRecipeDetails() {
-        List<Object> objectList;
-
-        objectList = dbHandler.loadAllRecipeDetails(currentRECIPE_ID, 1);
-        CustomProcedureAdapter adapter = new CustomProcedureAdapter(this, objectList, 1);
+    public void compileRecipeDetails(List<Object> ingredients, List<Object> procedures) {
+        CustomProcedureAdapter adapter = new CustomProcedureAdapter(this, ingredients, 1);
         for (int i = 0; i < adapter.getCount(); i++) {
-            View view = adapter.getView(i, null, ingredientsList);
-            ingredientsList.addView(view);
+            View view = adapter.getView(i, null, ingredientsListView);
+            ingredientsListView.addView(view);
         }
 
-        objectList = dbHandler.loadAllRecipeDetails(currentRECIPE_ID, 2);
-        adapter.setListType(2, objectList);
+        adapter.setListType(2, procedures);
         for (int i = 0; i < adapter.getCount(); i++) {
-            View view = adapter.getView(i, null, proceduresList);
-            proceduresList.addView(view);
+            View view = adapter.getView(i, null, proceduresListView);
+            proceduresListView.addView(view);
         }
     }
 
-    //
-    public void setAlertDialog() {
+    public void setAlertDialog(String message) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Set new number of people to cook for");
+        alert.setTitle(message);
         final EditText input = new EditText(this);
         alert.setView(input);
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                //Put actions for OK button here
+            int newNumberOfPeople = 0;
+                try{
+                    newNumberOfPeople = Integer.parseInt(input.getText().toString());
+                }catch (NumberFormatException numberExecption){
+                    setAlertDialog("Please enter in numbers ONLY");
+                }
+
+                if(newNumberOfPeople != 0){
+                    List<Object> UPDATED_INGREDIENT_LIST = RecipeIngredientsTable.calculateNewMeasurements(ingredientList, currentNumberOfPeople, newNumberOfPeople);
+                    compileRecipeDetails(UPDATED_INGREDIENT_LIST, procedureList);
+
+                }
             }
         });
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                //Put actions for CANCEL button here, or leave in blank
-            }
-        });
+        alert.setNegativeButton("Cancel", null);
         alert.show();
     }
 
@@ -122,20 +133,12 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
         final android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(this);
         dialog.setTitle("Number of people to serve");
         dialog.setMessage("Recipe currently cooks for " + currentNumberOfPeople + " people. Do you want to change this?");
-        dialog.setNegativeButton("No, Continue cooking",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(ViewSelectedRecipeActivity.this, ChosenRecipeActivity.class);
-                        intent.putExtra("currentRECIPE_ID", currentRECIPE_ID);
-                        startActivity(intent);
-                    }
-                });
+        dialog.setNegativeButton("No", null);
         dialog.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        setAlertDialog();
+                        setAlertDialog("Set new number of people to cook for");
                     }
                 });
 

@@ -1,4 +1,4 @@
-package com.example.teamfoodie.epantry;
+package com.example.teamfoodie.epantry.listAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.Procedure;
-import com.example.teamfoodie.models.Recipe;
 
 import java.util.List;
 

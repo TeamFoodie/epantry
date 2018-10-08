@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
+import com.example.teamfoodie.epantry.listAdapters.CustomPantryIngredientAdapter;
 import com.example.teamfoodie.models.PantryIngredient;
 
 
@@ -53,7 +54,7 @@ public class ViewPantryActivity extends AppCompatActivity {
 
         pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
         ListView listView = (ListView) findViewById(R.id.viewAllPantry);
-        listView.setAdapter(new CustomIngredientAdapter(this, pantryList, dbHandler));
+        listView.setAdapter(new CustomPantryIngredientAdapter(this, pantryList, dbHandler));
 
         configureAddButton();
 

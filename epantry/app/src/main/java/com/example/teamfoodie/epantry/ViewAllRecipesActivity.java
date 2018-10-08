@@ -1,8 +1,6 @@
 package com.example.teamfoodie.epantry;
 
-import android.arch.persistence.room.Database;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
+import com.example.teamfoodie.epantry.listAdapters.CustomRecipeListAdapter;
 import com.example.teamfoodie.models.Recipe;
 
 import java.util.List;

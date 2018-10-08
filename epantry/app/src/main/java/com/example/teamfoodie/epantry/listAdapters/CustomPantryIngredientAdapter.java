@@ -1,4 +1,4 @@
-package com.example.teamfoodie.epantry;
+package com.example.teamfoodie.epantry.listAdapters;
 
 /**
  * Adapter is used to handle the display of Pantry Ingredients through list view in ViewPantryActivity.
@@ -17,7 +17,7 @@ import com.example.teamfoodie.models.PantryIngredient;
 
 import java.util.List;
 
-public class CustomIngredientAdapter extends BaseAdapter{
+public class CustomPantryIngredientAdapter extends BaseAdapter{
 
 
     private List<PantryIngredient> ingredientList;
@@ -25,7 +25,7 @@ public class CustomIngredientAdapter extends BaseAdapter{
     private Context context;
     private DatabaseHandler databaseHelper;
 
-    public CustomIngredientAdapter(Context cont, List<PantryIngredient> list, DatabaseHandler db){
+    public CustomPantryIngredientAdapter(Context cont, List<PantryIngredient> list, DatabaseHandler db){
         this.context = cont;
         this.ingredientList = list;
         this.layoutInflater = LayoutInflater.from(context);
