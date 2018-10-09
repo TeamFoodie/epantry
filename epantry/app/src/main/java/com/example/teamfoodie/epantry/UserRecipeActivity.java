@@ -227,8 +227,6 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
                         long isSucess = sqLiteDatabaseDao.insertMainContent(userRecipe);
                         if (isSucess!=-1){
                             Log.e(TAG, "run: 1111111111");
-                            addFoodMaterial(sqLiteDatabaseDao);
-
                             mActivity.startActivity(new Intent(mContext, SaveActivity.class));
                             mActivity.finish();
                         }else{
@@ -242,37 +240,6 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
                     }
                 }.start();
                 break;
-        }
-    }
-
-    public void addFoodMaterial(SQLiteDatabaseDao sqLiteDatabaseDao) {
-        List<ShoppingList> shoppingLists = sqLiteDatabaseDao.queryFoodMaterial();
-        if (shoppingLists.size()==0){
-            ShoppingList shoppingList = new ShoppingList();
-            shoppingList.setUnit("g");
-            shoppingList.setMaterialValue("50");
-            shoppingList.setMaterialName("Cheese");
-            sqLiteDatabaseDao.insertFoodMaterial(shoppingList);
-            ShoppingList shoppingList1 = new ShoppingList();
-            shoppingList1.setUnit("ml");
-            shoppingList1.setMaterialValue("200");
-            shoppingList1.setMaterialName("coconut milk");
-            sqLiteDatabaseDao.insertFoodMaterial(shoppingList1);
-            ShoppingList shoppingList2 = new ShoppingList();
-            shoppingList2.setUnit("g");
-            shoppingList2.setMaterialValue("50");
-            shoppingList2.setMaterialName("mayonnaise");
-            sqLiteDatabaseDao.insertFoodMaterial(shoppingList2);
-            ShoppingList shoppingList3 = new ShoppingList();
-            shoppingList3.setUnit("g");
-            shoppingList3.setMaterialValue("250");
-            shoppingList3.setMaterialName("butter");
-            sqLiteDatabaseDao.insertFoodMaterial(shoppingList3);
-            ShoppingList shoppingList4 = new ShoppingList();
-            shoppingList4.setUnit("g");
-            shoppingList4.setMaterialValue("50");
-            shoppingList4.setMaterialName("chicken");
-            sqLiteDatabaseDao.insertFoodMaterial(shoppingList4);
         }
     }
 
