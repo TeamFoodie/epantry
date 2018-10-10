@@ -7,30 +7,21 @@
     android:background="@drawable/background"
     tools:context="com.example.teamfoodie.epantry.ShoppingListActivity">
 
-    <TextView
-        android:id="@+id/id_tv_title_material"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="@string/main_title"
-        android:textSize="22sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
 
     <TextView
-        android:id="@+id/id_tv_desc_material"
+        android:id="@+id/shoppingListTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
         android:padding="5dp"
         android:text="@string/material_title"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/id_tv_title_material" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/id_tv_one_material"
+        android:id="@+id/lowstockText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
@@ -40,24 +31,24 @@
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:text="Low Stock"
-        app:layout_constraintTop_toBottomOf="@id/id_tv_desc_material" />
+        app:layout_constraintTop_toBottomOf="@id/shoppingListTitle" />
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/id_rv_material"
+        android:id="@+id/RecyclerView1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/shape_bg_material"
-        app:layout_constraintBottom_toTopOf="@id/id_tv_two_material"
-        app:layout_constraintLeft_toLeftOf="@id/id_tv_one_material"
-        app:layout_constraintRight_toRightOf="@id/id_tv_one_material"
-        app:layout_constraintTop_toBottomOf="@id/id_tv_one_material"
+        app:layout_constraintBottom_toTopOf="@id/BasicNecessitiesTextView"
+        app:layout_constraintLeft_toLeftOf="@id/lowstockText"
+        app:layout_constraintRight_toRightOf="@id/lowstockText"
+        app:layout_constraintTop_toBottomOf="@id/lowstockText"
         app:layout_constraintVertical_weight="1" />
 
     <TextView
-        android:id="@+id/id_tv_two_material"
+        android:id="@+id/BasicNecessitiesTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
@@ -67,14 +58,14 @@
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:text="Basic Necessities"
-        app:layout_constraintBottom_toTopOf="@id/id_tv_three_material"
-        app:layout_constraintTop_toBottomOf="@id/id_rv_material"
+        app:layout_constraintBottom_toTopOf="@id/MissingIngredientsTextView"
+        app:layout_constraintTop_toBottomOf="@id/RecyclerView1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
 
     <TextView
-        android:id="@+id/id_tv_three_material"
+        android:id="@+id/MissingIngredientsTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -86,8 +77,8 @@
         android:paddingTop="5dp"
         android:text="Missing Ingredients"
         app:layout_constraintBottom_toTopOf="@id/id_btn_delete"
-        app:layout_constraintLeft_toLeftOf="@id/id_tv_one_material"
-        app:layout_constraintRight_toRightOf="@id/id_tv_one_material" />
+        app:layout_constraintLeft_toLeftOf="@id/lowstockText"
+        app:layout_constraintRight_toRightOf="@id/lowstockText" />
 
     <Button
         android:id="@+id/id_btn_capture"
@@ -97,6 +88,7 @@
         android:layout_marginLeft="10dp"
         android:background="#029688"
         android:text="capture"
+        android:visibility="gone"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@id/id_cb_select"
@@ -108,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
-        android:text="Future generations"
+        android:text="Select All"
         app:layout_constraintBottom_toBottomOf="@id/id_btn_delete"
         app:layout_constraintRight_toLeftOf="@id/id_btn_delete"
         app:layout_constraintTop_toTopOf="@id/id_btn_delete" />
