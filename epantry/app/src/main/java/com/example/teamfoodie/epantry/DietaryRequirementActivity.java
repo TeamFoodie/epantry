@@ -1,8 +1,6 @@
 package com.example.teamfoodie.epantry;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,34 +8,35 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.example.teamfoodie.R;
+import com.example.teamfoodie.database.DatabaseHandler;
+import com.example.teamfoodie.models.DietaryRequirement;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class DietaryRequirementActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class DietaryRequirementActivity extends AppCompatActivity implements View.OnClickListener {//}, CompoundButton.OnCheckedChangeListener {
 
-    CheckBox cbvegetarian, cbvegan, cbhighfiber, cbdairyfree, cbhalal, cblowfat, cblowsalt, cblowcarb, cbglutenfree, cbkosher;
+    private CheckBox cbvegetarian;
+    private CheckBox cbvegan;
+    private CheckBox cbhighfiber;
+    private CheckBox cbdairyfree;
+    private CheckBox cbhalal;
+    private CheckBox cblowfat;
+    private CheckBox cblowsalt;
+    private CheckBox cblowcarb;
+    private CheckBox cbglutenfree;
+    private CheckBox cbkosher;
+    private List<CheckBox> checkBoxList;
+    private int USER_ID = 1;
+    private DatabaseHandler dbHandler;
 
-    boolean myBoolVariable = false;
-    private static final String cbvegetariankey = "cbvegetarian_key";
-    private static final String cbvegankey = "cbvegan_key";
-    private static final String cbhighfiberkey = "cbhighfiber_key";
-    private static final String cbdairyfreekey = "cbdairyfree_key";
-    private static final String cbhalalkey = "cbhalal_key";
-    private static final String cblowfatkey = "cblowfat_key";
-    private static final String cblowsaltkey = "cblowsalt_key";
-    private static final String cblowcarbkey = "cblowcarb_key";
-    private static final String cbglutenfreekey = "cbglutenfree_key";
-    private static final String cbkosherkey = "cbkosher_key";
 
     private Button btnupdate;
 
-    SharedPreferences sharedPref = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,96 +47,47 @@ public class DietaryRequirementActivity extends AppCompatActivity implements Vie
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("Dietary Requirements"); // for set actionbar title
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // for add back arrow in action bar
+        getSupportActionBar().setTitle("Dietary Requirements");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         System.out.println("Loaded dietary req class");
 
+        this.dbHandler = new DatabaseHandler(this);
         btnupdate = findViewById(R.id.BTNupdate_preference);
 
         //dietary
-        cbvegetarian = (CheckBox) findViewById((R.id.CBvegetarian));
-        cbvegan = (CheckBox) findViewById((R.id.CBvegan));
-        cbhighfiber = (CheckBox) findViewById((R.id.CBhigh_fiber));
-        cbdairyfree = (CheckBox) findViewById((R.id.CBdairy_free));
-        cbhalal = (CheckBox) findViewById((R.id.CBhalal));
-        cblowfat = (CheckBox) findViewById((R.id.CBlow_fat));
-        cblowsalt = (CheckBox) findViewById((R.id.CBlow_salt));
-        cblowcarb = (CheckBox) findViewById((R.id.CBlow_carb));
-        cbglutenfree = (CheckBox) findViewById((R.id.CBgluten_free));
-        cbkosher = (CheckBox) findViewById((R.id.CBkosher));
+        checkBoxList = new ArrayList<>();
+        checkBoxList.add(cbvegetarian = (CheckBox) findViewById((R.id.CBvegetarian)));
+        checkBoxList.add(cbvegan = (CheckBox) findViewById((R.id.CBvegan)));
+        checkBoxList.add(cbhighfiber = (CheckBox) findViewById((R.id.CBhigh_fiber)));
+        checkBoxList.add(cbdairyfree = (CheckBox) findViewById((R.id.CBdairy_free)));
+        checkBoxList.add(cbhalal = (CheckBox) findViewById((R.id.CBhalal)));
+        checkBoxList.add(cblowfat = (CheckBox) findViewById((R.id.CBlow_fat)));
+        checkBoxList.add(cblowsalt = (CheckBox) findViewById((R.id.CBlow_salt)));
+        checkBoxList.add(cblowcarb = (CheckBox) findViewById((R.id.CBlow_carb)));
+        checkBoxList.add(cbglutenfree = (CheckBox) findViewById((R.id.CBgluten_free)));
+        checkBoxList.add(cbkosher = (CheckBox) findViewById((R.id.CBkosher)));
 
-
-        sharedPref = getSharedPreferences("Dietry Requirements", Context.MODE_PRIVATE);
-
-        Map<String, CheckBox> checkboxMap = new HashMap();
-
-        checkboxMap.put(cbvegetariankey, cbvegetarian);
-        checkboxMap.put(cbvegankey, cbvegan);
-        checkboxMap.put(cbhighfiberkey, cbhighfiber);
-        checkboxMap.put(cbdairyfreekey, cbdairyfree);
-        checkboxMap.put(cbhalalkey, cbhalal);
-        checkboxMap.put(cblowfatkey, cblowfat);
-        checkboxMap.put(cblowsaltkey, cblowsalt);
-        checkboxMap.put(cblowcarbkey, cblowcarb);
-        checkboxMap.put(cbglutenfreekey, cbglutenfree);
-        checkboxMap.put(cbkosherkey, cbkosher);
-
-        loadInitialValues(checkboxMap);
-        setupCheckedChangeListener(checkboxMap);
 
         btnupdate.setOnClickListener(this);
 
     }
 
-    public void loadInitialValues(Map<String, CheckBox> checkBoxMap) {
-        for (Map.Entry<String, CheckBox> checkboxEntry : checkBoxMap.entrySet()) {
-            Boolean checked = sharedPref.getBoolean(checkboxEntry.getKey(), false);
-            checkboxEntry.getValue().setChecked(checked);
-        }
-    }
-
-        public void setupCheckedChangeListener(Map<String,CheckBox> checkBoxMap){
-            for (final Map.Entry<String, CheckBox> checkboxEntry : checkBoxMap.entrySet()) {
-                checkboxEntry.getValue().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        final SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putBoolean(checkboxEntry.getKey(), isChecked);
-                        editor.apply();
-                    }
-                });
-            }
-        }
-
-
-        @Override
-        public void onClick (View v){
-            switch (v.getId()) {
-                case R.id.BTNupdate_preference:
-                    Toast.makeText(this, "Profile updated", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(DietaryRequirementActivity.this, LandingPageActivity.class);
-                    startActivity(intent);
-                    break;
-
-            }
-
-        }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+    public void onClick(View v) {
+        List<DietaryRequirement> requirements = new ArrayList<>();
+        DietaryRequirement diet;
+        for(int i = 0; i < checkBoxList.size(); i++){
+            if(checkBoxList.get(i).isChecked()){
+                diet = new DietaryRequirement(USER_ID, checkBoxList.get(i).getText().toString());
+                dbHandler.addHandle(diet);
+//                requirements.add(new DietaryRequirement(USER_ID, checkBoxList.get(i).getText().toString()));
+            }
+        }
+        Toast.makeText(this, "Profile updated", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(DietaryRequirementActivity.this, LandingPageActivity.class);
+        startActivity(intent);
     }
+
 }
-//    @Override
-//    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//        switch (buttonView.getId()){
-//            case R.id.CBhalal:
-//
-//                break;
-//            case R.id.CBshelfish:
-//
-//                break;
-//
-//        }
-//    }
 

@@ -3,10 +3,10 @@ package com.example.teamfoodie.models;
 public class DietaryRequirement {
 
     private int userID;
-    private Dietary dietary;
+    private String dietary;
 
 
-    public DietaryRequirement(int id, Dietary dietary){
+    public DietaryRequirement(int id, String dietary){
         this.setUserID(id);
         this.setDietary(dietary);
     }
@@ -23,8 +23,8 @@ public class DietaryRequirement {
         return dietary.toString();
     }
 
-    public void setDietary(Dietary dietary) {
-        this.dietary = dietary;
+    public void setDietary(String diet) {
+        this.dietary = diet;
     }
 
 }

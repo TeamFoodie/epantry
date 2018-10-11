@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.teamfoodie.models.Dietary;
 import com.example.teamfoodie.models.DietaryRequirement;
 import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.PantryIngredient;

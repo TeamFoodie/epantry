@@ -13,7 +13,7 @@ public class Recipe {
     private int cookingTime;
     private int author;
     private int numberOfPeople;
-    private Dietary dietary;
+    private String dietary;
     private ArrayList<Ingredient> ingredients;
     private ArrayList<Procedure> procedures;
 
@@ -116,29 +116,29 @@ public class Recipe {
     }
 
     public String getDietary() {
-        return dietary.toString();
+        return dietary;
     }
 
-    public void setDietary(String stringFoodGroup) {
-        switch (stringFoodGroup){
-            case "Vegetarian":
-                this.dietary = Dietary.VEGETARIAN;
-                break;
-            case "Vegan":
-                this.dietary = Dietary.VEGAN;
-                break;
-            case "Gluten Free":
-                this.dietary = Dietary.GLUTEN_FREE;
-                break;
-            case "Dairy Free":
-                this.dietary = Dietary.DAIRY_FREE;
-                break;
-            case "Comfort Food":
-                this.dietary = Dietary.COMFORT;
-                break;
-        }
+    public void setDietary(String diet) {
+//        switch (stringFoodGroup){
+//            case "Vegetarian":
+//                this.dietary = Dietary.VEGETARIAN;
+//                break;
+//            case "Vegan":
+//                this.dietary = Dietary.VEGAN;
+//                break;
+//            case "Gluten Free":
+//                this.dietary = Dietary.GLUTEN_FREE;
+//                break;
+//            case "Dairy Free":
+//                this.dietary = Dietary.DAIRY_FREE;
+//                break;
+//            case "Comfort Food":
+//                this.dietary = Dietary.COMFORT;
+//                break;
+//        }
 
-        this.dietary = dietary;
+        this.dietary = diet;
     }
 
 
