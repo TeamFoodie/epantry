@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.teamfoodie.R;
 
 /*
@@ -31,6 +30,7 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
     private TextView tvEmail;
     private String username;
     private String email;
+    private int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +88,15 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
         email = getIntent().getStringExtra("Email");
         tvEmail.setText(email);
 
+        userID = getIntent().getExtras().getInt("USER_ID");
+        String username = getIntent().getStringExtra("UserName");
+        String email = getIntent().getStringExtra("Email");
+        String password = getIntent().getStringExtra("Password");
+        System.out.println("UserID in landing page is: "+userID);
+        System.out.println("New Username: "+username);
+        System.out.println("New Email: "+email);
+        System.out.println("New Password: "+password);
+
         return true;
     }
 
@@ -116,16 +125,16 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+            Intent intent = new Intent(LandingPageActivity.this, EditUserDetailsActivity.class);
+            intent.putExtra("USER_ID", userID);
+            startActivity(intent);
         } else if (id == R.id.nav_preferences) {
             Intent intent = new Intent(LandingPageActivity.this, MyPreferences.class);
             startActivity(intent);
         } else if (id == R.id.nav_dietary) {
             Intent intent = new Intent(LandingPageActivity.this, DietaryRequirementActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_settings) { //at the moment goes to RecyclerView screen
-            Intent intent = new Intent(LandingPageActivity.this, MainActivity.class);
-            startActivity(intent);
+        } else if (id == R.id.nav_settings) {
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -30,6 +30,7 @@
         <activity android:name=".epantry.PantryUpdateActivity"/>
         <activity android:name=".epantry.DietaryRequirementActivity"/>
         <activity android:name=".epantry.MainActivity"/>
+        <activity android:name=".epantry.EditUserDetailsActivity"/>
         <activity android:name=".epantry.MyPreferences"/>
         <activity android:name=".epantry.PantryScannerActivity"/>
         <activity android:name=".epantry.SignupFormActivity"/>

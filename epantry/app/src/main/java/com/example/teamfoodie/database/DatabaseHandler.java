@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.example.teamfoodie.models.Dietary;
 import com.example.teamfoodie.models.DietaryRequirement;
@@ -25,7 +26,7 @@ import java.util.List;
 public class DatabaseHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "PAAAAAAAANTTRRY";
+    private static final String DATABASE_NAME = "epantryDatabase";
 
     //table names
     private static final String TABLE_PANTRY = "PantryIngredients";
@@ -341,6 +342,54 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
 
         return email;
+    }
+
+    public User getUser(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        User user = new User();
+
+        String query = "SELECT * FROM users WHERE UserID = '"+ id+"'";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            user.setUsername(cursor.getString(1));
+            user.setPassword(cursor.getString(2));
+            user.setEmail(cursor.getString(3));
+        }
+
+        cursor.close();
+
+        return user;
+    }
+
+    public void updateUserDetails(ContentValues values, int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(TABLE_USERS, values, "UserID = "+id, null);
+        //   db.execSQL("UPDATE Users SET UserName = 'HELLO' WHERE UserID = '"+id+"'");
+        db.close();
+    }
+
+    public User updateUser(User user, int userID) {
+        String query = "";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = null;
+        User foundUser;
+
+        query = "SELECT * FROM " + TABLE_USERS + " WHERE UserID = '"+userID+"'";
+
+        System.out.println("user found : user: " + user.getUsername() + " password: " + user.getPassword());
+        cursor = db.rawQuery(query, null);
+        foundUser = userTable.findUser(cursor);
+        // 1. get reference to writable DB
+
+
+        Log.i("In UpdateUser()",user.getUsername()+" "+user.getEmail()+" "+user.getPassword());
+
+        // 4. close
+        db.close();
+
+        return foundUser;
     }
 
 
