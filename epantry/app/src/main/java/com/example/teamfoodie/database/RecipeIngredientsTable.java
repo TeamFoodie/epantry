@@ -82,10 +82,10 @@ public class RecipeIngredientsTable {
             double newMeasurement = ingredientList.get(i).getMeasurement() * newServes;
             System.out.println("after multiplying you get " + newMeasurement);
             ingredientList.get(i).setMeasurement(newMeasurement);
-//            newList.add(ingredientList.get(i));
+            newList.add((Object) ingredientList.get(i));
         }
 
-        newList.addAll(ingredientList);
+//        newList.addAll(ingredientList);
 //        }
 
 

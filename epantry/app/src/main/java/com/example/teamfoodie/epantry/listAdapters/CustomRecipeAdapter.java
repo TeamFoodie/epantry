@@ -18,14 +18,14 @@ This class is used to create the outline for the recipe list
 outlining variable attributes
 in which to streamline the performance
  */
-public class CustomProcedureAdapter extends BaseAdapter {
+public class CustomRecipeAdapter extends BaseAdapter {
 
     private List<Object> listData;
     private LayoutInflater layoutInflater;
     private Context context;
     private int listType;
 
-    public CustomProcedureAdapter(Context aContext, List<Object> listData, int type) {
+    public CustomRecipeAdapter(Context aContext, List<Object> listData, int type) {
         this.context = aContext;
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);

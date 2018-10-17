@@ -18,7 +18,7 @@ import com.example.teamfoodie.models.Recipe;
 import java.util.List;
 /*
 * ViewAllRecipesActivity creates a list of all current recipes in the Database
-* Display Recipe image, name, brief discription 
+* Display Recipe image, name, brief description
 *
  */
 public class ViewAllRecipesActivity extends AppCompatActivity {
@@ -61,8 +61,8 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Object o = listView.getItemAtPosition(position);
-                Recipe recipe = (Recipe) o;
+                Object obj = listView.getItemAtPosition(position);
+                Recipe recipe = (Recipe) obj;
                 Intent intent = new Intent(ViewAllRecipesActivity.this, ViewSelectedRecipeActivity.class);
                 intent.putExtra("RECIPE_ID", recipe.getRecipeID());
                 startActivity(intent);

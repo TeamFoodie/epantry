@@ -14,9 +14,7 @@ import android.widget.TextView;
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.database.RecipeIngredientsTable;
-import com.example.teamfoodie.epantry.listAdapters.CustomProcedureAdapter;
-import com.example.teamfoodie.models.Ingredient;
-import com.example.teamfoodie.models.Procedure;
+import com.example.teamfoodie.epantry.listAdapters.CustomRecipeAdapter;
 import com.example.teamfoodie.models.Recipe;
 
 import java.util.List;
@@ -89,7 +87,7 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
     }
 
     public void compileRecipeDetails(List<Object> ingredients, List<Object> procedures) {
-        CustomProcedureAdapter adapter = new CustomProcedureAdapter(this, ingredients, 1);
+        CustomRecipeAdapter adapter = new CustomRecipeAdapter(this, ingredients, 1);
         for (int i = 0; i < adapter.getCount(); i++) {
             View view = adapter.getView(i, null, ingredientsListView);
             ingredientsListView.addView(view);
@@ -120,7 +118,9 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
 
                 if(newNumberOfPeople != 0){
                     List<Object> UPDATED_INGREDIENT_LIST = RecipeIngredientsTable.calculateNewMeasurements(ingredientList, currentNumberOfPeople, newNumberOfPeople);
+                    ingredientsListView.removeAllViews();
                     compileRecipeDetails(UPDATED_INGREDIENT_LIST, procedureList);
+//                    startActivity(getIntent());
 
                 }
             }
