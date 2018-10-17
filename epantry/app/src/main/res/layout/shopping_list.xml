@@ -7,40 +7,22 @@
     android:background="@drawable/background"
     tools:context="com.example.teamfoodie.epantry.ShoppingListActivity">
 
-    <TextView
-        android:id="@+id/id_tv_title_material"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="@string/main_title"
-        android:textSize="22sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-
-    <TextView
-        android:id="@+id/id_tv_desc_material"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="@string/material_title"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/id_tv_title_material" />
 
     <TextView
         android:id="@+id/id_tv_one_material"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="95dp"
         android:background="@drawable/shape_bg_material"
         android:paddingBottom="5dp"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:text="Low Stock"
-        app:layout_constraintTop_toBottomOf="@id/id_tv_desc_material" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <android.support.v7.widget.RecyclerView
@@ -93,25 +75,27 @@
         android:id="@+id/id_btn_capture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginLeft="10dp"
         android:background="#029688"
         android:text="capture"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/id_cb_select"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/id_cb_select" />
 
 
     <CheckBox
         android:id="@+id/id_cb_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:text="Future generations"
+        android:layout_marginRight="44dp"
+        android:text="Select all"
         app:layout_constraintBottom_toBottomOf="@id/id_btn_delete"
         app:layout_constraintRight_toLeftOf="@id/id_btn_delete"
-        app:layout_constraintTop_toTopOf="@id/id_btn_delete" />
+        app:layout_constraintTop_toTopOf="@id/id_btn_delete"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/id_btn_delete"
