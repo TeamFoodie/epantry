@@ -130,6 +130,7 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
             startActivity(intent);
         } else if (id == R.id.nav_preferences) {
             Intent intent = new Intent(LandingPageActivity.this, MyPreferences.class);
+            intent.putExtra("USER_ID", userID);
             startActivity(intent);
         } else if (id == R.id.nav_dietary) {
             Intent intent = new Intent(LandingPageActivity.this, DietaryRequirementActivity.class);

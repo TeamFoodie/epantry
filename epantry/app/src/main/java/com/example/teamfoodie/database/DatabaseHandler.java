@@ -35,6 +35,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_INGREDIENTS = "RecipeIngredients";
     private static final String TABLE_PROCEDURES = "RecipeProcedures";
     private static final String TABLE_DIETARY_REQUIREMENTS = "DietaryRequirements";
+    private static final String TABLE_PREFERENCES = "Preferences";
 
 
     private PantryIngredientTable pantryIngredientTable = new PantryIngredientTable();
@@ -43,6 +44,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private RecipeIngredientsTable ingredientsTable = new RecipeIngredientsTable();
     private RecipeProceduresTable proceduresTable = new RecipeProceduresTable();
     private DietaryRequirementsTable dietaryTable = new DietaryRequirementsTable();
+    private PreferencesTable preferencesTable = new PreferencesTable();
 
     private String username = "";
     private String password = "";
@@ -64,6 +66,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(ingredientsTable.createRecipeIngredientTable(TABLE_INGREDIENTS));
         db.execSQL(proceduresTable.createRecipeProcedureTable(TABLE_PROCEDURES));
         db.execSQL(dietaryTable.createDietaryTable(TABLE_DIETARY_REQUIREMENTS));
+        db.execSQL(preferencesTable.createPreferencesTable(TABLE_PREFERENCES));
     }
 
 
@@ -112,6 +115,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             DietaryRequirement dietary = (DietaryRequirement) object;
             tableName = TABLE_DIETARY_REQUIREMENTS;
             values = dietaryTable.addNewDietaryRequirement(dietary);
+        } else if(object instanceof ArrayList){
+            ArrayList<Integer> thresholds = new ArrayList<>();
+            thresholds = (ArrayList<Integer>) object;
+            tableName = TABLE_PREFERENCES;
+            values = preferencesTable.getThresholds(thresholds);
+            
         }
         SQLiteDatabase db = this.getWritableDatabase();
         long i = db.insert(tableName, null, values);
@@ -211,7 +220,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 break;
             case "User":
                 query = "SELECT * FROM " + TABLE_USERS + " WHERE UserName = '" + username + "' AND Password = '" + password + "'";
-
                 System.out.println("user found : name: " + username + " password: " + password);
                 cursor = db.rawQuery(query, null);
                 foundUser = userTable.findUser(cursor);
@@ -222,6 +230,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor = db.rawQuery(query, null);
                 storedRecipe = recipeTable.findRecipe(cursor);
                 object = (Object) storedRecipe;
+                break;
+            case "ChangingUser":
+                query = "SELECT * FROM " + TABLE_USERS + " WHERE UserID = '" + Integer.parseInt(id) + "'";// AND Password = '" + password + "'";
+                cursor = db.rawQuery(query, null);
+                foundUser = userTable.findUser(cursor);
+                object = (Object) foundUser;
                 break;
             default:
                 query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientID" + " = " + "'" + id + "'";

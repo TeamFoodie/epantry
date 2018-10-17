@@ -85,7 +85,7 @@ public class AddIngredientActivity extends AppCompatActivity {
                     String messages = "";
 
                     PantryIngredient pantryIngredient = new PantryIngredient(actualIngredientID, name, totals, totals, measure, group, currentUSER_ID, false);
-                    System.out.println("OWNER OF NEW PANTRY INGREDIENT IS " + currentUSER_ID);
+                    System.out.println("SAUCES OF NEW PANTRY INGREDIENT IS " + currentUSER_ID);
                     if (pantryIngredient != null) {
                         messages = "ingredient is empty!";
                     } else {

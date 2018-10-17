@@ -1,13 +1,10 @@
-//NOTE: THIS CLASS IS A THE UPDATED DUPLICATE OF MYPREFERENCES CLASS
-//
 // TODO:
 //2) checkboxes:
 //      - calculateThreshold() - this will be called from Se's "Make" button after it decreases
 //      * if ticked:
-//              - set each ingredient's threshold to "threshold"
-//      * if priority == true
-//              - ... send alert to phone every "alertDays"... **** get rid of this???
-//                                                               just do send alert immediately
+//              - set boolean priority to true
+//              - set each ingredient's threshold to "threshold" to save state??????
+//      - get it to save state - by loading all that have priority == true
 //3) add when back button clicked...
 
 package com.example.teamfoodie.epantry;
@@ -19,6 +16,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +25,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +40,8 @@ import java.util.List;
 public class MyPreferences extends AppCompatActivity {
 
     int currentUSER_ID;
+    int threshold;
+    EditText ETthreshold;
     List<PantryIngredient> pantryList = new ArrayList<>();
     ArrayList<String> selectedItems = new ArrayList<>();
     ArrayList<String> lowStock = new ArrayList<>();
@@ -58,17 +59,27 @@ public class MyPreferences extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // for add back arrow in action bar
         System.out.println("Loaded class");
 
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                System.out.println("Bundle extra was NULL user");
-            } else {
-                currentUSER_ID = extras.getInt("USER_ID");
-            }
-        } else {
-            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
-            System.out.println("savedInstance was NULL");
+        Bundle extras = getIntent().getExtras();
+        currentUSER_ID = extras.getInt("USER_ID");
+//        if (savedInstanceState == null) {
+//
+//            if (extras == null) {
+//                System.out.println("Bundle extra was NULL user");
+//            } else {
+//
+//            }
+//        } else {
+//            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
+//            System.out.println("savedInstance was NULL");
+//        }
+
+        ETthreshold  = (EditText) findViewById(R.id.threshold);
+        String stringThreshold = ETthreshold.getText().toString();
+        if(!(stringThreshold.isEmpty())){
+            threshold = Integer.valueOf(stringThreshold);
         }
+
+        pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
     }
 
     @Override
@@ -80,8 +91,6 @@ public class MyPreferences extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-
-        pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
         for (int i = 0; i < pantryList.size(); ++i) {
             Log.i("MyPreferences:", "" + pantryList.get(i).getIngredientName());
         }
@@ -151,50 +160,51 @@ public class MyPreferences extends AppCompatActivity {
         }
     }
 
-    public void calculateThreshold() {
-        for (PantryIngredient ing : pantryList) {
-    //        if(ing.getThreshold <= threshold)
-    //        lowStock.add("- "+ing"\n");
-    //        sendNotification();
+    public void calculateThreshold(List<PantryIngredient> list) {
+        for (PantryIngredient ing : list) {
+            if(ing.getCurrentQuantity() <= threshold)
+                System.out.println("ING CURRENT QUAN:"+ing.getCurrentQuantity());
+            lowStock.add("- "+ing+"\n");
+            sendNotification();
         }
     }
 
-    public void sendNotification(View view) {
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_HIGH);
-
-            // Configure the notification channel.
-            notificationChannel.setDescription("Channel description");
-            notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.RED);
-            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
-            notificationChannel.enableVibration(true);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-
-        notificationBuilder.setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_logo)
-                .setTicker("e-Pantry Ingredients Low Stock")
-                .setContentTitle("Low-Stock Ingredients:")
-                .setContentText(""+pantryList)
-                .setStyle(new NotificationCompat.BigTextStyle()
-//                        .bigText(lowStock.toString()));
-                        .bigText("HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE " +
-                                 "HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE " +
-                                 "HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE " +
-                                 "HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE"));
-                //.setContentInfo("Info");
-
-        notificationManager.notify(/*notification id*/1, notificationBuilder.build());
+    public void sendNotification() {
+//
+//        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//        String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_HIGH);
+//
+//            // Configure the notification channel.
+//            notificationChannel.setDescription("Channel description");
+//            notificationChannel.enableLights(true);
+//            notificationChannel.setLightColor(Color.RED);
+//            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+//            notificationChannel.enableVibration(true);
+//            notificationManager.createNotificationChannel(notificationChannel);
+//        }
+//
+//
+//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+//
+//        notificationBuilder.setAutoCancel(true)
+//                .setDefaults(Notification.DEFAULT_ALL)
+//                .setWhen(System.currentTimeMillis())
+//                .setSmallIcon(R.mipmap.ic_logo)
+//                .setTicker("e-Pantry Ingredients Low Stock")
+//                .setContentTitle("Low-Stock Ingredients:")
+//                .setContentText(""+pantryList)
+//                .setStyle(new NotificationCompat.BigTextStyle()
+////                        .bigText(lowStock.toString()));
+//                        .bigText("HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE " +
+//                                "HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE " +
+//                                "HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE " +
+//                                "HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE HELLO EVERYONE"));
+//        //.setContentInfo("Info");
+//
+//        notificationManager.notify(/*notification id*/1, notificationBuilder.build());
     }
 
     public void showSelectedItems(View view) {
