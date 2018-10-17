@@ -21,7 +21,7 @@ public class PantryIngredientTable {
     //Returns create string for creating Pantry ingredient table.
     public String createIngredientTable(String TABLE_NAME) {
         String createTable =  "CREATE TABLE " + TABLE_NAME +
-                "(" + INGREDIENT_ID + " NVARCHAR PRIMARY KEY," +
+                "(" + INGREDIENT_ID + " NVARCHAR NOT NULL," +
                 INGREDIENT_NAME + " NVARCHAR," +
                 TOTAL_QUANTITY + " INTEGER," +
                 CURRENT_QUANTITY + " INTEGER," +

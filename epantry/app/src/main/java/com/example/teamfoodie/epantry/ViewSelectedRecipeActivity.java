@@ -95,6 +95,7 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
             ingredientsListView.addView(view);
         }
 
+        System.out.println();
         adapter.setListType(2, procedures);
         for (int i = 0; i < adapter.getCount(); i++) {
             View view = adapter.getView(i, null, proceduresListView);

@@ -26,7 +26,7 @@ import java.util.List;
 public class DatabaseHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "epantryDatabase";
+    private static final String DATABASE_NAME = "epaaantryDatabase";
 
     //table names
     private static final String TABLE_PANTRY = "PantryIngredients";
@@ -46,6 +46,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private String username = "";
     private String password = "";
+    private int currentUSER;
 
 
     //initialize the database
@@ -171,6 +172,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public void setUSER_ID(int user_id){
+        this.currentUSER = user_id;
+
+    }
+
     /**
      * Method handles search queries. ID and table name is passed through parameters and then a switch case.
      * Methods implement relies on the tablename entered from other classes and then ID is used to search actual
@@ -191,10 +197,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         switch (tableName) {
             case "PantryIngredient":
-                query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientID" + " = " + "'" + id + "'";
+                query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientID = " + "'" + id + "' AND Owner = '" + currentUSER + "'";
                 cursor = getReadableDatabase().rawQuery(query, null);
                 foundIngredient = pantryIngredientTable.findIngredient(cursor);
-                System.out.println("FIND HANDLE FOR PANTRY INGREDIENT!!!!!!");
+
+                if(foundIngredient != null){
+                    System.out.println("user in the query is " + currentUSER);
+                    System.out.println("FIND HANDLE FOR PANTRY INGREDIENT!!!!!! owner is " + foundIngredient.getOwner());
+                }
+
                 object = (Object) foundIngredient;
 
                 break;

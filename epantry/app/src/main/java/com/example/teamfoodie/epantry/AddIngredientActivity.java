@@ -48,17 +48,8 @@ public class AddIngredientActivity extends AppCompatActivity {
         database = new DatabaseHandler(this);
         setID(ingID);
 
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                System.out.println("Bundle extra was NULL from AddIngredient Activity");
-            } else {
-                currentUSER_ID = extras.getInt("USER_ID");
-            }
-        } else {
-            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
-            System.out.println("savedInstance was NULL");
-        }
+        Bundle extras = getIntent().getExtras();
+        currentUSER_ID = extras.getInt("USER_ID");
 
 
         saveIngredient();

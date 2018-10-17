@@ -51,21 +51,42 @@ public class RecipeIngredientsTable {
         return ingredientList;
     }
 
-    public static List<Object> calculateNewMeasurements(List<Object> currentList, int currentServes, int newServes){
+    public static List<Object> calculateNewMeasurements(List<Object> currentList, int currentServes, int newServes) {
         List<Object> newList = new ArrayList<>();
         List<Ingredient> ingredientList = new ArrayList<>();
 
-        for(int i = 0; i < currentList.size(); i++){
-            Ingredient ingredient = (Ingredient) currentList.get(i);
-            double curentMeasurement = ingredient.getMeasurement();
-//            double newMeasurement =
-        }
-        if(currentServes > 1){
-//            for()
-            
+
+        //if current Serves is greater than 1 then divide all ingredients to ensure you get just enough to serve one!
+        if (currentServes > 1) {
+
+            System.out.println("this is if exist servies is > 1");
+            for (int i = 0; i < currentList.size(); i++) {
+                Ingredient ingredient = (Ingredient) currentList.get(i);
+                System.out.println("OLD MEASUREMENT IS " + ingredient.getMeasurement());
+
+                double newMeasurement = ingredient.getMeasurement() / currentServes;
+                System.out.println("setting serves is 1 gives " + newMeasurement);
+                ingredient.setMeasurement(newMeasurement);
+                ingredientList.add(ingredient);
+            }
+
+            //ELSE if currentServes is = 1 then not need to divide - convert directly to Ingredient type and add to Ingredient Type arraylist
+        }else{
+            for (int i = 0; i < currentList.size(); i++){
+                ingredientList.add((Ingredient) currentList.get(i));
+            }
         }
 
+        System.out.println("for actual calculation");
+        for (int i = 0; i < ingredientList.size(); i++) {
+            double newMeasurement = ingredientList.get(i).getMeasurement() * newServes;
+            System.out.println("after multiplying you get " + newMeasurement);
+            ingredientList.get(i).setMeasurement(newMeasurement);
+//            newList.add(ingredientList.get(i));
+        }
 
+        newList.addAll(ingredientList);
+//        }
 
 
         return newList;

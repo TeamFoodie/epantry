@@ -43,18 +43,23 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
         scanBtn.setOnClickListener(this);
         enterButton.setOnClickListener(this);
 
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                System.out.println("Bundle extra was NULL user");
-            } else {
-                currentUSER_ID = extras.getInt("USER_ID");
-            }
-        } else {
-            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
-            System.out.println("savedInstance was NULL");
-        }
+//        if (savedInstanceState == null) {
+//            Bundle extras = getIntent().getExtras();
+//            if (extras == null) {
+//                System.out.println("Bundle extra was NULL user");
+//            } else {
+//                currentUSER_ID = extras.getInt("USER_ID");
+//            }
+//        } else {
+//            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
+//            System.out.println("savedInstance was NULL");
+//        }
+
+        Bundle extras = getIntent().getExtras();
+        currentUSER_ID = extras.getInt("USER_ID");
     }
+
+//    Bundle extras = Bui
 
     /**
      * Method identifies which button is pressed and applies appropriate correspondence.
@@ -91,12 +96,14 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
             String message = "";
             boolean itemFound = false;
 
+            database.setUSER_ID(currentUSER_ID);
             Object object = database.findHandle(scanContent, "PantryIngredient");
             ingredient = (PantryIngredient) object;
             if (ingredient != null) {
                 message = "Do you want to add " + ingredient.getTotalQuantity() + ingredient.getUnitMeasure() + " of " + ingredient.getIngredientName() + " to your pantry?";
                 itemFound = true;
                 currentUSER_ID = ingredient.getOwner();
+                System.out.println("CURRENT USER FROM THE MESSAGE IS " + currentUSER_ID);
             } else {
                 message = "Ingredient scanned was not recognized. Do you want to register new ingredient?";
                 itemFound = false;
