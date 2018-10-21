@@ -35,6 +35,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_INGREDIENTS = "RecipeIngredients";
     private static final String TABLE_PROCEDURES = "RecipeProcedures";
     private static final String TABLE_DIETARY_REQUIREMENTS = "DietaryRequirements";
+    private static final String TABLE_TAG = "Tag";
 
 
     private PantryIngredientTable pantryIngredientTable = new PantryIngredientTable();
@@ -42,6 +43,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private RecipeTable recipeTable = new RecipeTable();
     private RecipeIngredientsTable ingredientsTable = new RecipeIngredientsTable();
     private RecipeProceduresTable proceduresTable = new RecipeProceduresTable();
+    private RecipeTagTable tagTable= new RecipeTagTable();
     private DietaryRequirementsTable dietaryTable = new DietaryRequirementsTable();
 
     private String username = "";
@@ -62,6 +64,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(recipeTable.createRecipeTable(TABLE_RECIPE));
         db.execSQL(ingredientsTable.createRecipeIngredientTable(TABLE_INGREDIENTS));
         db.execSQL(proceduresTable.createRecipeProcedureTable(TABLE_PROCEDURES));
+        db.execSQL(tagTable.createRecipeTagTable(TABLE_TAG));
         db.execSQL(dietaryTable.createDietaryTable(TABLE_DIETARY_REQUIREMENTS));
     }
 
@@ -73,6 +76,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_INGREDIENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROCEDURES);
+        db.execSQL("DROP TABLE IF EXISTS " +TABLE_TAG);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DIETARY_REQUIREMENTS);
         onCreate(db);
     }
@@ -106,6 +110,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             recipeObject = (Recipe) object;
             tableName = TABLE_RECIPE;
             values = recipeTable.addNewRecipe(recipeObject);
+            //do I need to create table for ingredients... here???????
             newRecipe = true;
         } else if(object instanceof DietaryRequirement){
             DietaryRequirement dietary = (DietaryRequirement) object;
@@ -134,19 +139,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     private void addRecipeDetails(double id, Recipe recipe) {
-        List<Ingredient> rList = recipe.getIngredients();
+        List<Ingredient> iList = recipe.getIngredients();
         List<Procedure> pList = recipe.getProcedures();
 
+        //add ingredients into INGREDIENTS table
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues ingredientValues = new ContentValues();
-        for (int i = 0; i < rList.size(); i++) {
+        for (int i = 0; i < iList.size(); i++) {
             ingredientValues.put(ingredientsTable.RECIPE_ID, id);
-            ingredientValues.put(ingredientsTable.INGREDIENT_NAME, rList.get(i).getName());
-            ingredientValues.put(ingredientsTable.MEASUREMENT, rList.get(i).getMeasurement());
-            ingredientValues.put(ingredientsTable.UNIT_COUNT, rList.get(i).getUnitCount());
+            ingredientValues.put(ingredientsTable.INGREDIENT_NAME, iList.get(i).getName());
+            ingredientValues.put(ingredientsTable.MEASUREMENT, iList.get(i).getMeasurement());
+            ingredientValues.put(ingredientsTable.UNIT_COUNT, iList.get(i).getUnitCount());
             DB.insert(TABLE_INGREDIENTS, null, ingredientValues);
         }
 
+        //add procedure into PROCEDURE table
         ContentValues procedureValues = new ContentValues();
         for (int i = 0; i < pList.size(); i++) {
             procedureValues.put(proceduresTable.RECIPE_ID, id);
@@ -407,7 +414,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return ing;
     }
 
-    public void populateRecipeDatabase() {
-        PopulateRecipeTable.populateRecipeDatabase(this);
-    }
+//    public void populateRecipeDatabase() {
+//        PopulateRecipeTable.populateRecipeDatabase(this);
+//    }
 }

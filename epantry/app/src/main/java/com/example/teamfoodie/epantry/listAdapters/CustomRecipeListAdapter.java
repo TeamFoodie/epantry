@@ -67,7 +67,7 @@ public class CustomRecipeListAdapter extends BaseAdapter {
 
         //int imageId = this.getMipmapResIdByName(Recipe.getPhoto());
 
-        holder.recipePicView.setImageResource(Recipe.getPhoto());
+        holder.recipePicView.setImageResource(Integer.getInteger(Recipe.getPhoto()));
 
         return convertView;
     }

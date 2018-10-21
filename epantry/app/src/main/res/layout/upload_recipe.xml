@@ -132,8 +132,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:ems="10"
-                android:hint="Cooking Time"
-                android:inputType="textMultiLine"
+                android:hint="Cooking Time in minutes"
+                android:inputType="number"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/Procedures"
                 app:layout_constraintTop_toBottomOf="@+id/Procedures" />

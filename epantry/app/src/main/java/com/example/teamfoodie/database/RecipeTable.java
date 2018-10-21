@@ -49,6 +49,7 @@ public class RecipeTable {
 
     public ContentValues addNewRecipe(Recipe recipeObject) {
         ContentValues values = new ContentValues();
+//        values.put(RECIPE_ID,recipeObject.getRecipeID());
         values.put(RECIPE_NAME, recipeObject.getRecipeName());
         values.put(RECIPE_DESCRIPTION, recipeObject.getDescription());
         values.put(RECIPE_PHOTO, recipeObject.getPhoto());
@@ -75,7 +76,7 @@ public class RecipeTable {
             existingRecipe.setRecipeID(cursor.getInt(0));
             existingRecipe.setRecipeName(cursor.getString(1));
             existingRecipe.setDescription(cursor.getString(2));
-            existingRecipe.setPhoto(cursor.getInt(3));
+            existingRecipe.setPhoto(cursor.getString(3));
             existingRecipe.setCalorieCount(cursor.getInt(4));
             existingRecipe.setCookingTime(cursor.getInt(5));
             existingRecipe.setAuthor(cursor.getInt(6));
@@ -104,7 +105,7 @@ public class RecipeTable {
             recipeObject.setRecipeID(cursor.getInt(0));
             recipeObject.setRecipeName(cursor.getString(1));
             recipeObject.setDescription(cursor.getString(2));
-            recipeObject.setPhoto(cursor.getInt(3));
+            recipeObject.setPhoto(cursor.getString(3));
             recipeObject.setCalorieCount(cursor.getInt(4));
             recipeObject.setCookingTime(cursor.getInt(5));
             recipeObject.setAuthor(cursor.getInt(6));

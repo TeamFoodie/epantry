@@ -78,7 +78,7 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
     }
 
     public void setInformation(Recipe recipe) {
-        this.recipePhoto.setImageResource(recipe.getPhoto());
+        this.recipePhoto.setImageResource(Integer.getInteger(recipe.getPhoto()));
         this.recipeName.setText("Name: " + recipe.getRecipeName());
         this.recipeCooking.setText("Cooking Time: " + recipe.getCookingTime() + " minutes");
         this.recipeCalories.setText("Calorie Count: " + recipe.getCalorieCount());

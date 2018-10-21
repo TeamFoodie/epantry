@@ -21,6 +21,14 @@
         android:layout_weight="1"
         android:ems="10"
         android:hint="quantity"
-        android:inputType="textMultiLine" />
+        android:inputType="number" />
 
+    <EditText
+        android:id="@+id/id_et_unit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="unit"
+        android:inputType="textMultiLine" />
 </LinearLayout>
