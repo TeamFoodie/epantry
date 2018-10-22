@@ -160,7 +160,7 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
                     Ingredient recipeIngredient = mRecipeIngredientList.get(position);
-                    recipeIngredient.setUnitCount(idEtQuantity.getText().toString().trim());
+                    recipeIngredient.setUnitCount(idEtUnit.getText().toString().trim());
                     mRecipeIngredientList.set(position, recipeIngredient);
                     Log.d(TAG, "Ingredient  onFocusChange: dismiss forces recipeIngredient===" + recipeIngredient.toString()
                             +"    set name "+recipeIngredient.getName()+"   set measurement "+recipeIngredient.getMeasurement()
@@ -278,19 +278,19 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
                 Recipe recipe = new Recipe(titleStr, introductionStr, calorieCount, cookingTime, currentUSER_ID, numberOfPeople, tagStr, mRecipeIngredientList, mProcedureList);
 
 
-                Log.e(TAG, "run: ==" + (mBitmap == null));
+//                Log.e(TAG, "run: ==" + (mBitmap == null));
                 if (mBitmap != null) {
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    mBitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
+                    mBitmap.compress(Bitmap.CompressFormat.PNG, 10, byteArrayOutputStream);
                     String photoUrl = new String(Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT));
-                    recipe.setPhoto(photoUrl);
+
                     SharedPreferences.Editor editor = mSharedPreferences.edit();
-                    editor.putString("photoUrl", photoUrl);
-                    System.out.println("photoUrl: " + photoUrl);
+//                    editor.putString("photoUrl", photoUrl);
                     editor.commit();
 
                     String photoUrlTMp = mSharedPreferences.getString("photoUrl", "");
-                    Log.e(TAG, "run: photo===" + photoUrlTMp);
+                    recipe.setPhoto(photoUrlTMp);
+//                    Log.e(TAG, "run: photo===" + photoUrlTMp);
                 }
 //                        userRecipe.setTags(tagStr);
                 boolean recipeCreate = database.addHandle(recipe);

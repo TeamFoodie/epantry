@@ -38,7 +38,7 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
         this.dbHandler = new DatabaseHandler(this);
         this.recipeList = dbHandler.loadAllRecipes();
         this.adapter = new CustomRecipeListAdapter(this, recipeList);
-//        dbHandler.populateRecipeDatabase();
+        dbHandler.populateRecipeDatabase();
 
         this.listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);

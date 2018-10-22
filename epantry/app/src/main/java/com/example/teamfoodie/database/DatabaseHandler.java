@@ -126,7 +126,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             System.out.println("could not populate");
         } else {
             createSuccessful = true;
-            System.out.println("table populated");
+            System.out.println("table populated   "+i);
             if (newRecipe) {
                 addRecipeDetails(i, recipeObject);
             }
@@ -414,7 +414,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return ing;
     }
 
-//    public void populateRecipeDatabase() {
-//        PopulateRecipeTable.populateRecipeDatabase(this);
-//    }
+    public void populateRecipeDatabase() {
+        PopulateRecipeTable.populateRecipeDatabase(this);
+    }
 }

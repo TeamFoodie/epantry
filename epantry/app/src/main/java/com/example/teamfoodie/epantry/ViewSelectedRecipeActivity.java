@@ -1,9 +1,12 @@
 package com.example.teamfoodie.epantry;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -78,7 +81,12 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
     }
 
     public void setInformation(Recipe recipe) {
-        this.recipePhoto.setImageResource(Integer.getInteger(recipe.getPhoto()));
+        if(!(recipe.getPhoto()==null)){
+            byte[] decodedString = Base64.decode(recipe.getPhoto(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            this.recipePhoto.setImageBitmap(decodedByte);
+        }
+//        this.recipePhoto.setImageResource(Integer.getInteger(recipe.getPhoto()));
         this.recipeName.setText("Name: " + recipe.getRecipeName());
         this.recipeCooking.setText("Cooking Time: " + recipe.getCookingTime() + " minutes");
         this.recipeCalories.setText("Calorie Count: " + recipe.getCalorieCount());
