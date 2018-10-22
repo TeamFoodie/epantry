@@ -44,17 +44,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private SharedPreferences mSharedPreferences;
 
-//    public void addFoodMaterial() {
-//
-//        for(PantryIngredient p : lowStock) {
-//
-//            listItems.setUnit(p.getUnitMeasure());
-//            listItems.setMaterialValue(String.valueOf(p.getCurrentQuantity()));
-//            listItems.setMaterialName(p.getIngredientName());
-////            sqLiteDatabaseDao.insertFoodMaterial(listItems);
-//            System.out.println(p.getIngredientName()+"  "+p.getUnitMeasure()+"  "+String.valueOf(p.getCurrentQuantity()));
-//        }
-//    }
 
     public List<PantryIngredient> calculateLowStock(List<PantryIngredient> list) {
 
@@ -100,42 +89,12 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
         final ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(shoppingListList);
-//        shoppingListAdapter.setIOnCheckedChangeListener(new ShoppingListAdapter.IOnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(boolean b, PantryIngredient shoppingList, int position) {
-//                if (b) {
-//                    shoppingListSelectList.add(shoppingList);
-//                } else {
-//                    shoppingListSelectList.remove(shoppingList);
-//                }
-//            }
-//        });
         idRvMaterial.setLayoutManager(new LinearLayoutManager(mContext));
         idRvMaterial.setAdapter(shoppingListAdapter);
-
-//        shoppingListList = SQLiteDatabaseDao.getInstance().init(mContext).queryFoodMaterial();
         System.out.println("before update():"+lowStock.get(0).getIngredientName());
         shoppingListAdapter.update(lowStock);
 
 
-//        idCbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                for (int i = 0; i < shoppingListList.size(); i++) {
-//                    Log.d(TAG, "onCheckedChanged: b==" + b);
-//                    PantryIngredient shoppingList = shoppingListList.get(i);
-//                    shoppingList.setChecked(b);
-//                    shoppingListList.set(i, shoppingList);
-//                    shoppingListAdapter.notifyDataSetChanged();
-//                }
-//                if (!b) {
-//                    if (shoppingListSelectList.size() > 0)
-//                        shoppingListSelectList.clear();
-//                }
-//                Log.d(TAG, "onCheckedChanged: shoppingListList==" + shoppingListList.toString());
-//                Log.d(TAG, "onCheckedChanged: shoppingListSelectList==" + shoppingListSelectList.toString());
-//            }
-//        });
 
         idBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override

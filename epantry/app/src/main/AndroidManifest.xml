@@ -40,7 +40,6 @@
         <activity android:name=".epantry.UserRecipeActivity"/>
         <activity android:name=".epantry.ViewSelectedRecipeActivity"/>
         <activity android:name=".epantry.ShoppingListActivity"/>
-        <activity android:name=".epantry.CaptureActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
