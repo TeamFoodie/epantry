@@ -122,6 +122,9 @@ public class PantryIngredient implements Serializable {
             case "Oils":
                 this.foodGroup = FoodGroup.OILS;
                 break;
+            case "Baking":
+                this.foodGroup = FoodGroup.BAKING;
+                break;
         }
 
     }

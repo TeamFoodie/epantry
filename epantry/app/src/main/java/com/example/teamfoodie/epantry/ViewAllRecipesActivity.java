@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.epantry.listAdapters.CustomRecipeListAdapter;
+import com.example.teamfoodie.models.PantryIngredient;
 import com.example.teamfoodie.models.Recipe;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class ViewAllRecipesActivity extends AppCompatActivity implements View.On
     private ImageView filter;
     private ListView listView;
     private List<Recipe> recipeList;
+    private List<PantryIngredient> pantryList;
     private DatabaseHandler dbHandler;
     private CustomRecipeListAdapter adapter;
     private int USER_ID;
@@ -44,11 +46,12 @@ public class ViewAllRecipesActivity extends AppCompatActivity implements View.On
         this.searchTextBox = (EditText) findViewById(R.id.searchKeyword);
         this.filter = (ImageView) findViewById(R.id.filterRecipes);
         this.dbHandler = new DatabaseHandler(this);
-        this.recipeList = dbHandler.loadAllRecipes();
-        this.adapter = new CustomRecipeListAdapter(this, recipeList);
 
+        this.pantryList = dbHandler.loadAllPantryIngredients(USER_ID);
+        this.recipeList = dbHandler.loadAllRecipes();
         this.listView = (ListView) findViewById(R.id.listView);
 
+        this.adapter = new CustomRecipeListAdapter(this, recipeList);
         listView.setAdapter(adapter);
 //        dbHandler.populateRecipeDatabase();
 
@@ -97,8 +100,9 @@ public class ViewAllRecipesActivity extends AppCompatActivity implements View.On
             isFiltered = false;
             System.out.println("filter set true");
             filter.setImageResource(R.drawable.ic_search_false);
-
-
+            listView.invalidateViews();
+            this.adapter = new CustomRecipeListAdapter(this, recipeList);
+            listView.setAdapter(adapter);
 
 
 
@@ -110,6 +114,13 @@ public class ViewAllRecipesActivity extends AppCompatActivity implements View.On
             isFiltered = true;
             System.out.println("filter set false");
             filter.setImageResource(R.drawable.ic_search_true);
+
+
+            List<Recipe> matchingRecipes = RecipeFiltering.getRecipeList(recipeList, pantryList, dbHandler);
+            listView.invalidateViews();
+            this.adapter = new CustomRecipeListAdapter(this, matchingRecipes);
+            listView.setAdapter(adapter);
+
         }
 
 

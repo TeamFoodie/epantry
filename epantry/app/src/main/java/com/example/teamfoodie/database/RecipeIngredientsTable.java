@@ -43,8 +43,6 @@ public class RecipeIngredientsTable {
         while (!cursor.isAfterLast()) {
             Ingredient ingredient = new Ingredient(cursor.getInt(0), cursor.getString(1), cursor.getDouble(2), cursor.getString(3));
             ingredientList.add(ingredient);
-            System.out.println("passed through load all recipe ingredients");
-            System.out.println(ingredient.toString());
             cursor.moveToNext();
         }
 
