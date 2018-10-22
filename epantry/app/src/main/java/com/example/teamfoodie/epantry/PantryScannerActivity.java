@@ -54,6 +54,7 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
             currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
             System.out.println("savedInstance was NULL");
         }
+        System.out.println("userID"+currentUSER_ID);
     }
 
     /**
@@ -70,6 +71,7 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
         } else if (v.getId() == R.id.lookup_button) {
             Intent intent = new Intent(PantryScannerActivity.this, PantryUpdateActivity.class);
             intent.putExtra("USER_ID", currentUSER_ID);
+            System.out.println("userID2"+currentUSER_ID);
             startActivity(intent);
         }
 
