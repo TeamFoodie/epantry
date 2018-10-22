@@ -1,13 +1,14 @@
 package com.example.teamfoodie.epantry;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.teamfoodie.R;
@@ -16,41 +17,50 @@ import com.example.teamfoodie.epantry.listAdapters.CustomRecipeListAdapter;
 import com.example.teamfoodie.models.Recipe;
 
 import java.util.List;
+
 /*
-* ViewAllRecipesActivity creates a list of all current recipes in the Database
-* Display Recipe image, name, brief description
-*
+ * ViewAllRecipesActivity creates a list of all current recipes in the Database
+ * Display Recipe image, name, brief description
+ *
  */
-public class ViewAllRecipesActivity extends AppCompatActivity {
+public class ViewAllRecipesActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText searchTextBox;
+    private ImageView filter;
     private ListView listView;
     private List<Recipe> recipeList;
     private DatabaseHandler dbHandler;
     private CustomRecipeListAdapter adapter;
     private int USER_ID;
+    private boolean isFiltered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_all_recipes);
-
+        Bundle extras = getIntent().getExtras();
+        USER_ID = extras.getInt("USER_ID");
+        this.isFiltered = false;
         this.searchTextBox = (EditText) findViewById(R.id.searchKeyword);
+        this.filter = (ImageView) findViewById(R.id.filterRecipes);
         this.dbHandler = new DatabaseHandler(this);
         this.recipeList = dbHandler.loadAllRecipes();
         this.adapter = new CustomRecipeListAdapter(this, recipeList);
-        dbHandler.populateRecipeDatabase();
 
-        Bundle extras = getIntent().getExtras();
-        USER_ID = extras.getInt("USER_ID");
-
-        System.out.println("current user is " + USER_ID);
         this.listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(adapter);
 
+        listView.setAdapter(adapter);
+//        dbHandler.populateRecipeDatabase();
+
+
+        /**All three items have different listeners thus implemented anonymously.*/
+
+
+        filter.setOnClickListener(this);
         this.searchTextBox.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -59,7 +69,8 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,5 +90,28 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
 
+        if(isFiltered){
+            isFiltered = false;
+            System.out.println("filter set true");
+            filter.setImageResource(R.drawable.ic_search_false);
+
+
+
+
+
+
+
+
+
+        }else{
+            isFiltered = true;
+            System.out.println("filter set false");
+            filter.setImageResource(R.drawable.ic_search_true);
+        }
+
+
+    }
 }

@@ -47,7 +47,10 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     public List<PantryIngredient> calculateLowStock(List<PantryIngredient> list) {
 
+
         for (PantryIngredient ing : list) {
+            ing.setCurrentQuantity(2);
+
             if(ing.getCurrentQuantity() < ing.getTotalQuantity()) {
                 System.out.println("LOWSTOCK!! ING CURRENT QUAN:" + ing.getCurrentQuantity() + "ING TOTAL QUAN:" + ing.getTotalQuantity());
                 lowStock.add(ing);
@@ -64,7 +67,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         currentUSER_ID = extras.getInt("USER_ID");
         pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
-        System.out.println(pantryList.size());
+        System.out.println("Size of pantry is " + pantryList.size());
 
         for(int i = 0; i < pantryList.size(); ++i) {
             Log.i("Shopping list: ", ""+pantryList.get(i).getIngredientInformation());
@@ -91,7 +94,10 @@ public class ShoppingListActivity extends AppCompatActivity {
         final ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(shoppingListList);
         idRvMaterial.setLayoutManager(new LinearLayoutManager(mContext));
         idRvMaterial.setAdapter(shoppingListAdapter);
-        System.out.println("before update():"+lowStock.get(0).getIngredientName());
+        if(lowStock != null){
+            System.out.println("before update():"+lowStock.get(0).getIngredientName());
+        }
+
         shoppingListAdapter.update(lowStock);
 
 

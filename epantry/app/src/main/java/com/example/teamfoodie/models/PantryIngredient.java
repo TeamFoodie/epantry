@@ -16,7 +16,6 @@ public class PantryIngredient implements Serializable {
     private String unitMeasure;
     private FoodGroup foodGroup;
     private int owner;
-    private boolean priority;
 
     /**
      * Default Pantry ingredient - allows object to be instantiated without any parameters
@@ -35,7 +34,7 @@ public class PantryIngredient implements Serializable {
      * @param unitMeasure
      * @param owner
      */
-    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, String foodGroup, int owner, boolean priority){
+    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, String foodGroup, int owner){
         this.setIngredientID(id);
         this.setIngredientName(name);
         this.setTotalQuantity(total);
@@ -43,7 +42,6 @@ public class PantryIngredient implements Serializable {
         this.setUnitMeasure(unitMeasure);
         this.setFoodGroup(foodGroup);
         this.setOwner(owner);
-        this.setPriority(priority);
     }
 
 
@@ -70,10 +68,6 @@ public class PantryIngredient implements Serializable {
 
     public void setOwner(int owner){
         this.owner = owner;
-    }
-
-    public void setPriority(boolean priority){
-        this.priority = priority;
     }
 
     public String getIngredientID(){
@@ -136,10 +130,6 @@ public class PantryIngredient implements Serializable {
 
     public int getOwner(){
         return this.owner;
-    }
-
-    public boolean getPriority(){
-        return this.priority;
     }
 
     public String getIngredientInformation(){

@@ -83,7 +83,7 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
             String measure = unitMeasure.getSelectedItem().toString();
             String group = foodGroup.getSelectedItem().toString();
 
-            PantryIngredient pantryIngredient = new PantryIngredient(ingID, name, totals, totals, measure, group, currentUSER_ID, false);
+            PantryIngredient pantryIngredient = new PantryIngredient(ingID, name, totals, totals, measure, group, currentUSER_ID);//, false);
             System.out.println("SAUCES OF NEW PANTRY INGREDIENT IS " + currentUSER_ID);
             ingredientCreated = database.addHandle(pantryIngredient);
 

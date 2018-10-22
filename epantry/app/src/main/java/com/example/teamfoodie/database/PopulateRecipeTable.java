@@ -3,6 +3,7 @@ package com.example.teamfoodie.database;
 
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.models.Ingredient;
+import com.example.teamfoodie.models.PantryIngredient;
 import com.example.teamfoodie.models.Procedure;
 import com.example.teamfoodie.models.Recipe;
 
@@ -458,5 +459,29 @@ public class PopulateRecipeTable {
 //        r1.setPhoto(String.valueOf(R.drawable.salmon_salad));
         db.addHandle(r10);
 //        =========================================================================================================
+    }
+
+
+
+//    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, String foodGroup, int owner, boolean priority){
+
+    public static void populatePantryIngredients(DatabaseHandler db){
+
+
+//        PantryIngredient p1 = ("0000001", "Jasmine rice", 300, "grams", "Staple");
+//        ing1.setInfo("jasmine rice", 1.5, "cups");
+//        ing2.setInfo("boiling water", 2.5, "cups");
+//        ing3.setInfo("carrot, grated", 1, "");
+//        ing4.setInfo("red onion, finely diced", .5, "");
+//        ing5.setInfo("tumeric", 1, "tsp");
+//        ing6.setInfo("lemon, zest", 1, "tbsp");
+//        ing7.setInfo("salmon, fillet", 600, "grams");
+//        ing8.setInfo("ciabatta, diced 2cm", 1, "roll");
+//        ing9.setInfo("semi-dried tomatoes, roughly chopped", 1, "cup");
+//        ing10.setInfo("red onion, finely diced", .25, "");
+//        ing11.setInfo("mesclun", .5, "bag");
+//        ing12.setInfo("vinegar", 2, "tsp");
+//        ing13.setInfo("mayonnaise", .25, "cup");
+//        ing14.setInfo("lemon, juice", .5, "cup");
     }
 }

@@ -25,7 +25,7 @@ import java.util.List;
 public class DatabaseHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "ePantry";
+    private static final String DATABASE_NAME = "ePandtry";
 
     //table names
     private static final String TABLE_PANTRY = "PantryIngredients";
