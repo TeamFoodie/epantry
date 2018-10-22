@@ -18,13 +18,10 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.teamfoodie.R;
@@ -225,11 +222,20 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
                 final String titleStr = title.getText().toString().trim();
                 System.out.println("titleStr: " + titleStr);
                 if (checkEmpty(titleStr, "The title cannot be empty ", title)) return;
+                if(!checkLength(titleStr,"Title",30)) {
+                    title.setError("Title must be less than 30 characters");
+                    showToast("Title must be less than 30 characters");
+                    return;
+                }
 
                 final String introductionStr = introduce.getText().toString().trim();
                 System.out.println("introductionStr " + introductionStr);
-                if (checkEmpty(introductionStr, "The introduction cannot be empty ", introduce))
+                if (checkEmpty(introductionStr, "The introduction cannot be empty ", introduce)) return;
+                if(!checkLength(introductionStr,"Introduction",50)) {
+                    introduce.setError("Introduce must be less than 50 characters");
+                    showToast("Introduce must be less than 50 characters");
                     return;
+                }
 
                 String ingredientStr = mRecipeIngredientList.get(0).getName().toString();
                 System.out.println("ingredientStr " + ingredientStr + "  " + mRecipeIngredientList.get(0).getName().toString()
@@ -290,7 +296,6 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
                 boolean recipeCreate = database.addHandle(recipe);
                 if (recipeCreate) {
                     showCustomDialog(R.string.dialog_addedIng, "Recipe has successfully been added!");
-//                            mActivity.startActivity(new Intent(mContext, SaveActivity.class));
                 } else {
                     showCustomDialog(R.string.dialog_addedIng, "Recipe NOT added!");
                 }
@@ -464,4 +469,11 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    public boolean checkLength( String Str, String name, int length){
+        if(Str.length()>=length){
+            return false;
+        } else{
+            return true;
+        }
+    }
 }
