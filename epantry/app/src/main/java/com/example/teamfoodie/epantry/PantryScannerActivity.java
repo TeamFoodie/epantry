@@ -147,7 +147,7 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
 
                             int newQuantity = ingredient.getCurrentQuantity() + ingredient.getTotalQuantity();
                             ingredient.setCurrentQuantity(newQuantity);
-                            database.updateQuantity(ingredient);
+                            database.topUpQuantity(ingredient);
 
                             //Restarting intent will refresh the list view with updated ingredient quantity!
                             Intent intent = new Intent(PantryScannerActivity.this, ViewPantryActivity.class);

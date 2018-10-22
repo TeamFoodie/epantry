@@ -28,6 +28,7 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
     private List<Recipe> recipeList;
     private DatabaseHandler dbHandler;
     private CustomRecipeListAdapter adapter;
+    private int USER_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,10 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
         this.adapter = new CustomRecipeListAdapter(this, recipeList);
 //        dbHandler.populateRecipeDatabase();
 
+        Bundle extras = getIntent().getExtras();
+        USER_ID = extras.getInt("USER_ID");
+
+        System.out.println("current user is " + USER_ID);
         this.listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
@@ -65,6 +70,7 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
                 Recipe recipe = (Recipe) obj;
                 Intent intent = new Intent(ViewAllRecipesActivity.this, ViewSelectedRecipeActivity.class);
                 intent.putExtra("RECIPE_ID", recipe.getRecipeID());
+                intent.putExtra("USER_ID", USER_ID);
                 startActivity(intent);
 
             }

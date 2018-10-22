@@ -1,14 +1,13 @@
 package com.example.teamfoodie.database;
 
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.content.Context;
-import android.content.ContentValues;
-import android.database.Cursor;
 import android.util.Log;
 
-import com.example.teamfoodie.models.Dietary;
 import com.example.teamfoodie.models.DietaryRequirement;
 import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.PantryIngredient;
@@ -26,7 +25,7 @@ import java.util.List;
 public class DatabaseHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "epaaantryDatabase";
+    private static final String DATABASE_NAME = "ePantry";
 
     //table names
     private static final String TABLE_PANTRY = "PantryIngredients";
@@ -111,16 +110,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             tableName = TABLE_RECIPE;
             values = recipeTable.addNewRecipe(recipeObject);
             newRecipe = true;
-        } else if(object instanceof DietaryRequirement){
+        } else if (object instanceof DietaryRequirement) {
             DietaryRequirement dietary = (DietaryRequirement) object;
             tableName = TABLE_DIETARY_REQUIREMENTS;
             values = dietaryTable.addNewDietaryRequirement(dietary);
-        } else if(object instanceof ArrayList){
+        } else if (object instanceof ArrayList) {
             ArrayList<Integer> thresholds = new ArrayList<>();
             thresholds = (ArrayList<Integer>) object;
             tableName = TABLE_PREFERENCES;
             values = preferencesTable.getThresholds(thresholds);
-            
+
         }
         SQLiteDatabase db = this.getWritableDatabase();
         long i = db.insert(tableName, null, values);
@@ -181,7 +180,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void setUSER_ID(int user_id){
+    public void setUSER_ID(int user_id) {
         this.currentUSER = user_id;
 
     }
@@ -198,7 +197,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Object findHandle(String id, String tableName) {
         Object object = new Object();
         String query = "";
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
         PantryIngredient foundIngredient;
         User foundUser;
@@ -207,14 +206,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         switch (tableName) {
             case "PantryIngredient":
                 query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientID = " + "'" + id + "' AND Owner = '" + currentUSER + "'";
-                cursor = getReadableDatabase().rawQuery(query, null);
+                cursor = db.rawQuery(query, null);
                 foundIngredient = pantryIngredientTable.findIngredient(cursor);
 
-                if(foundIngredient != null){
+                if (foundIngredient != null) {
                     System.out.println("user in the query is " + currentUSER);
                     System.out.println("FIND HANDLE FOR PANTRY INGREDIENT!!!!!! owner is " + foundIngredient.getOwner());
                 }
+                object = (Object) foundIngredient;
 
+                break;
+            case "PantryIngredientSubtract":
+                query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientName LIKE " + "'" + id + "' AND Owner = '" + currentUSER + "'";
+                cursor = db.rawQuery(query, null);
+                foundIngredient = pantryIngredientTable.findIngredient(cursor);
+                System.out.println("query passed is " + query);
+                if (foundIngredient != null) {
+                    System.out.println("user in the query is " + currentUSER);
+                    System.out.println("FIND HANDLE FOR PANTRY INGREDIENT!!!!!! owner is " + foundIngredient.getOwner());
+                }
                 object = (Object) foundIngredient;
 
                 break;
@@ -232,10 +242,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 object = (Object) storedRecipe;
                 break;
             case "ChangingUser":
-                query = "SELECT * FROM " + TABLE_USERS + " WHERE UserID = '" + Integer.parseInt(id) + "'";// AND Password = '" + password + "'";
+                query = "SELECT * FROM " + TABLE_USERS + " WHERE UserID = '" + Integer.parseInt(id) + "'";
                 cursor = db.rawQuery(query, null);
                 foundUser = userTable.findUser(cursor);
                 object = (Object) foundUser;
+                break;
+
+            case "Thresholds":
+                query = "SELECT * FROM " + TABLE_PREFERENCES + " WHERE UserID = '" + Integer.parseInt(id) + "'";
+                cursor = db.rawQuery(query, null);
+                ArrayList<Integer> thresholds = preferencesTable.findThresholds(cursor);
+                object = (Object) thresholds;
                 break;
             default:
                 query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientID" + " = " + "'" + id + "'";
@@ -255,14 +272,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @param ingredient
      * @return
      */
-    public boolean updateQuantity(PantryIngredient ingredient) {
+    public boolean topUpQuantity(PantryIngredient ingredient) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values = pantryIngredientTable.updateQuantity(ingredient);
+        ContentValues values = pantryIngredientTable.updateQuantity(ingredient);
         String query = "IngredientID =" + ingredient.getIngredientID();
-        return db.update(TABLE_PANTRY, values, query, null) > 0;
+        boolean entered = db.update(TABLE_PANTRY, values, query, null) > 0;
+        db.close();
 
+        return entered;
+    }
+
+    public boolean subtractQuantity(PantryIngredient ingredient) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = pantryIngredientTable.updateQuantity(ingredient);
+        String query = "IngredientID =" + ingredient.getIngredientID();
+        boolean entered = db.update(TABLE_PANTRY, values, query, null) > 0;
+        db.close();
+
+        return entered;
     }
 
     /**
@@ -349,14 +378,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * This method is used in the Navigation Drawer to display the
      * User's email details.
      *
-     * @param username          String
+     * @param username String
      * @return User's email     String
      */
     public String getUserEmail(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String email = null;
-        String query = "SELECT * FROM users WHERE username = '"+ username+"'";
+        String query = "SELECT * FROM users WHERE username = '" + username + "'";
 
         Cursor cursor = db.rawQuery(query, null);
 
@@ -373,7 +402,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         User user = new User();
 
-        String query = "SELECT * FROM users WHERE UserID = '"+ id+"'";
+        String query = "SELECT * FROM users WHERE UserID = '" + id + "'";
 
         Cursor cursor = db.rawQuery(query, null);
 
@@ -390,7 +419,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void updateUserDetails(ContentValues values, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update(TABLE_USERS, values, "UserID = "+id, null);
+        db.update(TABLE_USERS, values, "UserID = " + id, null);
         //   db.execSQL("UPDATE Users SET UserName = 'HELLO' WHERE UserID = '"+id+"'");
         db.close();
     }
@@ -401,7 +430,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = null;
         User foundUser;
 
-        query = "SELECT * FROM " + TABLE_USERS + " WHERE UserID = '"+userID+"'";
+        query = "SELECT * FROM " + TABLE_USERS + " WHERE UserID = '" + userID + "'";
 
         System.out.println("user found : user: " + user.getUsername() + " password: " + user.getPassword());
         cursor = db.rawQuery(query, null);
@@ -409,7 +438,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // 1. get reference to writable DB
 
 
-        Log.i("In UpdateUser()",user.getUsername()+" "+user.getEmail()+" "+user.getPassword());
+        Log.i("In UpdateUser()", user.getUsername() + " " + user.getEmail() + " " + user.getPassword());
 
         // 4. close
         db.close();
@@ -418,19 +447,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public PantryIngredient populatePantry() {
-//        PantryIngredient ing = new PantryIngredient();
-//        ing.setIngredientName("Cereal");
-//        ing.setTotalQuantity(3);
-//        ing.setCurrentQuantity(3);
-//        ing.setUnitMeasure("g");
-//        ing.setFoodGroup("Breakfast");
-//        ing.setOwner(1);
-
-        PantryIngredient ing = new PantryIngredient("1", "Cereal", 3, 3, "g", "Poultry", 0, false);
-
-        return ing;
-    }
+//    public PantryIngredient populatePantry() {
+////        PantryIngredient ing = new PantryIngredient();
+////        ing.setIngredientName("Cereal");
+////        ing.setTotalQuantity(3);
+////        ing.setCurrentQuantity(3);
+////        ing.setUnitMeasure("g");
+////        ing.setFoodGroup("Breakfast");
+////        ing.setOwner(1);
+//
+//        PantryIngredient ing = new PantryIngredient("1", "Cereal", 3, 3, "g", "Poultry", 0, false);
+//
+//        return ing;
+//    }
 
     public void populateRecipeDatabase() {
         PopulateRecipeTable.populateRecipeDatabase(this);

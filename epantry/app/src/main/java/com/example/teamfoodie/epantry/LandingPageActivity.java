@@ -151,6 +151,7 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
             startActivity(intent);
         }else if (v.getId() == R.id.find_recipe){
             Intent intent = new Intent(LandingPageActivity.this, ViewAllRecipesActivity.class);
+            intent.putExtra("USER_ID", userID);
             startActivity(intent);
         }
         else if(v.getId() == R.id.newRecipe){

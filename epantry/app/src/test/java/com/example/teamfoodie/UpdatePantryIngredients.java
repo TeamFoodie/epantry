@@ -61,7 +61,7 @@ public class UpdatePantryIngredients {
     public void updateIngredientQuantity(){
         dbHandler = new DatabaseHandler(addIngredient);
         boolean valueInserted = dbHandler.addHandle(ingredient);
-        boolean quantityUpdated = dbHandler.updateQuantity(ingredient);
+        boolean quantityUpdated = dbHandler.topUpQuantity(ingredient);
 
                 PantryIngredient foundIngredient = new PantryIngredient();
         if(valueInserted){

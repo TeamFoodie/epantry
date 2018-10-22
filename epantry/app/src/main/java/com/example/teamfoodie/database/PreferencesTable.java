@@ -22,7 +22,7 @@ public class PreferencesTable {
     //Returns create string for creating Pantry ingredient table.
     public String createPreferencesTable(String TABLE_NAME) {
         String createTable =  "CREATE TABLE " + TABLE_NAME +
-                "(" + USER_ID + " INTEGER NOT NULL," +
+                "(" + USER_ID + " INTEGER PRIMARY KEY," +
                 SPICES + " INTEGER," +
                 POULTRY + " INTEGER," +
                 STAPLE + " INTEGER," +
@@ -38,7 +38,7 @@ public class PreferencesTable {
      * Method takes in a PantryIngredient object allocate them appropriate into the ContentValue
      * format for query execution.
      *
-     * @param pIngredients
+//     * @param pIngredients
      * @return
      */
     public ContentValues getThresholds(ArrayList<Integer> thresholds) {
@@ -55,8 +55,7 @@ public class PreferencesTable {
     }
 
     /**
-     * Result cursor from database is passed through parameters and used to set pantry ingredient
-     * details and then return a PantryIngredient type objectd
+     *
      *
      * @param cursor
      * @return
@@ -81,45 +80,5 @@ public class PreferencesTable {
         return thresholds;
     }
 
-    /**
-     * Cursor from database query is used to compile a PantryIngredient
-     * type array and insert objects into array and reutrn the array.
-     * @param cursor
-     * @return
-     */
-//    public List<PantryIngredient> loadAllPantryIngredients(Cursor cursor){
-//        List<PantryIngredient> pantryList = new ArrayList<>();
-//
-//        cursor.moveToFirst();
-//        while (!cursor.isAfterLast()) {
-//            PantryIngredient pantryObject = new PantryIngredient();
-//            pantryObject.setIngredientID(cursor.getString(0));
-//            pantryObject.setIngredientName(cursor.getString(1));
-//            pantryObject.setTotalQuantity(cursor.getInt(2));
-//            pantryObject.setCurrentQuantity(cursor.getInt(3));
-//            pantryObject.setUnitMeasure(cursor.getString(4));
-//            pantryObject.setFoodGroup(cursor.getString(5));
-//            pantryObject.setOwner(cursor.getInt(6));
-//            pantryList.add(pantryObject);
-//            System.out.println("THIS IS THE PANTRY INGREDIENT TABLE");
-//            System.out.println(pantryObject.toString());
-//            cursor.moveToNext();
-//        }
-//
-//        return  pantryList;
-//    }
-//
-//    /**
-//     * method takes in PantryIngredient object and congiures content value
-//     * to include only the quantity needed for db update
-//     * @param ingredient
-//     * @return
-//     */
-//    public ContentValues updateQuantity(PantryIngredient ingredient){
-//        ContentValues values = new ContentValues();
-//        values.put(STAPLE, ingredient.getCurrentQuantity());
-//
-//        return values;
-//    }
 
 }

@@ -22,6 +22,7 @@ import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.database.RecipeIngredientsTable;
 import com.example.teamfoodie.epantry.listAdapters.CustomRecipeAdapter;
+import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.PantryIngredient;
 import com.example.teamfoodie.models.Recipe;
 
@@ -50,17 +51,11 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_selected_recipe);
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                System.out.println("Bundle extra was NULL user");
-            } else {
-                currentRECIPE_ID = extras.getInt("RECIPE_ID");
-            }
-        } else {
-            currentRECIPE_ID = (Integer) savedInstanceState.getSerializable("RECIPE_ID");
-            System.out.println("savedInstance was NULL");
-        }
+
+
+        Bundle extras = getIntent().getExtras();
+        currentRECIPE_ID = extras.getInt("RECIPE_ID");
+        currentUSER_ID = extras.getInt("USER_ID");
 
         this.recipePhoto = (ImageView) findViewById(R.id.recipe_photo);
         this.recipeName = (TextView) findViewById(R.id.recipe_name);
@@ -158,19 +153,24 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
         dialog.show();
 
     }  else if(v.getId() == R.id.makeRecipeBtn) {
-        pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
-        System.out.println(pantryList.get(0).getIngredientName());
-        System.out.println(pantryList.get(0).getCurrentQuantity());
-        pantryList.get(0).setTotalQuantity(100);
-        pantryList.get(0).setCurrentQuantity(1);
-        System.out.println("TOTAL: "+pantryList.get(0).getTotalQuantity()+ "CURRENT: "+pantryList.get(0).getCurrentQuantity());
+            System.out.println("pressed make ");
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationClass notify = new NotificationClass();
+            dbHandler.setUSER_ID(currentUSER_ID);
+            PantryIngredient ing = (PantryIngredient) dbHandler.findHandle("Salmon", "PantryIngredientSubtract");
+            List<Integer> thresholds = (List<Integer>) dbHandler.findHandle(String.valueOf(currentUSER_ID), "Thresholds");
+            if(ing != null){
+                ing.setCurrentQuantity(100);
+                dbHandler.subtractQuantity(ing);
+
+                notify.calculateThreshold(this, notificationManager, currentUSER_ID, ing, thresholds);
+//                notify.generateNotification(this, notificationManager, "MESSAGE");
+            }else{
+                System.out.println("ingredient was not found from the database");
+            }
 
 
-
-
-
-//        MyPreferences mypref = new MyPreferences();
-//        mypref.calculateThreshold(pantryList);
     }
     }
 }

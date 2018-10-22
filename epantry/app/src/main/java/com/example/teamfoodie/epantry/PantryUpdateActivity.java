@@ -101,7 +101,7 @@ public class PantryUpdateActivity extends AppCompatActivity implements View.OnCl
     public void topUpIngredient() {
         int newQuantity = ingredient.getCurrentQuantity() + ingredient.getTotalQuantity();
         ingredient.setCurrentQuantity(newQuantity);
-        boolean updated = database.updateQuantity(ingredient);
+        boolean updated = database.topUpQuantity(ingredient);
         if (updated) {
             System.out.println("topped up");
         } else {
