@@ -8,7 +8,7 @@ public class Recipe {
     private int recipeID;
     private String recipeName;
     private String description;
-    private String photoUrl;
+    private int photoUrl;
     private int calorieCount;
     private int cookingTime;
     private int numberOfPeople;
@@ -21,10 +21,10 @@ public class Recipe {
 
     }
 
-    public Recipe(int id, String recipeName, String photoUrl, String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup) {
+    public Recipe(int id, String recipeName, int photo, String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup) {
         this.setRecipeID(id);
         this.setRecipeName(recipeName);
-        this.setPhoto(photoUrl);
+        this.setPhoto(photo);
         this.setDescription(description);
         this.setCalorieCount(calorieCount);
         this.setCookingTime(cookingTime);
@@ -33,9 +33,9 @@ public class Recipe {
         this.setDietary(foodGroup);
     }
 
-    public Recipe(String recipeName,  String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup, ArrayList<Ingredient> ingredients, ArrayList<Procedure> procedures) {
+    public Recipe(String recipeName, int photo, String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup, ArrayList<Ingredient> ingredients, ArrayList<Procedure> procedures) {
         this.setRecipeName(recipeName);
-//        this.setPhoto(photo);
+        this.setPhoto(photo);
         this.setDescription(description);
         this.setCalorieCount(calorieCount);
         this.setCookingTime(cookingTime);
@@ -73,11 +73,15 @@ public class Recipe {
         return description;
     }
 
-    public String getPhoto() {
+    public int getPhoto() {
         return photoUrl;
     }
 
-    public void setPhoto(String photoUrl) {
+//    public int getIntPhoto() {
+//        return Integer.parseInt(photoUrl);
+//    }
+
+    public void setPhoto(int photoUrl) {
         this.photoUrl = photoUrl;
     }
 

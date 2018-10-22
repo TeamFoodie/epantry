@@ -65,9 +65,10 @@ public class CustomRecipeListAdapter extends BaseAdapter {
         holder.RecipeNameView.setText(Recipe.getRecipeName());
         holder.descriptionView.setText(Recipe.getDescription());
 
-        //int imageId = this.getMipmapResIdByName(Recipe.getPhoto());
+//        if(Recipe.getPhoto() != null){
+            holder.recipePicView.setImageResource(Recipe.getPhoto());
+//        }
 
-        holder.recipePicView.setImageResource(Integer.getInteger(Recipe.getPhoto()));
 
         return convertView;
     }
@@ -94,10 +95,6 @@ public class CustomRecipeListAdapter extends BaseAdapter {
         if (charText.length() == 0) {
             recipeList.clear();
             List<Recipe> fullList = db.loadAllRecipes();
-//            for(int i = 0; i < obj.size(); i++){
-//                Tree tree = (Tree) obj.get(i);
-//                fullList.add(tree);
-//            }
             recipeList.addAll(fullList);
         } else {
             recipeList.clear();
