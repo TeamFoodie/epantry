@@ -1,28 +1,26 @@
 package com.example.teamfoodie.epantry;
 /*
-ShoppingListActivity class shows Shopping List from database
-and user can delete items from database and take capture
+ * ShoppingListActivity class shows Shopping List from database
+ * and user can delete items from database and take capture
  */
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Toast;
-
 import com.example.teamfoodie.R;
-import com.example.teamfoodie.database.SQLiteDatabaseDao;
+import com.example.teamfoodie.database.DatabaseHandler;
+import com.example.teamfoodie.epantry.listAdapters.ShoppingListAdapter;
+import com.example.teamfoodie.models.PantryIngredient;
 import com.example.teamfoodie.models.ShoppingList;
 
 import java.util.ArrayList;
@@ -35,16 +33,59 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected CheckBox idCbSelect;
     protected Button idBtnDelete;
     protected Button idBtnCapture;
-    private List<ShoppingList> shoppingListList;
-    private List<ShoppingList> shoppingListSelectList;
-
+    private List<PantryIngredient> shoppingListList;
+    private List<PantryIngredient> shoppingListSelectList;
+    List<PantryIngredient> lowStock = new ArrayList<>();
+    private int currentUSER_ID;
+    DatabaseHandler dbHandler = new DatabaseHandler(this);
+    private List<PantryIngredient> pantryList = new ArrayList<>();
+    ShoppingList listItems = new ShoppingList();
     private Context mContext;
 
     private SharedPreferences mSharedPreferences;
 
+//    public void addFoodMaterial() {
+//
+//        for(PantryIngredient p : lowStock) {
+//
+//            listItems.setUnit(p.getUnitMeasure());
+//            listItems.setMaterialValue(String.valueOf(p.getCurrentQuantity()));
+//            listItems.setMaterialName(p.getIngredientName());
+////            sqLiteDatabaseDao.insertFoodMaterial(listItems);
+//            System.out.println(p.getIngredientName()+"  "+p.getUnitMeasure()+"  "+String.valueOf(p.getCurrentQuantity()));
+//        }
+//    }
+
+    public List<PantryIngredient> calculateLowStock(List<PantryIngredient> list) {
+
+        for (PantryIngredient ing : list) {
+            if(ing.getCurrentQuantity() < ing.getTotalQuantity()) {
+                System.out.println("LOWSTOCK!! ING CURRENT QUAN:" + ing.getCurrentQuantity() + "ING TOTAL QUAN:" + ing.getTotalQuantity());
+                lowStock.add(ing);
+            }
+        }
+        System.out.println("LOWSTOCK!! size: "+lowStock.size());
+
+        return lowStock;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        currentUSER_ID = extras.getInt("USER_ID");
+        pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
+        System.out.println(pantryList.size());
+
+        for(int i = 0; i < pantryList.size(); ++i) {
+            Log.i("Shopping list: ", ""+pantryList.get(i).getIngredientInformation());
+        }
+        lowStock = calculateLowStock(pantryList);
+
+       // addFoodMaterial();
+        for(PantryIngredient p : lowStock) {
+            System.out.println("After calcLowStock(): "+p.getIngredientName());
+        }
         mContext = this;
         super.setContentView(R.layout.shopping_list);
         shoppingListList = new ArrayList<>();
@@ -53,94 +94,69 @@ public class ShoppingListActivity extends AppCompatActivity {
         mSharedPreferences = mContext.getSharedPreferences("cache",
                 Context.MODE_PRIVATE);
 
+
+
         initView();
 
 
-        final FoodMaterialAdapter foodMaterialAdapter = new FoodMaterialAdapter(shoppingListList);
-        foodMaterialAdapter.setIOnCheckedChangeListener(new IOnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean b, ShoppingList shoppingList, int position) {
-                if (b) {
-                    shoppingListSelectList.add(shoppingList);
-                } else {
-                    shoppingListSelectList.remove(shoppingList);
-                }
-            }
-        });
+        final ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(shoppingListList);
+//        shoppingListAdapter.setIOnCheckedChangeListener(new ShoppingListAdapter.IOnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(boolean b, PantryIngredient shoppingList, int position) {
+//                if (b) {
+//                    shoppingListSelectList.add(shoppingList);
+//                } else {
+//                    shoppingListSelectList.remove(shoppingList);
+//                }
+//            }
+//        });
         idRvMaterial.setLayoutManager(new LinearLayoutManager(mContext));
-        idRvMaterial.setAdapter(foodMaterialAdapter);
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                shoppingListList = SQLiteDatabaseDao.getInstance().init(mContext).queryFoodMaterial();
-                foodMaterialAdapter.update(shoppingListList);
-            }
-        }.start();
+        idRvMaterial.setAdapter(shoppingListAdapter);
+
+//        shoppingListList = SQLiteDatabaseDao.getInstance().init(mContext).queryFoodMaterial();
+        System.out.println("before update():"+lowStock.get(0).getIngredientName());
+        shoppingListAdapter.update(lowStock);
 
 
-        idCbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                for (int i = 0; i < shoppingListList.size(); i++) {
-                    Log.d(TAG, "onCheckedChanged: b==" + b);
-                    ShoppingList shoppingList = shoppingListList.get(i);
-                    shoppingList.setChecked(b);
-                    shoppingListList.set(i, shoppingList);
-                    foodMaterialAdapter.notifyDataSetChanged();
-                }
-                if (!b) {
-                    if (shoppingListSelectList.size() > 0)
-                        shoppingListSelectList.clear();
-                }
-                Log.d(TAG, "onCheckedChanged: shoppingListList==" + shoppingListList.toString());
-                Log.d(TAG, "onCheckedChanged: shoppingListSelectList==" + shoppingListSelectList.toString());
-            }
-        });
+//        idCbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                for (int i = 0; i < shoppingListList.size(); i++) {
+//                    Log.d(TAG, "onCheckedChanged: b==" + b);
+//                    PantryIngredient shoppingList = shoppingListList.get(i);
+//                    shoppingList.setChecked(b);
+//                    shoppingListList.set(i, shoppingList);
+//                    shoppingListAdapter.notifyDataSetChanged();
+//                }
+//                if (!b) {
+//                    if (shoppingListSelectList.size() > 0)
+//                        shoppingListSelectList.clear();
+//                }
+//                Log.d(TAG, "onCheckedChanged: shoppingListList==" + shoppingListList.toString());
+//                Log.d(TAG, "onCheckedChanged: shoppingListSelectList==" + shoppingListSelectList.toString());
+//            }
+//        });
 
         idBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SQLiteDatabaseDao sqLiteDatabaseDao = SQLiteDatabaseDao.getInstance();
+//                SQLiteDatabaseDao sqLiteDatabaseDao = SQLiteDatabaseDao.getInstance();
                 if (idCbSelect.isChecked()) {
                     shoppingListSelectList = shoppingListList;
                 }
                 int len = shoppingListSelectList.size();
                 for (int i = 0; i < len; i++) {
-                    ShoppingList shoppingList = shoppingListSelectList.get(i);
-                    sqLiteDatabaseDao.deleteCity(shoppingList.getId());
+                    PantryIngredient shoppingList = shoppingListSelectList.get(i);
+//                    sqLiteDatabaseDao.deleteCity(shoppingList.getId());
                 }
                 if (len > 0) {
                     shoppingListSelectList.size();
                 }
-                Toast.makeText(mContext, "Deleted successfully, quit after 10 seconds.", Toast.LENGTH_SHORT).show();
-                SystemClock.sleep(10000);
+                Toast.makeText(mContext, "Ingredient successfully deleted.", Toast.LENGTH_SHORT).show();
                 ShoppingListActivity.this.finish();
 
             }
         });
-
-//        idBtnCapture.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Bitmap captureBitmap = capture(ShoppingListActivity.this);
-//                ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-//                captureBitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
-//                String captureUrl = new String(Base64.encodeToString(byteArrayOutputStream.toByteArray(),Base64.DEFAULT));
-//                SharedPreferences.Editor editor = mSharedPreferences.edit();
-//                editor.putString("captureUrl", captureUrl);
-//                editor.commit();
-//                if (!TextUtils.isEmpty(captureUrl)){
-//                    Toast.makeText(mContext, "capture sucess", Toast.LENGTH_SHORT).show();
-//                    ShoppingListActivity.this.startActivity(new Intent(mContext, CaptureActivity.class));
-//                }
-//                String captureUrlTMp = mSharedPreferences.getString("captureUrl", "");
-//                Log.e(TAG, "run: captureUrl===" + captureUrlTMp);
-//
-//            }
-//        });
-
-
     }
 
     private void initView() {
@@ -148,84 +164,5 @@ public class ShoppingListActivity extends AppCompatActivity {
         idCbSelect = findViewById(R.id.id_cb_select);
         idBtnDelete = findViewById(R.id.id_btn_delete);
         idBtnCapture = findViewById(R.id.id_btn_capture);
-    }
-//
-//    public Bitmap capture(Activity activity) {
-//        activity.getWindow().getDecorView().setDrawingCacheEnabled(true);
-//        Bitmap bmp = activity.getWindow().getDecorView().getDrawingCache();
-//        return bmp;
-//    }
-
-    public interface IOnCheckedChangeListener {
-
-        void onCheckedChanged(boolean b, ShoppingList shoppingList, int position);
-    }
-
-    public class FoodMaterialAdapter extends RecyclerView.Adapter<FoodMaterialAdapter.FoodMaterialViewHolder> {
-        private final String TAG = "FoodMaterialAdapter";
-
-        private List<ShoppingList> mItemList;
-        private IOnCheckedChangeListener mIOnCheckedChangeListener;
-
-        public void setIOnCheckedChangeListener(IOnCheckedChangeListener iOnCheckedChangeListener) {
-            this.mIOnCheckedChangeListener = iOnCheckedChangeListener;
-        }
-
-        public class FoodMaterialViewHolder extends RecyclerView.ViewHolder {
-            CheckBox idCb;
-
-            public FoodMaterialViewHolder(View v) {
-                super(v);
-                idCb = v.findViewById(R.id.id_cb);
-            }
-
-        }
-
-        public FoodMaterialAdapter(List<ShoppingList> itemList) {
-            mItemList = itemList;
-        }
-
-        @Override
-        public FoodMaterialViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shopping_list_item, viewGroup, false);
-
-            return new FoodMaterialViewHolder(v);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull FoodMaterialViewHolder foodMaterialViewHolder, final int i) {
-            final ShoppingList shoppingList = mItemList.get(i);
-            String desc = shoppingList.getMaterialValue() + " " + shoppingList.getUnit() + " " + shoppingList.getMaterialName();
-            foodMaterialViewHolder.idCb.setChecked(shoppingList.isChecked());
-            foodMaterialViewHolder.idCb.setText(desc);
-            foodMaterialViewHolder.idCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    shoppingList.setChecked(b);
-                    mItemList.set(i, shoppingList);
-                    if (mIOnCheckedChangeListener != null) {
-                        mIOnCheckedChangeListener.onCheckedChanged(b, shoppingList, i);
-                    }
-                }
-            });
-        }
-
-
-        @Override
-        public int getItemCount() {
-            return mItemList.size();
-        }
-
-
-        /**
-         * update data
-         *
-         * @param itemList
-         */
-        public void update(List<ShoppingList> itemList) {
-            mItemList.clear();
-            mItemList.addAll(itemList);
-            notifyDataSetChanged();
-        }
     }
 }

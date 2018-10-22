@@ -6,6 +6,10 @@ public class Procedure {
     private int recipeID;
     private String step;
 
+    public Procedure() {
+
+    }
+
     public Procedure(String step) {
         this.setStep(step);
     }
@@ -33,11 +37,10 @@ public class Procedure {
 
     public int getTextSize(){
         int textSize = step.length();
-
-
-
         return textSize;
-
     }
 
+    public String toString(){
+        return this.recipeID+"  "+this.getStep();
+    }
 }

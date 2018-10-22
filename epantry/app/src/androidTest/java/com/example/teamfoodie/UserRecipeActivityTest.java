@@ -4,7 +4,6 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 
-import com.example.teamfoodie.database.SQLiteDatabaseDao;
 import com.example.teamfoodie.epantry.UserRecipeActivity;
 
 import org.junit.Before;
@@ -36,14 +35,14 @@ public class UserRecipeActivityTest {
         assertEquals("UserRecipeActivity", mActivityTestRule.getActivity().getClass().getSimpleName());
     }
 
-    @Test
-    public void addFoodMaterial(){
-        SQLiteDatabaseDao sqLiteDatabaseDao = SQLiteDatabaseDao.getInstance();
-        sqLiteDatabaseDao.init(mActivityTestRule.getActivity());
-        mActivityTestRule.getActivity().addFoodMaterial(sqLiteDatabaseDao);
-        Log.d(TAG, "addFoodMaterial: how many data exists ==" + sqLiteDatabaseDao.queryFoodMaterial().toString());
-        assertEquals(3, sqLiteDatabaseDao.queryFoodMaterial().size());
-    }
+//    @Test
+//    public void addFoodMaterial(){
+//        SQLiteDatabaseDao sqLiteDatabaseDao = SQLiteDatabaseDao.getInstance();
+//        sqLiteDatabaseDao.init(mActivityTestRule.getActivity());
+//        mActivityTestRule.getActivity().addFoodMaterial(sqLiteDatabaseDao);
+//        Log.d(TAG, "addFoodMaterial: how many data exists ==" + sqLiteDatabaseDao.queryFoodMaterial().toString());
+//        assertEquals(3, sqLiteDatabaseDao.queryFoodMaterial().size());
+//    }
 
     @Test
     public void ingredientsTest() throws Exception {

@@ -1,11 +1,14 @@
 package com.example.teamfoodie.models;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.text.BreakIterator;
 
 /**
  * Class for creating a pantry ingredient object
  */
-public class PantryIngredient {
+public class PantryIngredient implements Serializable {
     private String ingredientID;
     private String ingredientName;
     private int totalQuantity;

@@ -16,7 +16,7 @@ public class UpdatePantryIngredients {
     private PantryUpdateActivity update;
     private AddIngredientActivity addIngredient;
     private DatabaseHandler dbHandler;
-    private PantryIngredient ingredient = new PantryIngredient("12345", "Ingredient1", 23, 23, "grams", 111);
+    private PantryIngredient ingredient = new PantryIngredient("12345", "Ingredient1", 23, 23, "grams", "POULTRY", 111, false);
 
     @Before
     public void setUp() {

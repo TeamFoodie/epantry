@@ -2,8 +2,10 @@ package com.example.teamfoodie.epantry;
 /*
 UserRecipeActivity include all main activity for user to add recipe
  */
+
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -16,17 +18,22 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.teamfoodie.R;
-import com.example.teamfoodie.database.SQLiteDatabaseDao;
-import com.example.teamfoodie.models.ShoppingList;
-import com.example.teamfoodie.models.RecipeIngredient;
-import com.example.teamfoodie.models.UserRecipe;
+import com.example.teamfoodie.database.DatabaseHandler;
+import com.example.teamfoodie.models.Ingredient;
+import com.example.teamfoodie.models.Procedure;
+import com.example.teamfoodie.models.Recipe;
+//import com.example.teamfoodie.models.RecipeIngredient;
+//import com.example.teamfoodie.models.UserRecipe;
 import com.example.teamfoodie.utils.AboutBitmap;
 import com.example.teamfoodie.utils.SelectPicPopupWindow;
 import com.yanzhenjie.permission.AndPermission;
@@ -39,6 +46,9 @@ import java.util.List;
 
 public class UserRecipeActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "UserRecipeActivity";
+    private DatabaseHandler database;
+    public int currentUSER_ID;
+    public int recipe_ID;
     protected EditText title;
     protected EditText introduce;
     protected LinearLayout idLlIngredient;
@@ -54,19 +64,23 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
     protected LinearLayout idLlProcedures;
     protected LinearLayout idLlRoot;
 
-
-    private List<RecipeIngredient> mRecipeIngredientList;
-    private List<String> mProcudureList;
+    //    Spinner spinner;
+    private ArrayList<Ingredient> mRecipeIngredientList;
+    private ArrayList<Procedure> mProcedureList;
+//    private List<String> mTagList;
 
     private SelectPicPopupWindow menuWindow;
 
     public static final int REQ_TAKE_PHOTO = 100;
     public static final int REQ_SELECT_PHOTO = 101;
+    public static final int userID = 0;
 
     private Bitmap mBitmap;
 
     private UserRecipeActivity mActivity;
     private Context mContext;
+//    List<String> IngredientUnit;//store Unit list
+//    ArrayAdapter<String> adapter;//define a n arrayAdapter fir spinner
 
     private SharedPreferences mSharedPreferences;
 
@@ -76,17 +90,17 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
         mActivity = this;
         mContext = this;
         super.setContentView(R.layout.upload_recipe);
-        initView();
+        initView(savedInstanceState);//initial view
         mRecipeIngredientList = new ArrayList<>();
-        mProcudureList = new ArrayList<>();
+        mProcedureList = new ArrayList<>();
+//        mTagList = new ArrayList<>();
 
         mSharedPreferences = mContext.getSharedPreferences("cache",
                 Context.MODE_PRIVATE);
 
         AndPermission.with(mActivity)
                 .requestCode(100)
-                .permission(Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                .permission(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
                 .send();
 
         //default add one View of ingredient
@@ -103,16 +117,31 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
         Log.d(TAG, "addIngredientView: position==" + position);
         final EditText idEtIngredient = ingredientView.findViewById(R.id.id_et_ingredient);
         final EditText idEtQuantity = ingredientView.findViewById(R.id.id_et_quantity);
-        final RecipeIngredient recipeIngredient = new RecipeIngredient();
+        final EditText idEtUnit = ingredientView.findViewById(R.id.id_et_unit);
+//        final Spinner spinner= ingredientView.findViewById(R.id.id_et_Unit);
+        final Ingredient recipeIngredient = new Ingredient();
         mRecipeIngredientList.add(recipeIngredient);
+
+//        IngredientUnit= new ArrayList<String>();
+//        IngredientUnit.add("grams");
+//        IngredientUnit.add("tbsp");
+//        IngredientUnit.add("cloves");
+//        IngredientUnit.add("tsp");
+//        IngredientUnit.add("cups");
+//        IngredientUnit.add("litres");
+//        adapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,IngredientUnit);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(adapter);
+
         idEtIngredient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    RecipeIngredient recipeIngredient = mRecipeIngredientList.get(position);
-                    recipeIngredient.setIngredient(idEtIngredient.getText().toString().trim());
+                    Ingredient recipeIngredient = mRecipeIngredientList.get(position);
+                    recipeIngredient.setName(idEtIngredient.getText().toString().trim());
                     mRecipeIngredientList.set(position, recipeIngredient);
-                    Log.d(TAG, "Ingredient  onFocusChange: dismiss fouces recipeIngredient===" + recipeIngredient.toString());
+                    Log.d(TAG, "Ingredient onFocusChange: dismiss forces recipeIngredient===" + recipeIngredient.toString()
+                            +"  set name "+recipeIngredient.getName()+"   mRecipeIngredientListName "+mRecipeIngredientList.get(position).getName());
                 }
             }
         });
@@ -120,28 +149,47 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    RecipeIngredient recipeIngredient = mRecipeIngredientList.get(position);
-                    recipeIngredient.setQuantity(idEtQuantity.getText().toString().trim());
+                    Ingredient recipeIngredient = mRecipeIngredientList.get(position);
+                    recipeIngredient.setMeasurement(Double.parseDouble(idEtQuantity.getText().toString().trim()));
                     mRecipeIngredientList.set(position, recipeIngredient);
-                    Log.d(TAG, "Quantity  onFocusChange: dismiss fouces recipeIngredient===" + recipeIngredient.toString());
+                    Log.d(TAG, "Ingredient  onFocusChange: dismiss forces recipeIngredient===" + recipeIngredient.toString()
+                            +"    set name "+recipeIngredient.getName()+"   set measurement "+recipeIngredient.getMeasurement()
+                            +"   \nmRecipeIngredientListName "+mRecipeIngredientList.get(position).getName()+"   mRecipeIngredientListMeasurement "+mRecipeIngredientList.get(position).getMeasurement());
+                }
+            }
+        });
+        idEtUnit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    Ingredient recipeIngredient = mRecipeIngredientList.get(position);
+                    recipeIngredient.setUnitCount(idEtQuantity.getText().toString().trim());
+                    mRecipeIngredientList.set(position, recipeIngredient);
+                    Log.d(TAG, "Ingredient  onFocusChange: dismiss forces recipeIngredient===" + recipeIngredient.toString()
+                            +"    set name "+recipeIngredient.getName()+"   set measurement "+recipeIngredient.getMeasurement()
+                            +"   \nmRecipeIngredientListName "+mRecipeIngredientList.get(position).getName()+"   mRecipeIngredientListMeasurement "+mRecipeIngredientList.get(position).getMeasurement()
+                            +"    mRecipeIngredientListUnit "+mRecipeIngredientList.get(position).getUnitCount());
                 }
             }
         });
     }
 
     private void addProcedureView() {
-        View procudureView = LayoutInflater.from(mContext).inflate(R.layout.item_procedures, null, false);
-        idLlProcedures.addView(procudureView);
+        View procedureView = LayoutInflater.from(mContext).inflate(R.layout.item_procedures, null, false);
+        idLlProcedures.addView(procedureView);
         final int position = idLlProcedures.getChildCount() - 1;
         Log.d(TAG, "addProcedureView: position==" + position);
-        final EditText idEtProcedure = procudureView.findViewById(R.id.id_et_procedure);
-        mProcudureList.add("");
+        final EditText idEtProcedure = procedureView.findViewById(R.id.id_et_procedure);
+        final Procedure recipeProduce=new Procedure();
+        mProcedureList.add(recipeProduce);
         idEtProcedure.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    mProcudureList.set(position, idEtProcedure.getText().toString().trim());
-                    Log.d(TAG, "Quantity  onFocusChange: dismiss fouces ingredientBean===" + idEtProcedure.getText().toString().trim());
+                    Procedure recipeProcedure= mProcedureList.get(position);
+                    recipeProcedure.setStep(idEtProcedure.getText().toString().trim());
+                    mProcedureList.set(position,recipeProcedure);
+                    Log.d(TAG, "Procedure  onFocusChange: dismiss forces procedure===" + idEtProcedure.getText().toString().trim());
                 }
             }
         });
@@ -164,7 +212,7 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
             case R.id.addstep:
                 //add step
                 addProcedureView();
-                Log.d(TAG, "onClick: mProcudureList===" + mProcudureList.toString());
+                Log.d(TAG, "onClick: mProcedureList===" + mProcedureList.toString());
                 break;
             case R.id.btn_addphoto:
                 menuWindow = new SelectPicPopupWindow(mContext, itemsOnClick);
@@ -172,110 +220,97 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 break;
             case R.id.save:
+                System.out.println("currentUSER_ID: " + currentUSER_ID);
+
                 final String titleStr = title.getText().toString().trim();
+                System.out.println("titleStr: " + titleStr);
                 if (checkEmpty(titleStr, "The title cannot be empty ", title)) return;
-                final String indroductionStr = introduce.getText().toString().trim();
-                if (checkEmpty(indroductionStr, "The indroduction cannot be empty ", introduce)) return;
-                String ingredientStr = mRecipeIngredientList.toString();
-                if (ingredientStr.contains("null")){
+
+                final String introductionStr = introduce.getText().toString().trim();
+                System.out.println("introductionStr " + introductionStr);
+                if (checkEmpty(introductionStr, "The introduction cannot be empty ", introduce))
+                    return;
+
+                String ingredientStr = mRecipeIngredientList.get(0).getName().toString();
+                System.out.println("ingredientStr " + ingredientStr + "  " + mRecipeIngredientList.get(0).getName().toString()
+                        + "    " + mRecipeIngredientList.get(0).getMeasurement());
+                if (ingredientStr.contains("null")) {
                     showToast("The ingredients have not finished ");
                     return;
                 }
-                String proceduresStr = mProcudureList.toString();
-                if (proceduresStr.contains("null")){
+
+                String proceduresStr = mProcedureList.get(0).getStep().toString();
+                System.out.println("proceduresStr " + proceduresStr);
+                if (proceduresStr.contains("null")) {
                     showToast("The procedures have not finished ");
                     return;
                 }
-                final String cookingTimeStr = CTime.getText().toString().trim();
-                if (checkEmpty(cookingTimeStr, "The Cooking Time cannot be empty ", CTime)) return;
-                final String nutritionalCountStr = NutritionalCount.getText().toString().trim();
-                if (checkEmpty(nutritionalCountStr, "The Nutritional Count cannot be empty ", NutritionalCount)) return;
-                final String NumberOfPeopleStr=NumberOfPeople.getText().toString().trim();
-                if (checkEmpty(NumberOfPeopleStr, "The Number Of People cannot be empty ", NutritionalCount)) return;
+
+                final int cookingTime = Integer.parseInt(CTime.getText().toString().trim());
+                final String cookingTimeStr = String.valueOf(cookingTime);
+                System.out.println("cookingTimeStr " + cookingTimeStr);
+                if (checkEmpty(cookingTimeStr, "The Cooking Time cannot be empty ", CTime))
+                    return;
+
+                final int calorieCount = Integer.parseInt(NutritionalCount.getText().toString().trim());
+                final String nutritionalCountStr = String.valueOf(calorieCount);
+                System.out.println("calorieCount " + calorieCount + "   string " + nutritionalCountStr);
+                if (checkEmpty(nutritionalCountStr, "The Nutritional Count cannot be empty ", NutritionalCount))
+                    return;
+
+                final int numberOfPeople = Integer.parseInt(NumberOfPeople.getText().toString().trim());
+                final String NumberOfPeopleStr = String.valueOf(numberOfPeople);
+                System.out.println("numberOfPeople " + numberOfPeople + "   string " + NumberOfPeopleStr);
+                if (checkEmpty(NumberOfPeopleStr, "The Number Of People cannot be empty ", NumberOfPeople))
+                    return;
+
                 final String tagStr = Tag.getText().toString().trim();
+                System.out.println("tagStr " + tagStr);
                 if (checkEmpty(tagStr, "The tags cannot be empty ", Tag)) return;
 
 
-                new Thread(){
+                Recipe recipe = new Recipe(titleStr, introductionStr, calorieCount, cookingTime, currentUSER_ID, numberOfPeople, tagStr, mRecipeIngredientList, mProcedureList);
+
+
+                Log.e(TAG, "run: ==" + (mBitmap == null));
+                if (mBitmap != null) {
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    mBitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
+                    String photoUrl = new String(Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT));
+                    recipe.setPhoto(photoUrl);
+                    SharedPreferences.Editor editor = mSharedPreferences.edit();
+                    editor.putString("photoUrl", photoUrl);
+                    System.out.println("photoUrl: " + photoUrl);
+                    editor.commit();
+
+                    String photoUrlTMp = mSharedPreferences.getString("photoUrl", "");
+                    Log.e(TAG, "run: photo===" + photoUrlTMp);
+                }
+//                        userRecipe.setTags(tagStr);
+                boolean recipeCreate = database.addHandle(recipe);
+                if (recipeCreate) {
+                    showCustomDialog(R.string.dialog_addedIng, "Recipe has successfully been added!");
+//                            mActivity.startActivity(new Intent(mContext, SaveActivity.class));
+                } else {
+                    showCustomDialog(R.string.dialog_addedIng, "Recipe NOT added!");
+                }
+        }
+    }
+    private void showCustomDialog(int type, String message) {
+        final android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(this);
+        dialog.setTitle("Recipe Added");
+        dialog.setMessage(message);
+
+        dialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
                     @Override
-                    public void run() {
-                        super.run();
-                        UserRecipe userRecipe = new UserRecipe();
-                        userRecipe.setTitle(titleStr);
-                        userRecipe.setIntroduction(indroductionStr);
-                        userRecipe.setRecipeIngredientList(mRecipeIngredientList);
-                        userRecipe.setProcedureList(mProcudureList);
-                        userRecipe.setCookingTime(cookingTimeStr);
-                        userRecipe.setNutritionalCount(nutritionalCountStr);
-                        userRecipe.setNumberOfPeople(NumberOfPeopleStr);
-                        Log.e(TAG, "run: ==" + (mBitmap==null));
-                        if (mBitmap != null) {
-                            ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-                            mBitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
-                            String photoUrl = new String(Base64.encodeToString(byteArrayOutputStream.toByteArray(),Base64.DEFAULT));
-                            userRecipe.setPhotoUrl(photoUrl);
-                            SharedPreferences.Editor editor = mSharedPreferences.edit();
-                            editor.putString("photoUrl", photoUrl);
-                            editor.commit();
-
-                            //
-                            String photoUrlTMp = mSharedPreferences.getString("photoUrl", "");
-                            Log.e(TAG, "run: photo===" + photoUrlTMp);
-                        }
-                        userRecipe.setTags(tagStr);
-                        SQLiteDatabaseDao sqLiteDatabaseDao = SQLiteDatabaseDao.getInstance().init(mContext);
-                        long isSucess = sqLiteDatabaseDao.insertMainContent(userRecipe);
-                        if (isSucess!=-1){
-                            Log.e(TAG, "run: 1111111111");
-                            addFoodMaterial(sqLiteDatabaseDao);
-
-                            mActivity.startActivity(new Intent(mContext, SaveActivity.class));
-                            mActivity.finish();
-                        }else{
-                            mActivity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    showToast("save failed");
-                                }
-                            });
-                        }
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
                     }
-                }.start();
-                break;
-        }
-    }
+                });
 
-    public void addFoodMaterial(SQLiteDatabaseDao sqLiteDatabaseDao) {
-        List<ShoppingList> shoppingLists = sqLiteDatabaseDao.queryFoodMaterial();
-        if (shoppingLists.size()==0){
-            ShoppingList shoppingList = new ShoppingList();
-            shoppingList.setUnit("g");
-            shoppingList.setMaterialValue("50");
-            shoppingList.setMaterialName("Cheese");
-            sqLiteDatabaseDao.insertFoodMaterial(shoppingList);
-            ShoppingList shoppingList1 = new ShoppingList();
-            shoppingList1.setUnit("ml");
-            shoppingList1.setMaterialValue("200");
-            shoppingList1.setMaterialName("coconut milk");
-            sqLiteDatabaseDao.insertFoodMaterial(shoppingList1);
-            ShoppingList shoppingList2 = new ShoppingList();
-            shoppingList2.setUnit("g");
-            shoppingList2.setMaterialValue("50");
-            shoppingList2.setMaterialName("mayonnaise");
-            sqLiteDatabaseDao.insertFoodMaterial(shoppingList2);
-            ShoppingList shoppingList3 = new ShoppingList();
-            shoppingList3.setUnit("g");
-            shoppingList3.setMaterialValue("250");
-            shoppingList3.setMaterialName("butter");
-            sqLiteDatabaseDao.insertFoodMaterial(shoppingList3);
-            ShoppingList shoppingList4 = new ShoppingList();
-            shoppingList4.setUnit("g");
-            shoppingList4.setMaterialValue("50");
-            shoppingList4.setMaterialName("chicken");
-            sqLiteDatabaseDao.insertFoodMaterial(shoppingList4);
-        }
+        dialog.show();
     }
-
     /**
      * Judge the edit box value, if it is empty, give a reminder.
      *
@@ -285,7 +320,7 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
      * @return
      */
     private boolean checkEmpty(String titleStr, String msg, View view) {
-        if (TextUtils.isEmpty(titleStr)){
+        if (TextUtils.isEmpty(titleStr)) {
             showToast(msg);
             setFoucs(view);
             return true;
@@ -310,29 +345,45 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
      *
      * @param msg
      */
-    private void showToast(String msg){
+    private void showToast(String msg) {
         Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }
 
     /**
      * initial view
-     *
      */
-    private void initView() {
+    private void initView(Bundle savedInstanceState) {
         title = findViewById(R.id.et_title);
         introduce = findViewById(R.id.introduce);
         idLlIngredient = findViewById(R.id.id_ll_ingredient);
         addstep = findViewById(R.id.addstep);
         CTime = findViewById(R.id.CTime);
         NutritionalCount = findViewById(R.id.NutritionalCount);
-        NumberOfPeople=findViewById(R.id.NumberOfPeople);
+        NumberOfPeople = findViewById(R.id.NumberOfPeople);
         Tag = findViewById(R.id.Tag);
         save = findViewById(R.id.save);
         addIngredients = findViewById(R.id.addIngredients);
         photo = findViewById(R.id.btn_addphoto);
-        imageView=findViewById(R.id.imageView);
+        imageView = findViewById(R.id.imageView);
         idLlProcedures = findViewById(R.id.id_ll_procedures);
         idLlRoot = findViewById(R.id.id_ll_root);
+        database = new DatabaseHandler(this);
+
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                System.out.println("Bundle extra was NULL from UploadRecipe Activity");
+            } else {
+                currentUSER_ID = extras.getInt("USER_ID");System.out.println("currentUSER_ID1  extras.getInt"+currentUSER_ID);
+            }
+        } else {
+            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");System.out.println("currentUSER_ID2  extras.getInt"+currentUSER_ID);
+            System.out.println("savedInstance was NULL");
+        }
+//        int userID = getIntent().getExtras().getInt("USER_ID");
+//        System.out.println("userID"+userID);
+//        user=dbHandler.getUser(userID);
 
 
         addstep.setOnClickListener(mActivity);

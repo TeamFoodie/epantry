@@ -8,24 +8,27 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
-
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.models.PantryIngredient;
 
+import java.util.ArrayList;
 import java.util.List;
-
-//import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class NotificationClass extends AppCompatActivity{
 
-//    public void calculateThreshold(PantryIngredient ingredient) {
-////        for (PantryIngredient ing : list) {
-//            if(ingredient.getCurrentQuantity() <= threshold)
-//                System.out.println("ING CURRENT QUAN:"+ing.getCurrentQuantity());
-//            lowStock.add("- "+ing+"\n");
-//            sendNotification();
-//        }
-//    }
+//    List<PantryIngredient> pantryList = new ArrayList<>();
+    List<PantryIngredient> lowStock = new ArrayList<>();
+
+    public List<PantryIngredient> calculateLowStock(List<PantryIngredient> list) {
+
+        for (PantryIngredient ing : list) {
+            if(ing.getCurrentQuantity() <= ing.getTotalQuantity())
+                System.out.println("ING CURRENT QUAN:"+ing.getCurrentQuantity()+"ING TOTAL QUAN:"+ing.getTotalQuantity());
+            lowStock.add(ing);
+        }
+
+        return lowStock;
+    }
 
 
     public void generateNotification(List<PantryIngredient> pantryList) {

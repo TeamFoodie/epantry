@@ -1,12 +1,3 @@
-// TODO:
-//2) checkboxes:
-//      - calculateThreshold() - this will be called from Se's "Make" button after it decreases
-//      * if ticked:
-//              - set boolean priority to true
-//              - set each ingredient's threshold to "threshold" to save state??????
-//      - get it to save state - by loading all that have priority == true
-//3) add when back button clicked...
-
 package com.example.teamfoodie.epantry;
 
 import android.app.Notification;
@@ -37,7 +28,7 @@ import com.example.teamfoodie.models.PantryIngredient;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyPreferences extends AppCompatActivity {
+public class ShoppingList extends AppCompatActivity {
 
     int currentUSER_ID;
     int threshold;
@@ -50,14 +41,7 @@ public class MyPreferences extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_preferences_new);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setTitle("My Preferences"); // for set actionbar title
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // for add back arrow in action bar
-        System.out.println("Loaded class");
+        setContentView(R.layout.shopping_list);
 
         Bundle extras = getIntent().getExtras();
         currentUSER_ID = extras.getInt("USER_ID");
@@ -119,9 +103,7 @@ public class MyPreferences extends AppCompatActivity {
 
 
         //supply data itmes to ListView
-        //   ArrayAdapter<String> aa=new ArrayAdapter<String>(this,R.layout.checkable_list_layout,R.id.txt_title,items);
-        //listView.setAdapter(new PreferencesAdapter(this, pantryNames, dbHandler));
-        ArrayAdapter<String> bb = new ArrayAdapter<String>(this, R.layout.checkable_list_layout, R.id.txt_title, pantryOthers);
+            ArrayAdapter<String> bb = new ArrayAdapter<String>(this, R.layout.checkable_list_layout, R.id.txt_title, pantryOthers);
         listView.setAdapter(bb);
 
         //set OnItemClickListener..comment this out for it to work
@@ -136,28 +118,6 @@ public class MyPreferences extends AppCompatActivity {
             }
 
         });
-    }
-    //remember to change onClick in xml
-    public void setNotification(View view) {
-        String selItems = "";
-        for (String item : selectedItems) {
-            if (selItems == "") {
-                selItems = item;
-            } else {
-                selItems += "/" + item;
-            }
-            Toast.makeText(this, "Notification set for: "+selItems,
-                    Toast.LENGTH_LONG).show();
-        }
-
-        //go through pantryList
-        for (PantryIngredient ing : pantryList) {
-            for(int i = 0; i < pantryList.size(); ++i) {
-                if (ing.getIngredientName().contains(selectedItems.get(i))) { //if selectedItem (String) is in pantry
-                    ing.setPriority(true);                                    //set priority to true
-                }
-            }
-        }
     }
 
     public void showSelectedItems(View view) {

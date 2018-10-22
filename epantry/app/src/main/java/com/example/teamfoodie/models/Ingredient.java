@@ -3,11 +3,14 @@ package com.example.teamfoodie.models;
 public class Ingredient {
 
 
-    private int recipeID;
-    private String name;
-    private double measurement;
-    private String unitCount;
+    private int recipeID=0;
+    private String name="";
+    private double measurement=0.0;
+    private String unitCount="";
 
+    public Ingredient(){
+
+    }
     public Ingredient(String name, double measurement, String unitCount){
         this.setName(name);
         this.setMeasurement(measurement);
@@ -59,6 +62,6 @@ public class Ingredient {
     }
 
     public String toString(){
-        return this.getMeasurement() + this.getUnitCount() + " of " + this.getName();
+        return this.recipeID+"  "+this.getMeasurement() + this.getUnitCount() + " of " + this.getName();
     }
 }

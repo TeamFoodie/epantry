@@ -47,7 +47,7 @@ public class CustomRecipeListAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-//    Hold the reference to the id of view resource instantiating its context
+    //    Hold the reference to the id of view resource instantiating its context
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
@@ -67,12 +67,12 @@ public class CustomRecipeListAdapter extends BaseAdapter {
 
         //int imageId = this.getMipmapResIdByName(Recipe.getPhoto());
 
-        holder.recipePicView.setImageResource(Recipe.getPhoto());
+        holder.recipePicView.setImageResource(Integer.getInteger(Recipe.getPhoto()));
 
         return convertView;
     }
 
-//  Find Image ID corresponding to the name of the image (in the directory mipmap).
+    //  Find Image ID corresponding to the name of the image (in the directory mipmap).
     public int getMipmapResIdByName(String resName)  {
         String pkgName = context.getPackageName();
         // Return 0 if not found.

@@ -181,7 +181,7 @@ public class EditUserDetailsActivity extends AppCompatActivity {
                 db.updateUserDetails(values, userID);
 
                 //call updateUser
-                db.updateUser(user,userID);
+//                db.updateUser(user,userID);
 
                 //toast to save details updated
 

@@ -38,7 +38,7 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
         this.dbHandler = new DatabaseHandler(this);
         this.recipeList = dbHandler.loadAllRecipes();
         this.adapter = new CustomRecipeListAdapter(this, recipeList);
-//        dbHandler.populateRecipeDatabase();
+        dbHandler.populateRecipeDatabase();
 
         this.listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
@@ -65,6 +65,7 @@ public class ViewAllRecipesActivity extends AppCompatActivity {
                 Recipe recipe = (Recipe) obj;
                 Intent intent = new Intent(ViewAllRecipesActivity.this, ViewSelectedRecipeActivity.class);
                 intent.putExtra("RECIPE_ID", recipe.getRecipeID());
+                intent.putExtra("USER_ID", getIntent().getExtras().getInt("USER_ID"));
                 startActivity(intent);
 
             }

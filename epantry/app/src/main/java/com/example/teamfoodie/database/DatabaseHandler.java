@@ -391,46 +391,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void updateUserDetails(ContentValues values, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.update(TABLE_USERS, values, "UserID = "+id, null);
-        //   db.execSQL("UPDATE Users SET UserName = 'HELLO' WHERE UserID = '"+id+"'");
         db.close();
     }
 
-    public User updateUser(User user, int userID) {
-        String query = "";
+    public void updatePantryQuantity(ContentValues values, String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = null;
-        User foundUser;
-
-        query = "SELECT * FROM " + TABLE_USERS + " WHERE UserID = '"+userID+"'";
-
-        System.out.println("user found : user: " + user.getUsername() + " password: " + user.getPassword());
-        cursor = db.rawQuery(query, null);
-        foundUser = userTable.findUser(cursor);
-        // 1. get reference to writable DB
-
-
-        Log.i("In UpdateUser()",user.getUsername()+" "+user.getEmail()+" "+user.getPassword());
-
-        // 4. close
+        db.update(TABLE_PANTRY, values, "IngredientID = "+id, null);
         db.close();
-
-        return foundUser;
     }
 
-
-    public PantryIngredient populatePantry() {
-//        PantryIngredient ing = new PantryIngredient();
-//        ing.setIngredientName("Cereal");
-//        ing.setTotalQuantity(3);
-//        ing.setCurrentQuantity(3);
-//        ing.setUnitMeasure("g");
-//        ing.setFoodGroup("Breakfast");
-//        ing.setOwner(1);
-
-        PantryIngredient ing = new PantryIngredient("1", "Cereal", 3, 3, "g", "Poultry", 0, false);
-
-        return ing;
-    }
 
     public void populateRecipeDatabase() {
         PopulateRecipeTable.populateRecipeDatabase(this);

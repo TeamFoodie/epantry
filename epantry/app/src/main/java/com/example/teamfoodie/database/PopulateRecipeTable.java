@@ -59,7 +59,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure6);
         procedureArray.add(procedure7);
 
-        Recipe r1 = new Recipe("Afghans", R.drawable.afghans, "Afghans are a kiwi classic", 650,40,1,4,"Comfort Food", ingredientarray, procedureArray);
+        Recipe r1 = new Recipe("Afghans", "Afghans are a kiwi classic", 650,40,1,4,"Comfort Food", ingredientarray, procedureArray);
+        r1.setPhoto(String.valueOf(R.drawable.afghans));
         db.addHandle(r1);
 
 //        ===========================================================================================================
@@ -105,7 +106,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure2);
         procedureArray.add(procedure3);
 
-        Recipe r2 = new Recipe("Miso Fresh Bowl", R.drawable.miso_soup, "A light and healthy salad",230,15,1,1,"Vegetarian", ingredientarray, procedureArray);
+        Recipe r2 = new Recipe("Miso Fresh Bowl", "A light and healthy salad",230,15,1,1,"Vegetarian", ingredientarray, procedureArray);
+        r2.setPhoto(String.valueOf(R.drawable.miso_soup));
         db.addHandle(r2);
 //       =========================================================================================================
 
@@ -147,7 +149,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure4);
 
 
-        Recipe r3 = new Recipe("Chicken Alfredo", R.drawable.chicken_alfredo,"It's the classic pasta we just can't seem to get enough of.",540,40,1,4,"Comfort Food", ingredientarray,procedureArray);
+        Recipe r3 = new Recipe("Chicken Alfredo", "It's the classic pasta we just can't seem to get enough of.",540,40,1,4,"Comfort Food", ingredientarray,procedureArray);
+        r3.setPhoto(String.valueOf(R.drawable.chicken_alfredo));
         db.addHandle(r3);
 //        //=========================================================================================================
 
@@ -196,7 +199,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure5);
 
 
-        Recipe r4 = new Recipe("Philly Cheesesteak Casserole", R.drawable.philly_cheesesteak,"Best cheesy caserole",1200,50,1,6,"Comfort Food", ingredientarray,procedureArray);
+        Recipe r4 = new Recipe("Philly Cheesesteak Casserole", "Best cheesy caserole",1200,50,1,6,"Comfort Food", ingredientarray,procedureArray);
+        r4.setPhoto(String.valueOf(R.drawable.philly_cheesesteak));
         db.addHandle(r4);
 //        =========================================================================================================
 
@@ -237,7 +241,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure3);
 
 
-        Recipe r5 = new Recipe("Shrimp Fried Rice", R.drawable.shrimp_fried_rice,"Tasty fried rice with a twist",300,30,1,4,"Comfort Food", ingredientarray,procedureArray);
+        Recipe r5 = new Recipe("Shrimp Fried Rice", "Tasty fried rice with a twist",300,30,1,4,"Comfort Food", ingredientarray,procedureArray);
+        r5.setPhoto(String.valueOf(R.drawable.shrimp_fried_rice));
         db.addHandle(r5);
 //        =========================================================================================================
 
@@ -266,7 +271,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure2);
 
 
-        Recipe r6 = new Recipe("Roasted butternut squash", R.drawable.butternut_squash,"A delicious fall staple",250,60,1,4,"Vegetarian", ingredientarray,procedureArray);
+        Recipe r6 = new Recipe("Roasted butternut squash","A delicious fall staple",250,60,1,4,"Vegetarian", ingredientarray,procedureArray);
+        r6.setPhoto(String.valueOf( R.drawable.butternut_squash));
         db.addHandle(r6);
 //        =========================================================================================================
 
@@ -315,7 +321,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure7);
 
 
-        Recipe r7 = new Recipe("Potato Salad", R.drawable.potato_salad,"Classic potato salad for pot lucks and picnics",550,15,1,8,"Vegan", ingredientarray,procedureArray);
+        Recipe r7 = new Recipe("Potato Salad", "Classic potato salad for pot lucks and picnics",550,15,1,8,"Vegan", ingredientarray,procedureArray);
+        r7.setPhoto(String.valueOf(R.drawable.potato_salad));
         db.addHandle(r7);
 //        =========================================================================================================
 
@@ -360,7 +367,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure6);
 
 
-        Recipe r8 = new Recipe("Spaghetti Bolognese", R.drawable.spaghetti_bolognese,"Classic potato salad for pot lucks and picnics",230,110,1,8,"Dairy Free", ingredientarray,procedureArray);
+        Recipe r8 = new Recipe("Spaghetti Bolognese", "Classic potato salad for pot lucks and picnics",230,110,1,8,"Dairy Free", ingredientarray,procedureArray);
+        r8.setPhoto(String.valueOf(R.drawable.spaghetti_bolognese));
         db.addHandle(r8);
 //        =========================================================================================================
 
@@ -393,7 +401,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure3);
 
 
-        Recipe r9 = new Recipe("Vegan Brownies", R.drawable.chocolate_brownies,"Soft, rich, fudgy, dangerously chocolatey… and surprisingly vegan!",100,35,1,16,"Vegan", ingredientarray,procedureArray);
+        Recipe r9 = new Recipe("Vegan Brownies", "Soft, rich, fudgy, dangerously chocolatey… and surprisingly vegan!",100,35,1,16,"Vegan", ingredientarray,procedureArray);
+        r9.setPhoto(String.valueOf(R.drawable.chocolate_brownies));
         db.addHandle(r9);
 //        =========================================================================================================
 
@@ -445,7 +454,8 @@ public class PopulateRecipeTable {
 
 
 
-        Recipe r10 = new Recipe("Flake salmon salad", R.drawable.salmon_salad,"This tasty flaked salmon salad is great for those that might not love salmon, like kids.",120,25,1,5,"Vegan", ingredientarray,procedureArray);
+        Recipe r10 = new Recipe("Flake salmon salad", "This tasty flaked salmon salad is great for those that might not love salmon, like kids.",120,25,1,5,"Vegan", ingredientarray,procedureArray);
+        r1.setPhoto(String.valueOf(R.drawable.salmon_salad));
         db.addHandle(r10);
 //        =========================================================================================================
     }
