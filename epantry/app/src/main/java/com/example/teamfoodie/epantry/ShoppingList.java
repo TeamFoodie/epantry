@@ -32,7 +32,7 @@ public class ShoppingList extends AppCompatActivity {
 
     int currentUSER_ID;
     int threshold;
-    EditText ETthreshold;
+//    EditText ETthreshold;
     List<PantryIngredient> pantryList = new ArrayList<>();
     ArrayList<String> selectedItems = new ArrayList<>();
     ArrayList<String> lowStock = new ArrayList<>();
@@ -45,25 +45,14 @@ public class ShoppingList extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         currentUSER_ID = extras.getInt("USER_ID");
-//        if (savedInstanceState == null) {
-//
-//            if (extras == null) {
-//                System.out.println("Bundle extra was NULL user");
-//            } else {
-//
-//            }
-//        } else {
-//            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
-//            System.out.println("savedInstance was NULL");
+
+//        ETthreshold  = (EditText) findViewById(R.id.threshold);
+//        String stringThreshold = ETthreshold.getText().toString();
+//        if(!(stringThreshold.isEmpty())){
+//            threshold = Integer.valueOf(stringThreshold);
 //        }
-
-        ETthreshold  = (EditText) findViewById(R.id.threshold);
-        String stringThreshold = ETthreshold.getText().toString();
-        if(!(stringThreshold.isEmpty())){
-            threshold = Integer.valueOf(stringThreshold);
-        }
-
-        pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
+//
+//        pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
     }
 
     @Override

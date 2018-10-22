@@ -109,7 +109,7 @@ public class PopulateRecipeTable {
         Recipe r2 = new Recipe("Miso Fresh Bowl", "A light and healthy salad",230,15,1,1,"Vegetarian", ingredientarray, procedureArray);
         r2.setPhoto(String.valueOf(R.drawable.miso_soup));
         db.addHandle(r2);
-//       =========================================================================================================
+//       ============================================================================================================
 
 
         ing1.setInfo("Extra-virgin olive oil", 2, "tbsp");

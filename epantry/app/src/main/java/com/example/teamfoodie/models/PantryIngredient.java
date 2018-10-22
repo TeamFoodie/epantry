@@ -101,6 +101,10 @@ public class PantryIngredient implements Serializable {
         return foodGroup.toString();
     }
 
+    public int getIntegerFoodGroup(){
+        return foodGroup.integerValue();
+    }
+
     public void setFoodGroup(String food) {
         switch (food){
             case "Spices":
@@ -109,7 +113,7 @@ public class PantryIngredient implements Serializable {
             case "Poultry":
                 this.foodGroup = FoodGroup.POULTRY;
                 break;
-            case "Basic Neccesities":
+            case "Staple":
                 this.foodGroup = FoodGroup.STAPLE;
                 break;
             case "Vegetables":
