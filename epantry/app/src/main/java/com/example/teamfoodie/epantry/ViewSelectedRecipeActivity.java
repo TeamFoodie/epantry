@@ -199,9 +199,10 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
         for (int RECIPE_INDEX = 0; RECIPE_INDEX < recipeIngredientsList.size(); RECIPE_INDEX++) {
             Ingredient ingredient = (Ingredient) recipeIngredientsList.get(RECIPE_INDEX);
             for (int PANTRY_INDEX = 0; PANTRY_INDEX < pantryList.size(); PANTRY_INDEX++) {
+                System.out.println("Nested Loop");
                 PantryIngredient pantryIngredient = pantryList.get(PANTRY_INDEX);
                 if (ingredient.getName().toLowerCase().contains(pantryIngredient.getIngredientName().toLowerCase())) {
-
+                    System.out.println("Here if");
                     double newQuanity = pantryIngredient.getCurrentQuantity() - ingredient.getMeasurement();
                     pantryIngredient.setCurrentQuantity((newQuanity));
                     System.out.println(newQuanity + " for ingredient " + pantryIngredient.getIngredientName());
