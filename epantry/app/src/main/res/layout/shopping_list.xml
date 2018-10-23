@@ -83,14 +83,13 @@
         app:layout_constraintRight_toRightOf="@id/lowstockText" />
 
     <Button
-        android:id="@+id/id_btn_capture"
+        android:id="@+id/id_btn_export"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="10dp"
         android:background="#029688"
-        android:text="capture"
-        android:visibility="gone"
+        android:text="export to message"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.12"

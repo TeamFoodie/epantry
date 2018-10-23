@@ -42,13 +42,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     }
 
-<<<<<<< HEAD
     public ShoppingListAdapter(List<String> itemList) {
-=======
-
-    public ShoppingListAdapter(List<PantryIngredient> itemList) {
-
->>>>>>> master
         mItemList = itemList;
     }
 
@@ -62,7 +56,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     @Override
     public void onBindViewHolder(@NonNull FoodMaterialViewHolder holder, final int position) {
         final String shoppingList = mItemList.get(position);
-       // String desc = shoppingList.getCurrentQuantity() + " " + shoppingList.getUnitMeasure() + " " + shoppingList.getIngredientName();
+        // String desc = shoppingList.getCurrentQuantity() + " " + shoppingList.getUnitMeasure() + " " + shoppingList.getIngredientName();
         String desc = shoppingList;
 //        holder.idCb.setChecked(shoppingList.set());
         holder.idCb.setText(desc);

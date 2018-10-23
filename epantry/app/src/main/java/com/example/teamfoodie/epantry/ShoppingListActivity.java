@@ -1,11 +1,14 @@
 package com.example.teamfoodie.epantry;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,15 +26,16 @@ import java.util.ArrayList;
 import java.util.List;
 /*
  * ShoppingListActivity class shows Shopping List from database
- * and user can delete items from database and take capture
+ * and user can delete items from database and export it to message
  */
-public class ShoppingListActivity extends AppCompatActivity {
+public class ShoppingListActivity extends AppCompatActivity implements View.OnClickListener{
 
-    protected RecyclerView recycler_View;
+    protected RecyclerView idRvMaterial;
     protected CheckBox idCbSelect;
     protected Button idBtnDelete;
-    protected Button idBtnCapture;
+    protected Button export;
     private Context mContext;
+    private ShoppingListActivity mainActivity;
     private SharedPreferences mSharedPreferences;
     private List<String> shoppingListList;
     private List<String> shoppingListSelectList;
@@ -39,6 +43,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private List<Object> recipeIngList = new ArrayList<>();
     private List<Ingredient> ingRecipeIngList = new ArrayList<>();
     private List<String> lowStockAndMissing = new ArrayList<>();
+    private String lowStockAndMissingStr="";
     List<PantryIngredient> lowStock = new ArrayList<>();
     List<Object> missingIngredients = new ArrayList<>();
     DatabaseHandler dbHandler = new DatabaseHandler(this);
@@ -65,7 +70,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     public List<Object> calculateMissing(List<Ingredient> recipeList) {   //take in recipe list
         System.out.println("calculatemissing()");
         for (int i = 0; i < pantryList.size(); i++) {
-           for (int j = 0; j < recipeList.size(); j++) {
+            for (int j = 0; j < recipeList.size(); j++) {
                 System.out.println("If " + recipeList.get(j).getName().toUpperCase() + " contains " + pantryList.get(i).getIngredientName().toUpperCase());
                 if (!recipeList.get(j).getName().toUpperCase().contains(pantryList.get(i).getIngredientName().toUpperCase())) {   //if recipe list doesn't equal pantry list
                     missingIngredients.add(recipeList.get(j).getName());
@@ -79,6 +84,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Bundle extras = getIntent().getExtras();
         currentUSER_ID = extras.getInt("USER_ID");
         System.out.println(currentUSER_ID);
@@ -108,7 +114,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         //add lowStock <PI> into missing&Low<String>
         for(int j = 0; j < lowStock.size(); ++j) {
-             lowStockAndMissing.add(lowStock.get(j).getIngredientName());
+            lowStockAndMissing.add(lowStock.get(j).getIngredientName());
             System.out.println("CURRENTLY IN LOWANDMISSING: "+lowStockAndMissing.get(j));
         }
         // addFoodMaterial();
@@ -150,15 +156,23 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
         final ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(shoppingListList);
-        recycler_View.setLayoutManager(new LinearLayoutManager(mContext));
-        recycler_View.setAdapter(shoppingListAdapter);
+        idRvMaterial.setLayoutManager(new LinearLayoutManager(mContext));
+        idRvMaterial.setAdapter(shoppingListAdapter);
         if(lowStock != null){
             System.out.println("before update():"+lowStock.get(0).getIngredientName());
         }
 
         shoppingListAdapter.update(lowStockAndMissing); //change it to take in 2 arguments???
 
-
+        mainActivity=this;
+//        export.setOnClickListener(mainActivity);
+        export.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String exportMessage = convertToString(lowStockAndMissing);
+                sendSms(mainActivity,"000000",exportMessage);
+            }
+        });
 
         idBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,9 +197,35 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        recycler_View = findViewById(R.id.recycler_view);
+        idRvMaterial = findViewById(R.id.recycler_view);
         idCbSelect = findViewById(R.id.id_cb_select);
         idBtnDelete = findViewById(R.id.id_btn_delete);
-        idBtnCapture = findViewById(R.id.id_btn_capture);
+        export=findViewById(R.id.id_btn_export);
+    }
+
+    public static void sendSms(Context context, String phoneNumber, String content) {
+        Uri uri = Uri.parse( "smsto:" + (TextUtils.isEmpty(phoneNumber) ? "" : phoneNumber));
+        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+        intent.putExtra( "sms_body" , TextUtils.isEmpty(content) ? "" : content);
+        context.startActivity(intent);
+    }
+
+    public String convertToString(List<String> lsam){//lowStockAndMissing list
+
+        for(int i=0;i<lsam.size();i++){
+            String result=lsam.get(i);
+            lowStockAndMissingStr=lowStockAndMissingStr+result+"\n";
+        }
+        System.out.println(lowStockAndMissingStr);
+       return lowStockAndMissingStr;
+    }
+
+    @Override
+    public void onClick(View v) {
+//        switch (v.getId()){
+//            case R.id.bt_export:
+//                sendSms(mainActivity,"000000","sss");
+//
+//        }
     }
 }
