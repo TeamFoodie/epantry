@@ -134,7 +134,7 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            int newQuantity = ingredient.getCurrentQuantity() + ingredient.getTotalQuantity();
+                            double newQuantity = ingredient.getCurrentQuantity() + ingredient.getTotalQuantity();
                             ingredient.setCurrentQuantity(newQuantity);
                             database.topUpQuantity(ingredient);
 

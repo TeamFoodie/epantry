@@ -64,8 +64,8 @@ public class PantryIngredientTable {
             cursor.moveToFirst();
             ingredient.setIngredientID(cursor.getString(0));
             ingredient.setIngredientName(cursor.getString(1));
-            ingredient.setTotalQuantity(cursor.getInt(2));
-            ingredient.setCurrentQuantity(cursor.getInt(3));
+            ingredient.setTotalQuantity(cursor.getDouble(2));
+            ingredient.setCurrentQuantity(cursor.getDouble(3));
             ingredient.setUnitMeasure(cursor.getString(4));
             ingredient.setFoodGroup(cursor.getString(5));
             ingredient.setOwner(cursor.getInt(6));
@@ -91,8 +91,8 @@ public class PantryIngredientTable {
             PantryIngredient pantryObject = new PantryIngredient();
             pantryObject.setIngredientID(cursor.getString(0));
             pantryObject.setIngredientName(cursor.getString(1));
-            pantryObject.setTotalQuantity(cursor.getInt(2));
-            pantryObject.setCurrentQuantity(cursor.getInt(3));
+            pantryObject.setTotalQuantity(cursor.getDouble(2));
+            pantryObject.setCurrentQuantity(cursor.getDouble(3));
             pantryObject.setUnitMeasure(cursor.getString(4));
             pantryObject.setFoodGroup(cursor.getString(5));
             pantryObject.setOwner(cursor.getInt(6));

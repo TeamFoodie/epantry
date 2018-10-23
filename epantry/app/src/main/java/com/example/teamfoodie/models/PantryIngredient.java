@@ -11,8 +11,8 @@ import java.text.BreakIterator;
 public class PantryIngredient implements Serializable {
     private String ingredientID;
     private String ingredientName;
-    private int totalQuantity;
-    private int currentQuantity;
+    private double totalQuantity;
+    private double currentQuantity;
     private String unitMeasure;
     private FoodGroup foodGroup;
     private int owner;
@@ -34,7 +34,7 @@ public class PantryIngredient implements Serializable {
      * @param unitMeasure
      * @param owner
      */
-    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, String foodGroup, int owner){
+    public PantryIngredient(String id, String name, double total, double current, String unitMeasure, String foodGroup, int owner){
         this.setIngredientID(id);
         this.setIngredientName(name);
         this.setTotalQuantity(total);
@@ -54,11 +54,11 @@ public class PantryIngredient implements Serializable {
         this.ingredientName = name;
     }
 
-    public void setTotalQuantity(int total){
+    public void setTotalQuantity(double total){
         this.totalQuantity = total;
     }
 
-    public void setCurrentQuantity(int current){
+    public void setCurrentQuantity(double current){
         this.currentQuantity = current;
     }
 
@@ -78,11 +78,11 @@ public class PantryIngredient implements Serializable {
         return this.ingredientName;
     }
 
-    public int getTotalQuantity(){
+    public double getTotalQuantity(){
         return this.totalQuantity;
     }
 
-    public int getCurrentQuantity(){
+    public double getCurrentQuantity(){
         return this.currentQuantity;
     }
 
