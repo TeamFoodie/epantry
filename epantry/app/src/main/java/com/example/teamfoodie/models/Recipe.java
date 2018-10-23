@@ -33,9 +33,9 @@ public class Recipe {
         this.setDietary(foodGroup);
     }
 
-    public Recipe(String recipeName,  String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup, ArrayList<Ingredient> ingredients, ArrayList<Procedure> procedures) {
+    public Recipe(String recipeName, String photo,  String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup, ArrayList<Ingredient> ingredients, ArrayList<Procedure> procedures) {
         this.setRecipeName(recipeName);
-//        this.setPhoto(photo);
+        this.setPhoto(photo);
         this.setDescription(description);
         this.setCalorieCount(calorieCount);
         this.setCookingTime(cookingTime);

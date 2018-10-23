@@ -275,23 +275,27 @@ public class UserRecipeActivity extends AppCompatActivity implements View.OnClic
                 if (checkEmpty(tagStr, "The tags cannot be empty ", Tag)) return;
 
 
-                Recipe recipe = new Recipe(titleStr, introductionStr, calorieCount, cookingTime, currentUSER_ID, numberOfPeople, tagStr, mRecipeIngredientList, mProcedureList);
+                String photoUrlTMp;
 
-
-//                Log.e(TAG, "run: ==" + (mBitmap == null));
                 if (mBitmap != null) {
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    mBitmap.compress(Bitmap.CompressFormat.PNG, 10, byteArrayOutputStream);
-                    String photoUrl = new String(Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT));
-
-                    SharedPreferences.Editor editor = mSharedPreferences.edit();
+//                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//                    mBitmap.compress(Bitmap.CompressFormat.PNG, 10, byteArrayOutputStream);
+//                    String photoUrl = new String(Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT));
+//                    SharedPreferences.Editor editor = mSharedPreferences.edit();
 //                    editor.putString("photoUrl", photoUrl);
-                    editor.commit();
-
-                    String photoUrlTMp = mSharedPreferences.getString("photoUrl", "");
-                    recipe.setPhoto(photoUrlTMp);
-//                    Log.e(TAG, "run: photo===" + photoUrlTMp);
+//                    editor.commit();
+//                    photoUrlTMp = mSharedPreferences.getString("photoUrl", "");
+                    Toast toast = Toast.makeText(getApplicationContext(), "Sorry, photo was too large to be stored", Toast.LENGTH_SHORT);
+                    photoUrlTMp = String.valueOf(R.drawable.default_food);
+                    toast.show();
                 }
+//
+                else{
+                    photoUrlTMp = String.valueOf(R.drawable.default_food);
+                }
+
+                Recipe recipe = new Recipe(titleStr, photoUrlTMp, introductionStr, calorieCount, cookingTime, currentUSER_ID, numberOfPeople, tagStr, mRecipeIngredientList, mProcedureList);
+
 //                        userRecipe.setTags(tagStr);
                 boolean recipeCreate = database.addHandle(recipe);
                 if (recipeCreate) {

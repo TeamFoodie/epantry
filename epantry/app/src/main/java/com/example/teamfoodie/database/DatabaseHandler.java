@@ -1,14 +1,13 @@
 package com.example.teamfoodie.database;
 
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.content.Context;
-import android.content.ContentValues;
-import android.database.Cursor;
 import android.util.Log;
 
-import com.example.teamfoodie.models.Dietary;
 import com.example.teamfoodie.models.DietaryRequirement;
 import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.PantryIngredient;
@@ -35,7 +34,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_INGREDIENTS = "RecipeIngredients";
     private static final String TABLE_PROCEDURES = "RecipeProcedures";
     private static final String TABLE_DIETARY_REQUIREMENTS = "DietaryRequirements";
-    private static final String TABLE_TAG = "Tag";
 
 
     private PantryIngredientTable pantryIngredientTable = new PantryIngredientTable();
@@ -43,7 +41,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private RecipeTable recipeTable = new RecipeTable();
     private RecipeIngredientsTable ingredientsTable = new RecipeIngredientsTable();
     private RecipeProceduresTable proceduresTable = new RecipeProceduresTable();
-    private RecipeTagTable tagTable= new RecipeTagTable();
     private DietaryRequirementsTable dietaryTable = new DietaryRequirementsTable();
 
     private String username = "";
@@ -64,7 +61,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(recipeTable.createRecipeTable(TABLE_RECIPE));
         db.execSQL(ingredientsTable.createRecipeIngredientTable(TABLE_INGREDIENTS));
         db.execSQL(proceduresTable.createRecipeProcedureTable(TABLE_PROCEDURES));
-        db.execSQL(tagTable.createRecipeTagTable(TABLE_TAG));
         db.execSQL(dietaryTable.createDietaryTable(TABLE_DIETARY_REQUIREMENTS));
     }
 
@@ -76,7 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_INGREDIENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROCEDURES);
-        db.execSQL("DROP TABLE IF EXISTS " +TABLE_TAG);
+//        db.execSQL("DROP TABLE IF EXISTS " +TABLE_TAG);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DIETARY_REQUIREMENTS);
         onCreate(db);
     }
@@ -110,9 +106,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             recipeObject = (Recipe) object;
             tableName = TABLE_RECIPE;
             values = recipeTable.addNewRecipe(recipeObject);
-            //do I need to create table for ingredients... here???????
             newRecipe = true;
-        } else if(object instanceof DietaryRequirement){
+        } else if (object instanceof DietaryRequirement) {
             DietaryRequirement dietary = (DietaryRequirement) object;
             tableName = TABLE_DIETARY_REQUIREMENTS;
             values = dietaryTable.addNewDietaryRequirement(dietary);
@@ -126,7 +121,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             System.out.println("could not populate");
         } else {
             createSuccessful = true;
-            System.out.println("table populated   "+i);
+            System.out.println("table populated   " + i);
             if (newRecipe) {
                 addRecipeDetails(i, recipeObject);
             }
@@ -331,14 +326,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * This method is used in the Navigation Drawer to display the
      * User's email details.
      *
-     * @param username          String
+     * @param username String
      * @return User's email     String
      */
     public String getUserEmail(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String email = null;
-        String query = "SELECT * FROM users WHERE username = '"+ username+"'";
+        String query = "SELECT * FROM users WHERE username = '" + username + "'";
 
         Cursor cursor = db.rawQuery(query, null);
 
@@ -355,7 +350,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         User user = new User();
 
-        String query = "SELECT * FROM users WHERE UserID = '"+ id+"'";
+        String query = "SELECT * FROM users WHERE UserID = '" + id + "'";
 
         Cursor cursor = db.rawQuery(query, null);
 
@@ -372,7 +367,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void updateUserDetails(ContentValues values, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update(TABLE_USERS, values, "UserID = "+id, null);
+        db.update(TABLE_USERS, values, "UserID = " + id, null);
         //   db.execSQL("UPDATE Users SET UserName = 'HELLO' WHERE UserID = '"+id+"'");
         db.close();
     }
@@ -383,7 +378,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = null;
         User foundUser;
 
-        query = "SELECT * FROM " + TABLE_USERS + " WHERE UserID = '"+userID+"'";
+        query = "SELECT * FROM " + TABLE_USERS + " WHERE UserID = '" + userID + "'";
 
         System.out.println("user found : user: " + user.getUsername() + " password: " + user.getPassword());
         cursor = db.rawQuery(query, null);
@@ -391,7 +386,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // 1. get reference to writable DB
 
 
-        Log.i("In UpdateUser()",user.getUsername()+" "+user.getEmail()+" "+user.getPassword());
+        Log.i("In UpdateUser()", user.getUsername() + " " + user.getEmail() + " " + user.getPassword());
 
         // 4. close
         db.close();
