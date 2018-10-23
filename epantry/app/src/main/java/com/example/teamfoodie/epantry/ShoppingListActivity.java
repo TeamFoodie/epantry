@@ -125,7 +125,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        idRvMaterial = findViewById(R.id.id_rv_material);
+//        idRvMaterial = findViewById(R.id.id_rv_material);
         idCbSelect = findViewById(R.id.id_cb_select);
         idBtnDelete = findViewById(R.id.id_btn_delete);
         idBtnCapture = findViewById(R.id.id_btn_capture);
