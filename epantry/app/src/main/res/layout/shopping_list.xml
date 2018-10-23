@@ -60,9 +60,46 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:text="Missing Ingredients"
-        app:layout_constraintLeft_toLeftOf="@id/label"
-        app:layout_constraintRight_toRightOf="@id/label"
-        app:layout_constraintTop_toBottomOf="@id/recycler_view" />
+        app:layout_constraintBottom_toTopOf="@id/id_btn_delete"
+        app:layout_constraintLeft_toLeftOf="@id/lowstockText"
+        app:layout_constraintRight_toRightOf="@id/lowstockText" />
 
+    <ImageView
+        android:id="@+id/id_btn_export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="24dp"
+        android:text="export to message"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.546"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/id_cb_select"
+        app:srcCompat="@drawable/export" />
+
+
+    <CheckBox
+        android:id="@+id/id_cb_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:text="Select all"
+        app:layout_constraintBottom_toBottomOf="@id/id_btn_delete"
+        app:layout_constraintRight_toLeftOf="@id/id_btn_delete"
+        app:layout_constraintTop_toTopOf="@id/id_btn_delete"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/id_btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginRight="56dp"
+        android:layout_marginBottom="28dp"
+        android:background="#029688"
+        android:text="delete"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
