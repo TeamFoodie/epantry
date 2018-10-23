@@ -20,6 +20,7 @@ import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.database.RecipeIngredientsTable;
 import com.example.teamfoodie.epantry.listAdapters.CustomProcedureAdapter;
+import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.PantryIngredient;
 import com.example.teamfoodie.models.Recipe;
 
@@ -111,6 +112,27 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
             View view = adapter.getView(i, null, proceduresListView);
             proceduresListView.addView(view);
         }
+    }
+
+    public void compreIngredientsPantryVRecipe(List<Object> makeIngredients, List<PantryIngredient> pantryList) {
+
+        //ri --> recipe index
+        //pi --> pantry index
+        for (int ri = 0; ri < ingredientList.size(); ri++ ){
+            Ingredient ingredient = (Ingredient) ingredientList.get(ri);
+            for(int pi = 0; pi < pantryList.size();pi++) {
+                PantryIngredient pantryIngredient = pantryList.get(pi);
+                if(ingredient.getName().contains(pantryIngredient.getIngredientName()) ){
+
+                    double newQuanity = pantryIngredient.getCurrentQuantity() - ingredient.getMeasurement();
+                    pantryIngredient.setCurrentQuantity((newQuanity));
+                    dbHandler.subtractQuantity(pantryIngredient);
+                }
+            }
+        }
+
+
+
     }
 
     public void setAlertDialog(String message) {
