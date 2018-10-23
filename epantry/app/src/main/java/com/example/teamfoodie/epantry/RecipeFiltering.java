@@ -25,13 +25,14 @@ public class RecipeFiltering {
 
         for (RECIPE_INDEX = 0; RECIPE_INDEX < recipes.size(); RECIPE_INDEX++) {
             recipeIngredients = dbHandler.loadAllRecipeDetails(recipes.get(RECIPE_INDEX).getRecipeID(), 1);
-            matches = 0;
+//            matches = 0;
 
             for (RINGREDIENT_INDEX = 0; RINGREDIENT_INDEX < recipeIngredients.size(); RINGREDIENT_INDEX++) {
                 Ingredient ingredient = (Ingredient) recipeIngredients.get(RINGREDIENT_INDEX);
+                System.out.println("Size of recipe ingredients is =================== " + recipeIngredients.size());
 
                 for (PANTRY_INDEX = 0; PANTRY_INDEX < pantryIngredients.size(); PANTRY_INDEX++) {
-                    String ingName = pantryIngredients.get(RECIPE_INDEX).getIngredientName().toLowerCase();
+                    String ingName = pantryIngredients.get(PANTRY_INDEX).getIngredientName().toLowerCase();
 
                     if (ingName.contains(ingredient.getName()) || ingName.contains("water")) {
                         matches++;
@@ -43,7 +44,7 @@ public class RecipeFiltering {
                 }
                 matches = 0;
 
-                System.out.println("RECIPE INDEX " + RECIPE_INDEX);
+//                System.out.println("RECIPE INDEX " + RECIPE_INDEX);
             }
 
 
