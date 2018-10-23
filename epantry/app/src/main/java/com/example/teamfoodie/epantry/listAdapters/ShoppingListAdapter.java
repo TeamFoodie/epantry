@@ -6,13 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 
 import com.example.teamfoodie.R;
-import com.example.teamfoodie.models.PantryIngredient;
 import com.example.teamfoodie.models.ShoppingList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,13 +39,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     }
 
-<<<<<<< HEAD
     public ShoppingListAdapter(List<String> itemList) {
-=======
-
-    public ShoppingListAdapter(List<PantryIngredient> itemList) {
-
->>>>>>> master
         mItemList = itemList;
     }
 
@@ -62,7 +53,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     @Override
     public void onBindViewHolder(@NonNull FoodMaterialViewHolder holder, final int position) {
         final String shoppingList = mItemList.get(position);
-       // String desc = shoppingList.getCurrentQuantity() + " " + shoppingList.getUnitMeasure() + " " + shoppingList.getIngredientName();
+        // String desc = shoppingList.getCurrentQuantity() + " " + shoppingList.getUnitMeasure() + " " + shoppingList.getIngredientName();
         String desc = shoppingList;
 //        holder.idCb.setChecked(shoppingList.set());
         holder.idCb.setText(desc);
@@ -93,7 +84,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public void update(List<String> itemList) {
         mItemList.clear();
         mItemList.addAll(itemList);
-        System.out.println("IN ITEM LIST:"+itemList.size());
+        System.out.println("IN ITEM LIST:" + itemList.size());
         notifyDataSetChanged();
     }
 }
