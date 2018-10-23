@@ -211,13 +211,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 object = (Object) foundIngredient;
 
                 break;
-            case "PantryIngredientSubtract":
-                query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientName LIKE " + "'" + id + "' AND Owner = '" + currentUSER + "'";
-                cursor = db.rawQuery(query, null);
-                foundIngredient = pantryIngredientTable.findIngredient(cursor);
-                object = (Object) foundIngredient;
-
-                break;
+//            case "PantryIngredientSubtract":
+//                query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientName LIKE " + "'" + id + "' AND Owner = '" + currentUSER + "'";
+//                cursor = db.rawQuery(query, null);
+//                foundIngredient = pantryIngredientTable.findIngredient(cursor);
+//                object = (Object) foundIngredient;
+//
+//                break;
             case "User":
                 query = "SELECT * FROM " + TABLE_USERS + " WHERE UserName = '" + username + "' AND Password = '" + password + "'";
                 cursor = db.rawQuery(query, null);
