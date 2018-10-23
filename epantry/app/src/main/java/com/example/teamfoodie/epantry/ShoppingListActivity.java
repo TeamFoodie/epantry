@@ -49,8 +49,6 @@ public class ShoppingListActivity extends AppCompatActivity {
     public List<PantryIngredient> calculateLowStock(List<PantryIngredient> list) {
 
         for (PantryIngredient ing : list) {
-            ing.setCurrentQuantity(2);
-
             if (ing.getCurrentQuantity() < ing.getTotalQuantity()) {
                 System.out.println("LOWSTOCK!! ING CURRENT QUAN:" + ing.getCurrentQuantity() + "ING TOTAL QUAN:" + ing.getTotalQuantity());
                 lowStock.add(ing);
@@ -62,7 +60,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
     //pass in list of recipe ingredients
-    public List<Object> calculateMissing(List<Ingredient> recipeList) {   //take in recipe list
+    public List<Object> calculateMissingIngredients(List<Ingredient> recipeList) {   //take in recipe list
         System.out.println("calculatemissing()");
         for (int i = 0; i < pantryList.size(); i++) {
            for (int j = 0; j < recipeList.size(); j++) {
@@ -127,7 +125,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 //        }
 
 
-        calculateMissing(ingRecipeIngList);
+        calculateMissingIngredients(ingRecipeIngList);
 
         //add missing <I> into missing&Low<String>
         for(int j = 0; j < missingIngredients.size(); ++j) {
@@ -156,8 +154,10 @@ public class ShoppingListActivity extends AppCompatActivity {
             System.out.println("before update():"+lowStock.get(0).getIngredientName());
         }
 
-        shoppingListAdapter.update(lowStockAndMissing); //change it to take in 2 arguments???
-
+        //
+        if(lowStockAndMissing.size() != 0) {
+            shoppingListAdapter.update(lowStockAndMissing);
+        }
 
 
         idBtnDelete.setOnClickListener(new View.OnClickListener() {
