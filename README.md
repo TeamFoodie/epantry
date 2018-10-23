@@ -1,12 +1,4 @@
 # epantry
-Name, version, description, and/or features of the program.
-System requirements.
-Install, uninstall, configuration, and operating instructions.
-Files list.
-Credit, acknowledgments, contact information, and copyright.
-Known bugs and a change log.
-
-
 Application Name: e-Pantry
 Version: Release 1.0
 Description: E-pantry is an electronic pantry that stores an electronic copy of the user's physical pantry thus allowing users to filter recipes
