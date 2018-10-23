@@ -97,8 +97,6 @@ public class PantryIngredientTable {
             pantryObject.setFoodGroup(cursor.getString(5));
             pantryObject.setOwner(cursor.getInt(6));
             pantryList.add(pantryObject);
-            System.out.println("THIS IS THE PANTRY INGREDIENT TABLE");
-            System.out.println(pantryObject.toString());
             cursor.moveToNext();
         }
 

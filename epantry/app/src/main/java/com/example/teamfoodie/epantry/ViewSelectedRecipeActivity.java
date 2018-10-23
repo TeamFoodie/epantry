@@ -4,9 +4,12 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -76,7 +79,17 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
     }
 
     public void setInformation(Recipe recipe) {
-        this.recipePhoto.setImageResource(recipe.getPhoto());
+        if(!(recipe.getPhoto()==null)){
+            if(isInteger(recipe.getPhoto())){// checking valid integer using thread
+                Integer.parseInt(recipe.getPhoto());
+                this.recipePhoto.setImageResource(Integer.valueOf(recipe.getPhoto()));
+            }else {
+                byte[] decodedString = Base64.decode(recipe.getPhoto(), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                this.recipePhoto.setImageBitmap(decodedByte);
+            }
+        }
+//        this.recipePhoto.setImageResource(Integer.getInteger(recipe.getPhoto()));
         this.recipeName.setText("Name: " + recipe.getRecipeName());
         this.recipeCooking.setText("Cooking Time: " + recipe.getCookingTime() + " minutes");
         this.recipeCalories.setText("Calorie Count: " + recipe.getCalorieCount());
@@ -169,6 +182,15 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
             intent.putExtra("RECIPE_ID", currentRECIPE_ID);
             intent.putExtra("USER_ID", currentUSER_ID);
             startActivity(intent);
+        }
+    }
+    public boolean isInteger( String input ) {
+        try {
+            Integer.parseInt( input );
+            return true;
+        }
+        catch( Exception e ) {
+            return false;
         }
     }
 }

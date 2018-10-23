@@ -30,7 +30,6 @@
         <activity android:name=".epantry.ViewPantryActivity"/>
         <activity android:name=".epantry.PantryUpdateActivity"/>
         <activity android:name=".epantry.DietaryRequirementActivity"/>
-        <activity android:name=".epantry.MainActivity"/>
         <activity android:name=".epantry.EditUserDetailsActivity"/>
         <activity android:name=".epantry.MyPreferences"/>
         <activity android:name=".epantry.PantryScannerActivity"/>
@@ -40,7 +39,6 @@
         <activity android:name=".epantry.UserRecipeActivity"/>
         <activity android:name=".epantry.ViewSelectedRecipeActivity"/>
         <activity android:name=".epantry.ShoppingListActivity"/>
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.teamfoodie.provider"

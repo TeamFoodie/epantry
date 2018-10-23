@@ -60,7 +60,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure6);
         procedureArray.add(procedure7);
 
-        Recipe r1 = new Recipe("Afghans", R.drawable.afghans,"Afghans are a kiwi classic", 650,40,1,4,"Comfort Food", ingredientarray, procedureArray);
+        Recipe r1 = new Recipe("Afghans", String.valueOf(R.drawable.afghans),"Afghans are a kiwi classic", 650,40,1,4,"Comfort Food", ingredientarray, procedureArray);
+
 //        r1.setPhoto(String.valueOf(R.drawable.afghans));
         db.addHandle(r1);
 
@@ -107,8 +108,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure2);
         procedureArray.add(procedure3);
 
-        Recipe r2 = new Recipe("Miso Fresh Bowl", R.drawable.miso_soup, "A light and healthy salad",230,15,1,1,"Vegetarian", ingredientarray, procedureArray);
-//        r2.setPhoto(String.valueOf(R.drawable.miso_soup));
+        Recipe r2 = new Recipe("Miso Fresh Bowl", String.valueOf(R.drawable.miso_soup),"A light and healthy salad",230,15,1,1,"Vegetarian", ingredientarray, procedureArray);
+
         db.addHandle(r2);
 //       ============================================================================================================
 
@@ -150,8 +151,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure4);
 
 
-        Recipe r3 = new Recipe("Chicken Alfredo", R.drawable.chicken_alfredo,"It's the classic pasta we just can't seem to get enough of.",540,40,1,4,"Comfort Food", ingredientarray,procedureArray);
-//        r3.setPhoto(String.valueOf(R.drawable.chicken_alfredo));
+        Recipe r3 = new Recipe("Chicken Alfredo", String.valueOf(R.drawable.chicken_alfredo), "It's the classic pasta we just can't seem to get enough of.",540,40,1,4,"Comfort Food", ingredientarray,procedureArray);
+
         db.addHandle(r3);
 //        //=========================================================================================================
 
@@ -199,9 +200,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure4);
         procedureArray.add(procedure5);
 
+        Recipe r4 = new Recipe("Philly Cheesesteak Casserole", String.valueOf(R.drawable.philly_cheesesteak),"Best cheesy caserole",1200,50,1,6,"Comfort Food", ingredientarray,procedureArray);
 
-        Recipe r4 = new Recipe("Philly Cheesesteak Casserole", R.drawable.philly_cheesesteak,"Best cheesy caserole",1200,50,1,6,"Comfort Food", ingredientarray,procedureArray);
-//        r4.setPhoto(String.valueOf(R.drawable.philly_cheesesteak));
         db.addHandle(r4);
 //        =========================================================================================================
 
@@ -242,8 +242,9 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure3);
 
 
-        Recipe r5 = new Recipe("Shrimp Fried Rice", R.drawable.shrimp_fried_rice,"Tasty fried rice with a twist",300,30,1,4,"Comfort Food", ingredientarray,procedureArray);
-//        r5.setPhoto(String.valueOf(R.drawable.shrimp_fried_rice));
+        Recipe r5 = new Recipe("Shrimp Fried Rice",String.valueOf(R.drawable.shrimp_fried_rice), "Tasty fried rice with a twist",300,30,1,4,"Comfort Food", ingredientarray,procedureArray);
+//        r5.setPhoto();
+
         db.addHandle(r5);
 //        =========================================================================================================
 
@@ -272,8 +273,8 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure2);
 
 
-        Recipe r6 = new Recipe("Roasted butternut squash", R.drawable.butternut_squash,"A delicious fall staple",250,60,1,4,"Vegetarian", ingredientarray,procedureArray);
-//        r6.setPhoto(String.valueOf( R.drawable.butternut_squash));
+        Recipe r6 = new Recipe("Roasted butternut squash",String.valueOf( R.drawable.butternut_squash),"A delicious fall staple",250,60,1,4,"Vegetarian", ingredientarray,procedureArray);
+
         db.addHandle(r6);
 //        =========================================================================================================
 
@@ -321,9 +322,9 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure6);
         procedureArray.add(procedure7);
 
+        Recipe r7 = new Recipe("Potato Salad", String.valueOf(R.drawable.potato_salad),"Classic potato salad for pot lucks and picnics",550,15,1,8,"Vegan", ingredientarray,procedureArray);
+//        r7.setPhoto();
 
-        Recipe r7 = new Recipe("Potato Salad", R.drawable.potato_salad,"Classic potato salad for pot lucks and picnics",550,15,1,8,"Vegan", ingredientarray,procedureArray);
-//        r7.setPhoto(String.valueOf(R.drawable.potato_salad));
         db.addHandle(r7);
 //        =========================================================================================================
 
@@ -368,8 +369,9 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure6);
 
 
-        Recipe r8 = new Recipe("Spaghetti Bolognese", R.drawable.spaghetti_bolognese,"Classic potato salad for pot lucks and picnics",230,110,1,8,"Dairy Free", ingredientarray,procedureArray);
-//        r8.setPhoto(String.valueOf(R.drawable.spaghetti_bolognese));
+        Recipe r8 = new Recipe("Spaghetti Bolognese", String.valueOf(R.drawable.spaghetti_bolognese),"Classic potato salad for pot lucks and picnics",230,110,1,8,"Dairy Free", ingredientarray,procedureArray);
+//        r8.setPhoto());
+
         db.addHandle(r8);
 //        =========================================================================================================
 
@@ -402,8 +404,7 @@ public class PopulateRecipeTable {
         procedureArray.add(procedure3);
 
 
-        Recipe r9 = new Recipe("Vegan Brownies", R.drawable.chocolate_brownies,"Soft, rich, fudgy, dangerously chocolatey… and surprisingly vegan!",100,35,1,16,"Vegan", ingredientarray,procedureArray);
-//        r9.setPhoto(String.valueOf(R.drawable.chocolate_brownies));
+        Recipe r9 = new Recipe("Vegan Brownies", String.valueOf(R.drawable.chocolate_brownies),"Soft, rich, fudgy, dangerously chocolatey… and surprisingly vegan!",100,35,1,16,"Vegan", ingredientarray,procedureArray);
         db.addHandle(r9);
 //        =========================================================================================================
 
@@ -455,33 +456,50 @@ public class PopulateRecipeTable {
 
 
 
-        Recipe r10 = new Recipe("Flake salmon salad", R.drawable.salmon_salad,"This tasty flaked salmon salad is great for those that might not love salmon, like kids.",120,25,1,5,"Vegan", ingredientarray,procedureArray);
-//        r1.setPhoto(String.valueOf(R.drawable.salmon_salad));
+        Recipe r10 = new Recipe("Flake salmon salad", String.valueOf(R.drawable.salmon_salad),"This tasty flaked salmon salad is great for those that might not love salmon, like kids.",120,25,1,5,"Vegan", ingredientarray,procedureArray);
+//        r1.setPhoto();
         db.addHandle(r10);
 //        =========================================================================================================
     }
 
 
 
-//    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, String foodGroup, int owner, boolean priority){
 
-    public static void populatePantryIngredients(DatabaseHandler db){
+    public static void populatePantryIngredients(DatabaseHandler db, int owner){
 
 
-//        PantryIngredient p1 = ("0000001", "Jasmine rice", 300, "grams", "Staple");
-//        ing1.setInfo("jasmine rice", 1.5, "cups");
-//        ing2.setInfo("boiling water", 2.5, "cups");
-//        ing3.setInfo("carrot, grated", 1, "");
-//        ing4.setInfo("red onion, finely diced", .5, "");
-//        ing5.setInfo("tumeric", 1, "tsp");
-//        ing6.setInfo("lemon, zest", 1, "tbsp");
-//        ing7.setInfo("salmon, fillet", 600, "grams");
-//        ing8.setInfo("ciabatta, diced 2cm", 1, "roll");
-//        ing9.setInfo("semi-dried tomatoes, roughly chopped", 1, "cup");
-//        ing10.setInfo("red onion, finely diced", .25, "");
-//        ing11.setInfo("mesclun", .5, "bag");
-//        ing12.setInfo("vinegar", 2, "tsp");
-//        ing13.setInfo("mayonnaise", .25, "cup");
-//        ing14.setInfo("lemon, juice", .5, "cup");
+        List<PantryIngredient> pList = new ArrayList<>();
+        pList.add(new PantryIngredient("0000001", "Jasmine rice", 300, 300, "grams", "Staple", owner));
+        pList.add(new PantryIngredient("0000002", "Carrots", 300, 300, "grams", "Vegetables", owner));
+        pList.add(new PantryIngredient("0000003", "Red Onion", 10, 10, "", "Vegetables", owner));
+        pList.add(new PantryIngredient("0000004", "Tumeric", 5, 5, "", "Vegetables", owner));
+        pList.add(new PantryIngredient("0000005", "Lemon", 5, 5, "", "Vegetables", owner));
+        pList.add(new PantryIngredient("0000006", "Ciabatta", 5, 5, "grams", "Staple", owner));
+        pList.add(new PantryIngredient("0000007", "Mesclun", 300, 300, "grams", "Spices", owner));
+        pList.add(new PantryIngredient("0000008", "Vinegar", 300, 300, "litres", "Oils", owner));
+        pList.add(new PantryIngredient("0000009", "Mayonnaise", 300, 300, "grams", "Sauces", owner));
+        pList.add(new PantryIngredient("0000008", "Vinegar", 300, 300, "litres", "Oils", owner));
+        pList.add(new PantryIngredient("0000009", "Mayonnaise", 300, 300, "grams", "Sauces", owner));
+        pList.add(new PantryIngredient("0000010", "Plain Flour", 500, 500, "grams", "Staple", owner));
+        pList.add(new PantryIngredient("0000011", "White Sugar", 500, 500, "grams", "Staple", owner));
+        pList.add(new PantryIngredient("0000012", "Cocoa Powder", 100, 100, "grams", "Baking", owner));
+        pList.add(new PantryIngredient("0000013", "Baking Powder", 100, 100, "grams", "Baking", owner));
+        pList.add(new PantryIngredient("0000012", "Salt", 100, 100, "grams", "Staple", owner));
+        pList.add(new PantryIngredient("0000013", "Vegetable Oil", 100, 100, "litres", "Oils", owner));
+        pList.add(new PantryIngredient("0000014", "Vanilla Essence", 50, 50, "litres", "Baking", owner));
+
+        for(int i = 0; i < pList.size(); i++){
+            db.addHandle(pList.get(i));
+        }
+
+//        ing1.setInfo("plain flour", 250, "grams");
+//        ing2.setInfo("white sugar", 460, "grams");
+//        ing3.setInfo("cocoa power", 90, "grams");
+//        ing4.setInfo("baking powder", 1, "tsp");
+//        ing5.setInfo("salt", 1, "tsp");
+//        ing6.setInfo("water", 1, "cup");
+//        ing7.setInfo("vegetable oil", 1, "cup");
+//        ing8.setInfo("vanilla essence", 1, "tsp");
+
     }
 }

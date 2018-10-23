@@ -42,32 +42,7 @@ public class EditUserDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // for add back arrow in action bar
         System.out.println("Loaded EditUserDetailsActivity class");
 
-//        EditText name = (EditText) findViewById(R.id.TFnewName);
-//        String strUser = name.getText().toString();
-//        EditText email = (EditText) findViewById(R.id.TFnewEmail);
-//        String strEmail = email.getText().toString();
-//        EditText password = (EditText) findViewById(R.id.TFnewPassword);
-//        String strPass = email.getText().toString();
-//        EditText confirmPassword = (EditText) findViewById(R.id.TFconfirmpassword);
-//        String strConfirmPass = email.getText().toString();
-
-        System.out.println("CURRENT_USERID in here is: "+userID);
         userID = getIntent().getExtras().getInt("USER_ID");
-        System.out.println("UserID in here is: "+userID);
-
-//        Bundle extras = getIntent().getExtras();
-//        userID = extras.getInt("USER_ID");
-////        if (savedInstanceState == null) {
-//
-//            if (extras == null) {
-//                System.out.println("Bundle extra was NULL user");
-//            } else {
-//
-//            }
-//        } else {
-//            userID = (Integer) savedInstanceState.getSerializable("USER_ID");
-//            System.out.println("savedInstance was NULL");
-//        }
 
         User existingUser = (User) db.findHandle(String.valueOf(userID), "ChangingUser");
         ETnewUsername = (EditText) findViewById(R.id.TFnewName);
@@ -92,7 +67,7 @@ public class EditUserDetailsActivity extends AppCompatActivity {
                 String passwordInput = ETnewPassword.getText().toString();
                 String confirmpasswordInput = ETconfirmNewPassword.getText().toString();
 
-                checkPasswords(passwordInput,confirmpasswordInput);
+                checkPasswords(passwordInput, confirmpasswordInput);
                 if (s.toString().equals("")) {
                     BsaveChanges.setEnabled(false);
                 } else {
@@ -119,7 +94,6 @@ public class EditUserDetailsActivity extends AppCompatActivity {
                 checkEmail(emailInput);
                 if (s.toString().equals("")) {
                     BsaveChanges.setEnabled(false);
-//                    BsaveChanges.setBackgroundColor(2);
                 } else {
                     BsaveChanges.setEnabled(true);
                 }
@@ -136,15 +110,15 @@ public class EditUserDetailsActivity extends AppCompatActivity {
      * Handles user interaction with GUI to login
      */
     public void onClick(View v) {
-        if(v.getId() == R.id.Bsave) {
-            Log.i("Edit details: ","CLICKED");
+        if (v.getId() == R.id.Bsave) {
+            Log.i("Edit details: ", "CLICKED");
             String username = ETnewUsername.getText().toString();
             String email = ETnewEmail.getText().toString();
             String password = ETnewPassword.getText().toString();
             String confirmpassword = ETconfirmNewPassword.getText().toString();
             UserTable userDB = new UserTable();
 
-            if(db.checkExistingUser(username)) {
+            if (db.checkExistingUser(username)) {
                 Toast toast = Toast.makeText(getApplicationContext(),
                         "Username is taken, please try again",
                         Toast.LENGTH_SHORT);
@@ -152,25 +126,16 @@ public class EditUserDetailsActivity extends AppCompatActivity {
 
             if (ETnewUsername.getError() == null && ETnewEmail.getError() == null &&
                     ETnewPassword.getError() == null && ETconfirmNewPassword.getError() == null
-                    && !db.checkExistingUser(username) && checkPasswords(password,confirmpassword)) {
+                    && !db.checkExistingUser(username) && checkPasswords(password, confirmpassword)) {
 
                 DatabaseHandler dbHandler = new DatabaseHandler(this);
-               // user = userDB.findUser();
-
-                //get currentUserID, change values where ID = currentUserID
                 user = dbHandler.getUser(userID);
 
-
-                System.out.println("Prev Username obj:"+user.getUsername());
-                System.out.println("Prev Email obj:"+user.getEmail());
-                System.out.println("Prev Password obj:"+user.getPassword());
-                //add statements if empty or not**
 
                 //sets currentUser to new values
                 user.setUsername(username);
                 user.setEmail(email);
                 user.setPassword(password);
-                Log.i("Updated details: ",user.getUsername()+" "+user.getEmail()+" "+user.getPassword());
 
 
                 ContentValues values = new ContentValues();
@@ -180,17 +145,8 @@ public class EditUserDetailsActivity extends AppCompatActivity {
 
                 db.updateUserDetails(values, userID);
 
-                //call updateUser
-//                db.updateUser(user,userID);
 
-                //toast to save details updated
-
-                System.out.println("USERNAME HERE:"+db.getUserEmail(user.getUsername()));
-
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "New Values: "+user.getUsername()+" "+user.getEmail()+" "+user.getPassword(),
-                        Toast.LENGTH_LONG);
-
+                Toast toast = Toast.makeText(getApplicationContext(), "Changes made successfully", Toast.LENGTH_LONG);
                 toast.show();
             }
         }
@@ -230,10 +186,10 @@ public class EditUserDetailsActivity extends AppCompatActivity {
 
     public boolean checkPasswords(String password, String confirmpassword) {
         if (!password.equals(confirmpassword)) {
-            setError(ETconfirmNewPassword,"Passwords don't match!");
+            setError(ETconfirmNewPassword, "Passwords don't match!");
             return false;
         } else if (!(password.length() >= 6)) {
-            setError(ETnewPassword,"Password must be at least 6 characters");
+            setError(ETnewPassword, "Password must be at least 6 characters");
             return false;
         } else {
             ETnewPassword.setError(null);

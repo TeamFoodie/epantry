@@ -1,7 +1,7 @@
 package com.example.teamfoodie.models;
 
 public enum FoodGroup {
-    SPICES(1, "Spices"), POULTRY(2, "Poultry"), STAPLE(3, "Staple"), VEGETABLES(4, "Vegetables"), MEATS(5, "Meats"), SAUCES(6, "Sauces"), OILS(7, "Oils"), ;
+    SPICES(1, "Spices"), POULTRY(2, "Poultry"), STAPLE(3, "Staple"), VEGETABLES(4, "Vegetables"), MEATS(5, "Meats"), SAUCES(6, "Sauces"), OILS(7, "Oils"), BAKING(8, "Baking") ;
 
     private String stringValue;
     private int intValue;

@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
+import com.example.teamfoodie.database.PopulateRecipeTable;
 import com.example.teamfoodie.epantry.listAdapters.CustomPantryIngredientAdapter;
 import com.example.teamfoodie.models.PantryIngredient;
 
@@ -42,6 +43,7 @@ public class ViewPantryActivity extends AppCompatActivity {
 
         System.out.println("Current user in View pantry is " + currentUSER_ID);
 
+        PopulateRecipeTable.populatePantryIngredients(dbHandler, currentUSER_ID);
 
         pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
         ListView listView = (ListView) findViewById(R.id.viewAllPantry);

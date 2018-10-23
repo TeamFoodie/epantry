@@ -43,18 +43,6 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
         scanBtn.setOnClickListener(this);
         enterButton.setOnClickListener(this);
 
-//        if (savedInstanceState == null) {
-//            Bundle extras = getIntent().getExtras();
-//            if (extras == null) {
-//                System.out.println("Bundle extra was NULL user");
-//            } else {
-//                currentUSER_ID = extras.getInt("USER_ID");
-//            }
-//        } else {
-//            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
-//            System.out.println("savedInstance was NULL");
-//        }
-
         Bundle extras = getIntent().getExtras();
         currentUSER_ID = extras.getInt("USER_ID");
     }
@@ -75,6 +63,7 @@ public class PantryScannerActivity extends AppCompatActivity implements OnClickL
         } else if (v.getId() == R.id.lookup_button) {
             Intent intent = new Intent(PantryScannerActivity.this, PantryUpdateActivity.class);
             intent.putExtra("USER_ID", currentUSER_ID);
+            System.out.println("userID2"+currentUSER_ID);
             startActivity(intent);
         }
 

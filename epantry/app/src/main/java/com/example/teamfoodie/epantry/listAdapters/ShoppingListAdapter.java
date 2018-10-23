@@ -42,7 +42,13 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     }
 
+<<<<<<< HEAD
     public ShoppingListAdapter(List<String> itemList) {
+=======
+
+    public ShoppingListAdapter(List<PantryIngredient> itemList) {
+
+>>>>>>> master
         mItemList = itemList;
     }
 

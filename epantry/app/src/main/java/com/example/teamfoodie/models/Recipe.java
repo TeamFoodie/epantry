@@ -8,7 +8,7 @@ public class Recipe {
     private int recipeID;
     private String recipeName;
     private String description;
-    private int photoUrl;
+    private String photoUrl;
     private int calorieCount;
     private int cookingTime;
     private int numberOfPeople;
@@ -21,10 +21,10 @@ public class Recipe {
 
     }
 
-    public Recipe(int id, String recipeName, int photo, String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup) {
+    public Recipe(int id, String recipeName, String photoUrl, String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup) {
         this.setRecipeID(id);
         this.setRecipeName(recipeName);
-        this.setPhoto(photo);
+        this.setPhoto(photoUrl);
         this.setDescription(description);
         this.setCalorieCount(calorieCount);
         this.setCookingTime(cookingTime);
@@ -33,7 +33,7 @@ public class Recipe {
         this.setDietary(foodGroup);
     }
 
-    public Recipe(String recipeName, int photo, String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup, ArrayList<Ingredient> ingredients, ArrayList<Procedure> procedures) {
+    public Recipe(String recipeName, String photo,  String description, int calorieCount, int cookingTime, int author, int numberOfPeople, String foodGroup, ArrayList<Ingredient> ingredients, ArrayList<Procedure> procedures) {
         this.setRecipeName(recipeName);
         this.setPhoto(photo);
         this.setDescription(description);
@@ -73,15 +73,11 @@ public class Recipe {
         return description;
     }
 
-    public int getPhoto() {
+    public String getPhoto() {
         return photoUrl;
     }
 
-//    public int getIntPhoto() {
-//        return Integer.parseInt(photoUrl);
-//    }
-
-    public void setPhoto(int photoUrl) {
+    public void setPhoto(String photoUrl) {
         this.photoUrl = photoUrl;
     }
 
