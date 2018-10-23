@@ -91,9 +91,6 @@ public class ShoppingListActivity extends AppCompatActivity {
         recipeIngList = dbHandler.loadAllRecipeDetails(currentRECIPE_ID, 1);    //add recipe ingredients to list
 
         Ingredient i;
-//        Object obj = dbHandler.findHandle(String.valueOf(currentRECIPE_ID), "StoredRecipe");
-//        Recipe recipe = (Recipe) obj;
-//
 
         //view recipe ingredient list into
         for(int j = 0; j < recipeIngList.size(); ++j) {
@@ -115,14 +112,6 @@ public class ShoppingListActivity extends AppCompatActivity {
         }
 
 
-//        for(Ingredient i : (Ingredient) recipeIngList) {
-//            System.out.println("List of Recipe Ingredients: ");
-//            System.out.println();
-//        }
-
-//        for(Ingredient s : recipe.getIngredients()) {
-//            recipeIngList.add(s);
-//        }
 
 
         calculateMissingIngredients(ingRecipeIngList);
@@ -150,11 +139,6 @@ public class ShoppingListActivity extends AppCompatActivity {
         final ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(shoppingListList);
         recycler_View.setLayoutManager(new LinearLayoutManager(mContext));
         recycler_View.setAdapter(shoppingListAdapter);
-        if(lowStock != null){
-            System.out.println("before update():"+lowStock.get(0).getIngredientName());
-        }
-
-        //
         if(lowStockAndMissing.size() != 0) {
             shoppingListAdapter.update(lowStockAndMissing);
         }
@@ -163,14 +147,12 @@ public class ShoppingListActivity extends AppCompatActivity {
         idBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                SQLiteDatabaseDao sqLiteDatabaseDao = SQLiteDatabaseDao.getInstance();
                 if (idCbSelect.isChecked()) {
                     shoppingListSelectList = shoppingListList;
                 }
                 int len = shoppingListSelectList.size();
                 for (int i = 0; i < len; i++) {
                     String shoppingList = shoppingListSelectList.get(i);
-//                    sqLiteDatabaseDao.deleteCity(shoppingList.getId());
                 }
                 if (len > 0) {
                     shoppingListSelectList.size();

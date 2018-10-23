@@ -18,6 +18,7 @@ public class PreferencesTable {
     public final String MEATS = "Meats";
     public final String SAUCES = "Sauces";
     public final String OILS = "Oils";
+    public final String BAKING = "Baking";
 
     //Returns create string for creating Pantry ingredient table.
     public String createPreferencesTable(String TABLE_NAME) {
@@ -29,7 +30,8 @@ public class PreferencesTable {
                 VEGETABLES + " INTEGER," +
                 MEATS + " INTEGER," +
                 SAUCES + " INTEGER," +
-                OILS + " INTEGER" + ");";
+                OILS + " INTEGER" +
+                BAKING + " INTEGER" +");";
 
         return createTable;
     }
@@ -51,6 +53,8 @@ public class PreferencesTable {
         values.put(MEATS, thresholds.get(5));
         values.put(SAUCES, thresholds.get(6));
         values.put(OILS, thresholds.get(7));
+        values.put(BAKING, thresholds.get(8));
+
         return values;
     }
 
@@ -64,7 +68,6 @@ public class PreferencesTable {
         ArrayList<Integer> thresholds = new ArrayList<>();
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            thresholds.add(cursor.getInt(0));
             thresholds.add(cursor.getInt(1));
             thresholds.add(cursor.getInt(2));
             thresholds.add(cursor.getInt(3));
@@ -72,6 +75,7 @@ public class PreferencesTable {
             thresholds.add(cursor.getInt(5));
             thresholds.add(cursor.getInt(6));
             thresholds.add(cursor.getInt(7));
+            thresholds.add(cursor.getInt(8));
             cursor.close();
         }else{
             return null;

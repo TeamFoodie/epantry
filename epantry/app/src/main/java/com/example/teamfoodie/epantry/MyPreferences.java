@@ -103,9 +103,6 @@ public class MyPreferences extends AppCompatActivity implements View.OnClickList
             this.thresholdList.add(currentUSER_ID);
 
             for (int i = 0; i < textBoxes.size(); i++) {
-//                if (textBoxes.get(i).getText().toString().isEmpty()) {
-//                    this.thresholdList.add(0);
-//                } else {
                     try{
                         this.thresholdList.add(Integer.parseInt(textBoxes.get(i).getText().toString()));
                     }catch (NumberFormatException e){
@@ -118,8 +115,10 @@ public class MyPreferences extends AppCompatActivity implements View.OnClickList
 
             }
 
+            this.thresholdList.add(50);
 
-            if(thresholdList.size() == 8){
+
+            if(thresholdList.size() == 9){
                 dbHandler.addHandle(thresholdList);
                 finish();
             }
