@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
@@ -102,17 +103,27 @@ public class MyPreferences extends AppCompatActivity implements View.OnClickList
             this.thresholdList.add(currentUSER_ID);
 
             for (int i = 0; i < textBoxes.size(); i++) {
-                if (textBoxes.get(i).getText().toString().isEmpty()) {
-                    this.thresholdList.add(0);
-                } else {
-                    this.thresholdList.add(Integer.parseInt(textBoxes.get(i).getText().toString()));
+//                if (textBoxes.get(i).getText().toString().isEmpty()) {
+//                    this.thresholdList.add(0);
+//                } else {
+                    try{
+                        this.thresholdList.add(Integer.parseInt(textBoxes.get(i).getText().toString()));
+                    }catch (NumberFormatException e){
+                        Toast noMatch = Toast.makeText(MyPreferences.this, "Please ensure you enter WHOLE NUMBERS only!", Toast.LENGTH_SHORT);
+                        noMatch.show();
+                    }catch (NullPointerException ex){
+                        this.thresholdList.add(0);
+
                 }
 
             }
 
 
-            dbHandler.addHandle(thresholdList);
-            finish();
+            if(thresholdList.size() == 8){
+                dbHandler.addHandle(thresholdList);
+                finish();
+            }
+
 
     }
 
