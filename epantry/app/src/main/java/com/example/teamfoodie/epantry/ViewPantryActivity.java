@@ -37,17 +37,8 @@ public class ViewPantryActivity extends AppCompatActivity {
         setContentView(R.layout.view_pantry);
         this.dbHandler = new DatabaseHandler(this);
 
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                System.out.println("Bundle extra was NULL user");
-            } else {
-                currentUSER_ID = extras.getInt("USER_ID");
-            }
-        } else {
-            currentUSER_ID = (Integer) savedInstanceState.getSerializable("USER_ID");
-            System.out.println("savedInstance was NULL");
-        }
+        Bundle extras = getIntent().getExtras();
+        currentUSER_ID = extras.getInt("USER_ID");
 
         System.out.println("Current user in View pantry is " + currentUSER_ID);
 
@@ -71,7 +62,6 @@ public class ViewPantryActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ViewPantryActivity.this, PantryScannerActivity.class);
                 intent.putExtra("USER_ID", currentUSER_ID);
-                System.out.println("USER ID FROM VIEW PANTRY IS " + currentUSER_ID);
                 startActivity(intent);
             }
         });

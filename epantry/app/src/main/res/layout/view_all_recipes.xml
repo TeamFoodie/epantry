@@ -14,7 +14,7 @@
 
     <EditText
         android:id="@+id/searchKeyword"
-        android:layout_width="348dp"
+        android:layout_width="315dp"
         android:layout_height="35dp"
         android:layout_alignStart="@+id/listView"
         android:layout_alignParentTop="true"
@@ -26,14 +26,13 @@
         android:textSize="14sp" />
 
     <ImageView
-        android:id="@+id/findRecipeButton"
+        android:id="@+id/filterRecipes"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_alignBottom="@+id/searchKeyword"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
         android:layout_marginBottom="-1dp"
-        android:src="@drawable/ic_search_black_24dp" />
+        android:src="@drawable/ic_search_false" />
 
     <ListView
         android:id="@+id/listView"

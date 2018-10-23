@@ -21,7 +21,7 @@ public class PantryIngredientTable {
     //Returns create string for creating Pantry ingredient table.
     public String createIngredientTable(String TABLE_NAME) {
         String createTable =  "CREATE TABLE " + TABLE_NAME +
-                "(" + INGREDIENT_ID + " NVARCHAR PRIMARY KEY," +
+                "(" + INGREDIENT_ID + " NVARCHAR NOT NULL," +
                 INGREDIENT_NAME + " NVARCHAR," +
                 TOTAL_QUANTITY + " INTEGER," +
                 CURRENT_QUANTITY + " INTEGER," +
@@ -97,8 +97,6 @@ public class PantryIngredientTable {
             pantryObject.setFoodGroup(cursor.getString(5));
             pantryObject.setOwner(cursor.getInt(6));
             pantryList.add(pantryObject);
-            System.out.println("THIS IS THE PANTRY INGREDIENT TABLE");
-            System.out.println(pantryObject.toString());
             cursor.moveToNext();
         }
 

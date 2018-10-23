@@ -9,7 +9,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.example.teamfoodie.R;
+import com.example.teamfoodie.models.PantryIngredient;
 import com.example.teamfoodie.models.ShoppingList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,7 +20,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     private final String TAG = "ShoppingListAdapter";
 
-    private List<ShoppingList> mItemList;
+    private List<PantryIngredient> mItemList;
     private IOnCheckedChangeListener mIOnCheckedChangeListener;
 
     public void setIOnCheckedChangeListener(IOnCheckedChangeListener iOnCheckedChangeListener) {
@@ -39,7 +42,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     }
 
-    public ShoppingListAdapter(List<ShoppingList> itemList) {
+
+    public ShoppingListAdapter(List<PantryIngredient> itemList) {
+
         mItemList = itemList;
     }
 
@@ -52,20 +57,21 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull FoodMaterialViewHolder holder, final int position) {
-        final ShoppingList shoppingList = mItemList.get(position);
-        String desc = shoppingList.getMaterialValue() + " " + shoppingList.getUnit() + " " + shoppingList.getMaterialName();
-        holder.idCb.setChecked(shoppingList.isChecked());
+        final PantryIngredient shoppingList = mItemList.get(position);
+       // String desc = shoppingList.getCurrentQuantity() + " " + shoppingList.getUnitMeasure() + " " + shoppingList.getIngredientName();
+        String desc = shoppingList.getTotalQuantity()-shoppingList.getCurrentQuantity() + " " + shoppingList.getUnitMeasure() + " " + shoppingList.getIngredientName();
+//        holder.idCb.setChecked(shoppingList.set());
         holder.idCb.setText(desc);
-        holder.idCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                shoppingList.setChecked(b);
-                mItemList.set(position, shoppingList);
-                if (mIOnCheckedChangeListener != null) {
-                    mIOnCheckedChangeListener.onCheckedChanged(b, shoppingList, position);
-                }
-            }
-        });
+//        holder.idCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                shoppingList.setChecked(b);
+//                mItemList.set(position, shoppingList);
+//                if (mIOnCheckedChangeListener != null) {
+//                    mIOnCheckedChangeListener.onCheckedChanged(b, shoppingList, position);
+//                }
+//            }
+//        });
     }
 
 
@@ -80,9 +86,10 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
      *
      * @param itemList
      */
-    public void update(List<ShoppingList> itemList) {
+    public void update(List<PantryIngredient> itemList) {
         mItemList.clear();
         mItemList.addAll(itemList);
+        System.out.println("IN ITEM LIST:"+itemList.size());
         notifyDataSetChanged();
     }
 }

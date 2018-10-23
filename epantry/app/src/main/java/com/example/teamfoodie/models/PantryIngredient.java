@@ -1,11 +1,14 @@
 package com.example.teamfoodie.models;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.text.BreakIterator;
 
 /**
  * Class for creating a pantry ingredient object
  */
-public class PantryIngredient {
+public class PantryIngredient implements Serializable {
     private String ingredientID;
     private String ingredientName;
     private int totalQuantity;
@@ -13,7 +16,6 @@ public class PantryIngredient {
     private String unitMeasure;
     private FoodGroup foodGroup;
     private int owner;
-    private boolean priority;
 
     /**
      * Default Pantry ingredient - allows object to be instantiated without any parameters
@@ -32,7 +34,7 @@ public class PantryIngredient {
      * @param unitMeasure
      * @param owner
      */
-    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, String foodGroup, int owner, boolean priority){
+    public PantryIngredient(String id, String name, int total, int current, String unitMeasure, String foodGroup, int owner){
         this.setIngredientID(id);
         this.setIngredientName(name);
         this.setTotalQuantity(total);
@@ -40,7 +42,6 @@ public class PantryIngredient {
         this.setUnitMeasure(unitMeasure);
         this.setFoodGroup(foodGroup);
         this.setOwner(owner);
-        this.setPriority(priority);
     }
 
 
@@ -69,10 +70,6 @@ public class PantryIngredient {
         this.owner = owner;
     }
 
-    public void setPriority(boolean priority){
-        this.priority = priority;
-    }
-
     public String getIngredientID(){
         return this.ingredientID;
     }
@@ -98,6 +95,10 @@ public class PantryIngredient {
         return foodGroup.toString();
     }
 
+    public int getIntegerFoodGroup(){
+        return foodGroup.integerValue();
+    }
+
     public void setFoodGroup(String food) {
         switch (food){
             case "Spices":
@@ -106,7 +107,7 @@ public class PantryIngredient {
             case "Poultry":
                 this.foodGroup = FoodGroup.POULTRY;
                 break;
-            case "Basic Neccesities":
+            case "Staple":
                 this.foodGroup = FoodGroup.STAPLE;
                 break;
             case "Vegetables":
@@ -121,6 +122,9 @@ public class PantryIngredient {
             case "Oils":
                 this.foodGroup = FoodGroup.OILS;
                 break;
+            case "Baking":
+                this.foodGroup = FoodGroup.BAKING;
+                break;
         }
 
     }
@@ -129,10 +133,6 @@ public class PantryIngredient {
 
     public int getOwner(){
         return this.owner;
-    }
-
-    public boolean getPriority(){
-        return this.priority;
     }
 
     public String getIngredientInformation(){

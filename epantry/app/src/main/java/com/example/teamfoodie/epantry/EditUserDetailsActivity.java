@@ -42,35 +42,40 @@ public class EditUserDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // for add back arrow in action bar
         System.out.println("Loaded EditUserDetailsActivity class");
 
-        EditText name = (EditText) findViewById(R.id.TFnewName);
-        String strUser = name.getText().toString();
-        EditText email = (EditText) findViewById(R.id.TFnewEmail);
-        String strEmail = email.getText().toString();
-        EditText password = (EditText) findViewById(R.id.TFnewPassword);
-        String strPass = email.getText().toString();
-        EditText confirmPassword = (EditText) findViewById(R.id.TFconfirmpassword);
-        String strConfirmPass = email.getText().toString();
+//        EditText name = (EditText) findViewById(R.id.TFnewName);
+//        String strUser = name.getText().toString();
+//        EditText email = (EditText) findViewById(R.id.TFnewEmail);
+//        String strEmail = email.getText().toString();
+//        EditText password = (EditText) findViewById(R.id.TFnewPassword);
+//        String strPass = email.getText().toString();
+//        EditText confirmPassword = (EditText) findViewById(R.id.TFconfirmpassword);
+//        String strConfirmPass = email.getText().toString();
 
         System.out.println("CURRENT_USERID in here is: "+userID);
         userID = getIntent().getExtras().getInt("USER_ID");
         System.out.println("UserID in here is: "+userID);
 
-        //
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                System.out.println("Bundle extra was NULL user");
-            } else {
-                userID = extras.getInt("USER_ID");
-            }
-        } else {
-            userID = (Integer) savedInstanceState.getSerializable("USER_ID");
-            System.out.println("savedInstance was NULL");
-        }
+//        Bundle extras = getIntent().getExtras();
+//        userID = extras.getInt("USER_ID");
+////        if (savedInstanceState == null) {
+//
+//            if (extras == null) {
+//                System.out.println("Bundle extra was NULL user");
+//            } else {
+//
+//            }
+//        } else {
+//            userID = (Integer) savedInstanceState.getSerializable("USER_ID");
+//            System.out.println("savedInstance was NULL");
+//        }
 
+        User existingUser = (User) db.findHandle(String.valueOf(userID), "ChangingUser");
         ETnewUsername = (EditText) findViewById(R.id.TFnewName);
+        ETnewUsername.setText(existingUser.getUsername());
         ETnewEmail = (EditText) findViewById(R.id.TFnewEmail);
+        ETnewEmail.setText(existingUser.getEmail());
         ETnewPassword = (EditText) findViewById(R.id.TFnewPassword);
+        ETnewPassword.setText(existingUser.getPassword());
         ETconfirmNewPassword = (EditText) findViewById(R.id.TFconfirmNewPassword);
 
         BsaveChanges = (Button) findViewById(R.id.Bsave);
@@ -114,6 +119,7 @@ public class EditUserDetailsActivity extends AppCompatActivity {
                 checkEmail(emailInput);
                 if (s.toString().equals("")) {
                     BsaveChanges.setEnabled(false);
+//                    BsaveChanges.setBackgroundColor(2);
                 } else {
                     BsaveChanges.setEnabled(true);
                 }
@@ -175,7 +181,7 @@ public class EditUserDetailsActivity extends AppCompatActivity {
                 db.updateUserDetails(values, userID);
 
                 //call updateUser
-                db.updateUser(user,userID);
+//                db.updateUser(user,userID);
 
                 //toast to save details updated
 

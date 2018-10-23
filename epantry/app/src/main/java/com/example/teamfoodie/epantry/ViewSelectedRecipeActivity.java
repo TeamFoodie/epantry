@@ -1,5 +1,7 @@
 package com.example.teamfoodie.epantry;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,8 +20,9 @@ import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.database.RecipeIngredientsTable;
 import com.example.teamfoodie.epantry.listAdapters.CustomProcedureAdapter;
+import com.example.teamfoodie.epantry.listAdapters.CustomRecipeAdapter;
 import com.example.teamfoodie.models.Ingredient;
-import com.example.teamfoodie.models.Procedure;
+import com.example.teamfoodie.models.PantryIngredient;
 import com.example.teamfoodie.models.Recipe;
 
 import java.util.List;
@@ -39,23 +42,19 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
     private List<Object> ingredientList;
     private List<Object> procedureList;
     private int currentRECIPE_ID;
+    private int currentUSER_ID;
     private int currentNumberOfPeople;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_selected_recipe);
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                System.out.println("Bundle extra was NULL user");
-            } else {
-                currentRECIPE_ID = extras.getInt("RECIPE_ID");
-            }
-        } else {
-            currentRECIPE_ID = (Integer) savedInstanceState.getSerializable("RECIPE_ID");
-            System.out.println("savedInstance was NULL");
-        }
+
+
+        Bundle extras = getIntent().getExtras();
+        currentRECIPE_ID = extras.getInt("RECIPE_ID");
+        currentUSER_ID = extras.getInt("USER_ID");
 
         this.recipePhoto = (ImageView) findViewById(R.id.recipe_photo);
         this.recipeName = (TextView) findViewById(R.id.recipe_name);
@@ -123,7 +122,7 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
         alert.setView(input);
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-            int newNumberOfPeople = 0;
+                int newNumberOfPeople = 0;
                 try{
                     newNumberOfPeople = Integer.parseInt(input.getText().toString());
                 }catch (NumberFormatException numberExecption){
@@ -143,6 +142,8 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onClick(View v) {
+        if(v.getId() == R.id.btnChangeServes){
+
         final android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(this);
         dialog.setTitle("Number of people to serve");
         dialog.setMessage("Recipe currently cooks for " + currentNumberOfPeople + " people. Do you want to change this?");
@@ -157,6 +158,26 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
 
         dialog.show();
 
+    }  else if(v.getId() == R.id.makeRecipeBtn) {
+            System.out.println("pressed make ");
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationClass notify = new NotificationClass();
+            dbHandler.setUSER_ID(currentUSER_ID);
+            PantryIngredient ing = (PantryIngredient) dbHandler.findHandle("Salmon", "PantryIngredientSubtract");
+            List<Integer> thresholds = (List<Integer>) dbHandler.findHandle(String.valueOf(currentUSER_ID), "Thresholds");
+            if(ing != null){
+                ing.setCurrentQuantity(100);
+                dbHandler.subtractQuantity(ing);
+
+                notify.calculateThreshold(this, notificationManager, currentUSER_ID, ing, thresholds);
+//                notify.generateNotification(this, notificationManager, "MESSAGE");
+            }else{
+                System.out.println("ingredient was not found from the database");
+            }
+
+
+    }
     }
     public boolean isInteger( String input ) {
         try {

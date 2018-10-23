@@ -50,7 +50,7 @@ public class CustomRecipeListAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-//    Hold the reference to the id of view resource instantiating its context
+    //    Hold the reference to the id of view resource instantiating its context
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
@@ -68,6 +68,7 @@ public class CustomRecipeListAdapter extends BaseAdapter {
         holder.RecipeNameView.setText(Recipe.getRecipeName());
         holder.descriptionView.setText(Recipe.getDescription());
 
+
         //int imageId = this.getMipmapResIdByName(Recipe.getPhoto());
         if(!(Recipe.getPhoto()==null)){
             if(isInteger(Recipe.getPhoto())){// checking valid integer using thread
@@ -81,11 +82,15 @@ public class CustomRecipeListAdapter extends BaseAdapter {
             }
 
         }
+////        if(Recipe.getPhoto() != null){
+//            holder.recipePicView.setImageResource(Recipe.getPhoto());
+//        }
+
 
         return convertView;
     }
 
-//  Find Image ID corresponding to the name of the image (in the directory mipmap).
+    //  Find Image ID corresponding to the name of the image (in the directory mipmap).
     public int getMipmapResIdByName(String resName)  {
         String pkgName = context.getPackageName();
         // Return 0 if not found.
@@ -107,10 +112,6 @@ public class CustomRecipeListAdapter extends BaseAdapter {
         if (charText.length() == 0) {
             recipeList.clear();
             List<Recipe> fullList = db.loadAllRecipes();
-//            for(int i = 0; i < obj.size(); i++){
-//                Tree tree = (Tree) obj.get(i);
-//                fullList.add(tree);
-//            }
             recipeList.addAll(fullList);
         } else {
             recipeList.clear();

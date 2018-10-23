@@ -15,6 +15,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.teamfoodie.R;
+import com.example.teamfoodie.models.PantryIngredient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * The LandingPageActivity class contains the navigation to other activity
@@ -31,6 +35,7 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
     private String username;
     private String email;
     private int userID;
+    private List<PantryIngredient> lowStock = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +94,13 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
         tvEmail.setText(email);
 
         userID = getIntent().getExtras().getInt("USER_ID");
+
+
+//        Bundle b = getIntent().getExtras();
+//        ArrayList<PantryIngredient> p = (ArrayList<PantryIngredient>) b.getSerializable("LowStock");
+//
+//        System.out.println("LANDING PAGE PASSED INTENT:"+p.get(0).getIngredientName());
+
         String username = getIntent().getStringExtra("UserName");
         String email = getIntent().getStringExtra("Email");
         String password = getIntent().getStringExtra("Password");
@@ -130,6 +142,7 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
             startActivity(intent);
         } else if (id == R.id.nav_preferences) {
             Intent intent = new Intent(LandingPageActivity.this, MyPreferences.class);
+            intent.putExtra("USER_ID", userID);
             startActivity(intent);
         } else if (id == R.id.nav_dietary) {
             Intent intent = new Intent(LandingPageActivity.this, DietaryRequirementActivity.class);
@@ -146,18 +159,21 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (v.getId() == R.id.myPantry) {
             Intent intent = new Intent(LandingPageActivity.this, ViewPantryActivity.class);
+            intent.putExtra("USER_ID", userID);
             startActivity(intent);
         }else if (v.getId() == R.id.find_recipe){
             Intent intent = new Intent(LandingPageActivity.this, ViewAllRecipesActivity.class);
+            intent.putExtra("USER_ID", userID);
             startActivity(intent);
         }
         else if(v.getId() == R.id.newRecipe){
-            Intent intent = new Intent(LandingPageActivity.this, UserRecipeActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(LandingPageActivity.this, UserRecipeActivity.class);
+//            startActivity(intent);
         }
         else if(v.getId() == R.id.shop_list){
-//            Intent intent = new Intent(LandingPageActivity.this, ShoppingListActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(LandingPageActivity.this, ShoppingListActivity.class);
+            intent.putExtra("USER_ID", userID);
+            startActivity(intent);
         }
     }
 }
