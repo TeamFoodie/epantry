@@ -29,7 +29,7 @@ import java.util.List;
 public class ShoppingListActivity extends AppCompatActivity {
     private static final String TAG = "FoodMaterialListActivit";
 
-    protected RecyclerView idRvMaterial;
+    protected RecyclerView recycler_View;
     protected CheckBox idCbSelect;
     protected Button idBtnDelete;
     protected Button idBtnCapture;
@@ -92,8 +92,8 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
         final ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(shoppingListList);
-        idRvMaterial.setLayoutManager(new LinearLayoutManager(mContext));
-        idRvMaterial.setAdapter(shoppingListAdapter);
+        recycler_View.setLayoutManager(new LinearLayoutManager(mContext));
+        recycler_View.setAdapter(shoppingListAdapter);
         if(lowStock != null){
             System.out.println("before update():"+lowStock.get(0).getIngredientName());
         }
@@ -125,7 +125,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
     private void initView() {
-//        idRvMaterial = findViewById(R.id.id_rv_material);
+        recycler_View = findViewById(R.id.recycler_view);
         idCbSelect = findViewById(R.id.id_cb_select);
         idBtnDelete = findViewById(R.id.id_btn_delete);
         idBtnCapture = findViewById(R.id.id_btn_capture);

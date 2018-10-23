@@ -37,7 +37,7 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/RecyclerView1"
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="50dp"
@@ -61,7 +61,7 @@
         android:paddingTop="5dp"
         android:text="Basic Necessities"
         app:layout_constraintBottom_toTopOf="@id/MissingIngredientsTextView"
-        app:layout_constraintTop_toBottomOf="@id/RecyclerView1"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

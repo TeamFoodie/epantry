@@ -90,7 +90,7 @@ public class RecipeListTest {
         procedureArray.add(procedure6);
         procedureArray.add(procedure7);
 
-        Recipe r1 = new Recipe("Afghans", R.drawable.afghans, "Afghans are a kiwi classic", 650,40,1,4,"Comfort Food", ingredientarray, procedureArray);
+        Recipe r1 = new Recipe("Afghans", String.valueOf(R.drawable.afghans), "Afghans are a kiwi classic", 650,40,1,4,"Comfort Food", ingredientarray, procedureArray);
 
 
         boolean inserted = dbHandler.addHandle(r1);
