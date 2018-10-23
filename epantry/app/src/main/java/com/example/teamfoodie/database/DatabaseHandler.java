@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_DIETARY_REQUIREMENTS = "DietaryRequirements";
     private static final String TABLE_PREFERENCES = "Preferences";
 
-
+    //Instantiate all table classes to be used in class
     private PantryIngredientTable pantryIngredientTable = new PantryIngredientTable();
     private UserTable userTable = new UserTable();
     private RecipeTable recipeTable = new RecipeTable();
@@ -128,15 +128,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (i == -1) {
             createSuccessful = false;
-            System.out.println("could not populate");
         } else {
             createSuccessful = true;
-            System.out.println("table populated   " + i);
             if (newRecipe) {
                 addRecipeDetails(i, recipeObject);
             }
         }
-        System.out.println(createSuccessful);
         db.close();
 
 
@@ -167,7 +164,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
 
-        DB.close(); // Now close the DB Object
+        DB.close();
 
     }
 
@@ -211,11 +208,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientID = " + "'" + id + "' AND Owner = '" + currentUSER + "'";
                 cursor = db.rawQuery(query, null);
                 foundIngredient = pantryIngredientTable.findIngredient(cursor);
-
-                if (foundIngredient != null) {
-                    System.out.println("user in the query is " + currentUSER);
-                    System.out.println("FIND HANDLE FOR PANTRY INGREDIENT!!!!!! owner is " + foundIngredient.getOwner());
-                }
                 object = (Object) foundIngredient;
 
                 break;
@@ -223,17 +215,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 query = "Select * FROM " + TABLE_PANTRY + " WHERE IngredientName LIKE " + "'" + id + "' AND Owner = '" + currentUSER + "'";
                 cursor = db.rawQuery(query, null);
                 foundIngredient = pantryIngredientTable.findIngredient(cursor);
-                System.out.println("query passed is " + query);
-                if (foundIngredient != null) {
-                    System.out.println("user in the query is " + currentUSER);
-                    System.out.println("FIND HANDLE FOR PANTRY INGREDIENT!!!!!! owner is " + foundIngredient.getOwner());
-                }
                 object = (Object) foundIngredient;
 
                 break;
             case "User":
                 query = "SELECT * FROM " + TABLE_USERS + " WHERE UserName = '" + username + "' AND Password = '" + password + "'";
-                System.out.println("user found : name: " + username + " password: " + password);
                 cursor = db.rawQuery(query, null);
                 foundUser = userTable.findUser(cursor);
                 object = (Object) foundUser;
@@ -377,30 +363,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    /**
-     * This method is used in the Navigation Drawer to display the
-     * User's email details.
-     *
-     * @param username String
-     * @return User's email     String
-     */
-    public String getUserEmail(String username) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String email = null;
-        String query = "SELECT * FROM users WHERE username = '" + username + "'";
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        while (cursor.moveToNext()) {
-            email = cursor.getString(3);
-        }
-
-        cursor.close();
-
-        return email;
-    }
-
     public User getUser(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         User user = new User();
@@ -423,7 +385,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void updateUserDetails(ContentValues values, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.update(TABLE_USERS, values, "UserID = "+id, null);
+        db.update(TABLE_USERS, values, "UserID = " + id, null);
         db.close();
     }
 
@@ -434,16 +396,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         User foundUser;
 
         query = "SELECT * FROM " + TABLE_USERS + " WHERE UserID = '" + userID + "'";
-
-        System.out.println("user found : user: " + user.getUsername() + " password: " + user.getPassword());
         cursor = db.rawQuery(query, null);
         foundUser = userTable.findUser(cursor);
-        // 1. get reference to writable DB
-
-
-        Log.i("In UpdateUser()", user.getUsername() + " " + user.getEmail() + " " + user.getPassword());
-
-        // 4. close
         db.close();
 
         return foundUser;

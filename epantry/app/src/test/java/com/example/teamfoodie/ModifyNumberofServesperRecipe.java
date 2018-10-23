@@ -22,17 +22,11 @@ import static org.junit.Assert.assertTrue;
 
 public class ModifyNumberofServesperRecipe {
 
-//    private Recipe recipe;
-//    private Ingredient ingredient;
-//    private DatabaseHandler dbHandler;
-//    private ViewSelectedRecipeActivity selectedRecipe;
     private List<Object> recipeIngredients;
     private List<Object> updatedRecipeIngredients;
 
     @Before
     public void setUp() {
-//        selectedRecipe = new ViewSelectedRecipeActivity();
-//        dbHandler = new DatabaseHandler(selectedRecipe);
 
 
         recipeIngredients = new ArrayList<>();
@@ -49,14 +43,7 @@ public class ModifyNumberofServesperRecipe {
         recipeIngredients.add(new Ingredient("boiling water", 3, "tbsp"));
         recipeIngredients.add(new Ingredient("vanilla essence", .25, "tsp"));
         recipeIngredients.add(new Ingredient("walnut halves", 13, " "));
-//        dbHandler.addHandle(r1);
-//        recipe = (Recipe) dbHandler.findHandle("1", "StoredRecipe");
 
-    }
-
-
-    @After
-    public void tearDown() {
     }
 
     @Test
