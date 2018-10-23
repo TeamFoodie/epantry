@@ -70,9 +70,16 @@ public class CustomRecipeListAdapter extends BaseAdapter {
 
         //int imageId = this.getMipmapResIdByName(Recipe.getPhoto());
         if(!(Recipe.getPhoto()==null)){
-            byte[] decodedString = Base64.decode(Recipe.getPhoto(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            holder.recipePicView.setImageBitmap(decodedByte);
+            if(isInteger(Recipe.getPhoto())){// checking valid integer using thread
+                Integer.parseInt(Recipe.getPhoto());
+                holder.recipePicView.setImageResource(Integer.valueOf(Recipe.getPhoto()));
+            }else {
+                byte[] decodedString = Base64.decode(Recipe.getPhoto(), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                holder.recipePicView.setImageBitmap(decodedByte);
+                System.out.println("This is not a valid integer number");
+            }
+
         }
 
         return convertView;
@@ -116,4 +123,13 @@ public class CustomRecipeListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public boolean isInteger( String input ) {
+        try {
+            Integer.parseInt( input );
+            return true;
+        }
+        catch( Exception e ) {
+            return false;
+        }
+    }
 }

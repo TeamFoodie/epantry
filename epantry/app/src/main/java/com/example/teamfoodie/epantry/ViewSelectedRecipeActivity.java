@@ -82,9 +82,14 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
 
     public void setInformation(Recipe recipe) {
         if(!(recipe.getPhoto()==null)){
-            byte[] decodedString = Base64.decode(recipe.getPhoto(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            this.recipePhoto.setImageBitmap(decodedByte);
+            if(isInteger(recipe.getPhoto())){// checking valid integer using thread
+                Integer.parseInt(recipe.getPhoto());
+                this.recipePhoto.setImageResource(Integer.valueOf(recipe.getPhoto()));
+            }else {
+                byte[] decodedString = Base64.decode(recipe.getPhoto(), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                this.recipePhoto.setImageBitmap(decodedByte);
+            }
         }
 //        this.recipePhoto.setImageResource(Integer.getInteger(recipe.getPhoto()));
         this.recipeName.setText("Name: " + recipe.getRecipeName());
@@ -152,5 +157,14 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
 
         dialog.show();
 
+    }
+    public boolean isInteger( String input ) {
+        try {
+            Integer.parseInt( input );
+            return true;
+        }
+        catch( Exception e ) {
+            return false;
+        }
     }
 }
