@@ -83,8 +83,6 @@ public class RecipeIngredientsTable {
             newList.add((Object) ingredientList.get(i));
         }
 
-//        newList.addAll(ingredientList);
-//        }
 
 
         return newList;
