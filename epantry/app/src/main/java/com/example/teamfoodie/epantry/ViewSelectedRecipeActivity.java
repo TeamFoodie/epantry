@@ -3,6 +3,7 @@ package com.example.teamfoodie.epantry;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -36,13 +37,12 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
     private DatabaseHandler dbHandler;
     private Button makeRecipe;
     private Button changeServes;
+    private Button close;
     private List<Object> ingredientList;
     private List<Object> procedureList;
     private int currentRECIPE_ID;
     private int currentUSER_ID;
     private int currentNumberOfPeople;
-    private List<String> missingIngredients;
-    public List<String> recipeNonMatchesList;
     private boolean servesChanged;
     private List<Object> UPDATED_INGREDIENTS;
 
@@ -66,9 +66,13 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
         this.proceduresListView = (LinearLayout) findViewById(R.id.recipeProcedureList);
         this.makeRecipe = (Button) findViewById(R.id.makeRecipeBtn);
         this.changeServes = (Button) findViewById(R.id.btnChangeServes);
+        this.close = (Button) findViewById(R.id.close_btn);
+        this.close.setVisibility(View.INVISIBLE);
         this.dbHandler = new DatabaseHandler(this);
 
+        this.close.setOnClickListener(this);
         this.changeServes.setOnClickListener(this);
+        this.makeRecipe.setOnClickListener(this);
 
         Object obj = dbHandler.findHandle(String.valueOf(currentRECIPE_ID), "StoredRecipe");
         Recipe recipe = (Recipe) obj;
@@ -81,17 +85,7 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
     }
 
     public void setInformation(Recipe recipe) {
-        if (!(recipe.getPhoto() == null)) {
-//            if (isInteger(recipe.getPhoto())) {// checking valid integer using thread
-//                Integer.parseInt(recipe.getPhoto());
-            this.recipePhoto.setImageResource(Integer.valueOf(recipe.getPhoto()));
-//            } else {
-//                byte[] decodedString = Base64.decode(recipe.getPhoto(), Base64.DEFAULT);
-//                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//                this.recipePhoto.setImageBitmap(decodedByte);
-//            }
-        }
-//        this.recipePhoto.setImageResource(Integer.getInteger(recipe.getPhoto()));
+        this.recipePhoto.setImageResource(Integer.valueOf(recipe.getPhoto()));
         this.recipeName.setText("Name: " + recipe.getRecipeName());
         this.recipeCooking.setText("Cooking Time: " + recipe.getCookingTime() + " minutes");
         this.recipeCalories.setText("Calorie Count: " + recipe.getCalorieCount());
@@ -166,32 +160,37 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
             dbHandler.setUSER_ID(currentUSER_ID);
             List<PantryIngredient> pantryIngredients = dbHandler.loadAllPantryIngredients(currentUSER_ID);
 
-
             if (servesChanged) {
                 compareIngredientsPantryVSRecipe(UPDATED_INGREDIENTS, pantryIngredients);
             } else {
                 compareIngredientsPantryVSRecipe(ingredientList, pantryIngredients);
             }
 
+            this.makeRecipe.setVisibility(View.INVISIBLE);
+            this.close.setVisibility(View.VISIBLE);
+            this.changeServes.setVisibility(View.INVISIBLE);
 
-        } else {
-            System.out.println("ingredient was not found from the database");
+
+        } else if (v.getId() == R.id.close_btn){
+            Intent intent = new Intent(ViewSelectedRecipeActivity.this, LandingPageActivity.class);
+            intent.putExtra("RECIPE_ID", currentRECIPE_ID);
+            intent.putExtra("USER_ID", currentUSER_ID);
+            startActivity(intent);
         }
 
-        //create intent to pass bundle or something of an arraylist OR recipeID of ingredients
-//            Intent intent = new Intent(ViewSelectedRecipeActivity.this, LandingPageActivity.class);
-//            intent.putExtra("RECIPE_ID", currentRECIPE_ID);
-//            intent.putExtra("USER_ID", currentUSER_ID);
-//            startActivity(intent);
+
     }
 
-//}
+    public void recipemade(){
+        this.makeRecipe.setVisibility(View.INVISIBLE);
+        this.close.setVisibility(View.VISIBLE);
+        this.changeServes.setVisibility(View.INVISIBLE);
+    }
 
 
     public void compareIngredientsPantryVSRecipe(List<Object> recipeIngredientsList, List<PantryIngredient> pantryList) {
 
         List<Integer> thresholds = (List<Integer>) dbHandler.findHandle(String.valueOf(currentUSER_ID), "Thresholds");
-        this.missingIngredients = new ArrayList<>();
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationClass notify = new NotificationClass();
@@ -209,19 +208,34 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
                     System.out.println(dbHandler.subtractQuantity(pantryIngredient));
 
                     notify.calculateThreshold(this, notificationManager, currentUSER_ID, pantryIngredient, thresholds);
-                } else {
-                    missingIngredients.add(ingredient.getName());
+                }else{
+                    final android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(this);
+                    dialog.setTitle("Missing Ingredients");
+                    dialog.setMessage("Some of the recipe ingredients do not exist in your pantry, do you want to continue and add the missing ingredients to your shopping list?");
+                    dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+                    dialog.setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    recipemade();
+                                }
+                            });
+
+                    dialog.show();
+
                 }
             }
 
 
         }
 
-        System.out.println("Missing ingredients is " + missingIngredients.size());
     }
 
 
-    public List<String> missingIngredients() {
-        return missingIngredients;
-    }
+
 }

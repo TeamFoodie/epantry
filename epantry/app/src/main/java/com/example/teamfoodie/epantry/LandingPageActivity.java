@@ -98,19 +98,9 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
         recipeID = getIntent().getExtras().getInt("RECIPE_ID");
 
 
-
-//        Bundle b = getIntent().getExtras();
-//        ArrayList<PantryIngredient> p = (ArrayList<PantryIngredient>) b.getSerializable("LowStock");
-//
-//        System.out.println("LANDING PAGE PASSED INTENT:"+p.get(0).getIngredientName());
-
         String username = getIntent().getStringExtra("UserName");
         String email = getIntent().getStringExtra("Email");
         String password = getIntent().getStringExtra("Password");
-        System.out.println("UserID in landing page is: "+userID);
-        System.out.println("New Username: "+username);
-        System.out.println("New Email: "+email);
-        System.out.println("New Password: "+password);
 
         return true;
     }

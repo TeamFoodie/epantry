@@ -29,7 +29,7 @@ import java.util.List;
  * ShoppingListActivity class shows Shopping List from database
  * and user can delete items from database and export it to message
  */
-public class ShoppingListActivity extends AppCompatActivity implements View.OnClickListener {
+public class ShoppingListActivity extends AppCompatActivity {
 
     protected RecyclerView idRvMaterial;
     protected CheckBox idCbSelect;
@@ -143,10 +143,6 @@ public class ShoppingListActivity extends AppCompatActivity implements View.OnCl
         final ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(shoppingListList);
         idRvMaterial.setLayoutManager(new LinearLayoutManager(mContext));
         idRvMaterial.setAdapter(shoppingListAdapter);
-//        if (lowStock != null) {
-//            System.out.println("before update():" + lowStock.get(0).getIngredientName());
-//            
-//        }
 
         shoppingListAdapter.update(lowStockAndMissing);
 
@@ -203,12 +199,5 @@ public class ShoppingListActivity extends AppCompatActivity implements View.OnCl
         return lowStockAndMissingStr;
     }
 
-    @Override
-    public void onClick(View v) {
-//        switch (v.getId()){
-//            case R.id.bt_export:
-//                sendSms(mainActivity,"000000","sss");
-//
-//        }
-    }
+
 }

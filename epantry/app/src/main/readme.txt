@@ -1,11 +1,3 @@
-Name, version, description, and/or features of the program.
-System requirements.
-Install, uninstall, configuration, and operating instructions.
-Files list.
-Credit, acknowledgments, contact information, and copyright.
-Known bugs and a change log.
-
-
 Application Name: e-Pantry
 Version: Release 1.0
 Description: E-pantry is an electronic pantry that stores an electronic copy of the user's physical pantry thus allowing users to filter recipes
@@ -34,7 +26,7 @@ Credit: All files and code used within this development is the intellectual prop
 		Claire Qu (alahonghong@gmail.com)
 		Jason Falevaai (jason.falevaai@gmail.com)
 
-PLEASE NOTE: At the moment, the application cannot connect multiple users to a single centralized database as it is not yet standalone nor made executable. However, in the future there
+PLEASE NOTE: At the moment, the application does not connect multiple users to a single centralized database as it is not yet standalone nor made executable. However, in the future there
 are hopes to moving the application onto a cloud server that provides such access. Additionally, release does not contain the following features due to time limitation, but hopefully future
 release will have all these implemented. 
 	-	Set Goals

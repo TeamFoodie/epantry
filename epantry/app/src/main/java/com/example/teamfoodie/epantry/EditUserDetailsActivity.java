@@ -40,7 +40,6 @@ public class EditUserDetailsActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Edit Account Details"); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // for add back arrow in action bar
-        System.out.println("Loaded EditUserDetailsActivity class");
 
         userID = getIntent().getExtras().getInt("USER_ID");
 
@@ -156,8 +155,6 @@ public class EditUserDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // make sure if press has been saved then it will update
-                // PUT in intent the new user values to update nav bar
 
                 Intent intent = new Intent(EditUserDetailsActivity.this, LandingPageActivity.class);
                 intent.putExtra("USER_ID", userID);
