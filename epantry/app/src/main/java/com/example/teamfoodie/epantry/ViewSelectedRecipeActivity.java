@@ -3,6 +3,7 @@ package com.example.teamfoodie.epantry;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,13 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.database.RecipeIngredientsTable;
 import com.example.teamfoodie.epantry.listAdapters.CustomProcedureAdapter;
-import com.example.teamfoodie.epantry.listAdapters.CustomRecipeAdapter;
-import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.PantryIngredient;
 import com.example.teamfoodie.models.Recipe;
 
@@ -41,6 +39,7 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
     private int currentRECIPE_ID;
     private int currentUSER_ID;
     private int currentNumberOfPeople;
+    public List<String> recipeNonMatchesList;
 
 
     @Override
@@ -153,17 +152,23 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
             dbHandler.setUSER_ID(currentUSER_ID);
             PantryIngredient ing = (PantryIngredient) dbHandler.findHandle("Salmon", "PantryIngredientSubtract");
             List<Integer> thresholds = (List<Integer>) dbHandler.findHandle(String.valueOf(currentUSER_ID), "Thresholds");
+
             if(ing != null){
                 ing.setCurrentQuantity(100);
                 dbHandler.subtractQuantity(ing);
 
                 notify.calculateThreshold(this, notificationManager, currentUSER_ID, ing, thresholds);
 //                notify.generateNotification(this, notificationManager, "MESSAGE");
+
             }else{
                 System.out.println("ingredient was not found from the database");
             }
 
-
-    }
+            //create intent to pass bundle or something of an arraylist OR recipeID of ingredients
+            Intent intent = new Intent(ViewSelectedRecipeActivity.this, LandingPageActivity.class);
+            intent.putExtra("RECIPE_ID", currentRECIPE_ID);
+            intent.putExtra("USER_ID", currentUSER_ID);
+            startActivity(intent);
+        }
     }
 }

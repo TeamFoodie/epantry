@@ -20,7 +20,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     private final String TAG = "ShoppingListAdapter";
 
-    private List<PantryIngredient> mItemList;
+    private List<String> mItemList;
     private IOnCheckedChangeListener mIOnCheckedChangeListener;
 
     public void setIOnCheckedChangeListener(IOnCheckedChangeListener iOnCheckedChangeListener) {
@@ -42,7 +42,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     }
 
-    public ShoppingListAdapter(List<PantryIngredient> itemList) {
+    public ShoppingListAdapter(List<String> itemList) {
         mItemList = itemList;
     }
 
@@ -55,9 +55,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull FoodMaterialViewHolder holder, final int position) {
-        final PantryIngredient shoppingList = mItemList.get(position);
+        final String shoppingList = mItemList.get(position);
        // String desc = shoppingList.getCurrentQuantity() + " " + shoppingList.getUnitMeasure() + " " + shoppingList.getIngredientName();
-        String desc = shoppingList.getTotalQuantity()-shoppingList.getCurrentQuantity() + " " + shoppingList.getUnitMeasure() + " " + shoppingList.getIngredientName();
+        String desc = shoppingList;
 //        holder.idCb.setChecked(shoppingList.set());
         holder.idCb.setText(desc);
 //        holder.idCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -84,7 +84,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
      *
      * @param itemList
      */
-    public void update(List<PantryIngredient> itemList) {
+    public void update(List<String> itemList) {
         mItemList.clear();
         mItemList.addAll(itemList);
         System.out.println("IN ITEM LIST:"+itemList.size());

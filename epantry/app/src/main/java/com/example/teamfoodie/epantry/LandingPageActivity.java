@@ -35,6 +35,7 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
     private String username;
     private String email;
     private int userID;
+    private int recipeID;
     private List<PantryIngredient> lowStock = new ArrayList<>();
 
     @Override
@@ -94,6 +95,8 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
         tvEmail.setText(email);
 
         userID = getIntent().getExtras().getInt("USER_ID");
+        recipeID = getIntent().getExtras().getInt("RECIPE_ID");
+
 
 
 //        Bundle b = getIntent().getExtras();
@@ -173,6 +176,7 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
         else if(v.getId() == R.id.shop_list){
             Intent intent = new Intent(LandingPageActivity.this, ShoppingListActivity.class);
             intent.putExtra("USER_ID", userID);
+            intent.putExtra("RECIPE_ID", recipeID);
             startActivity(intent);
         }
     }

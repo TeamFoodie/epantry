@@ -22,7 +22,7 @@ public class NotificationClass {
         List<String> ingredientsLow = new ArrayList<String>();
 
 
-        if (thresholds != null || !thresholds.isEmpty()) {
+        if (thresholds != null) {
             double threshold = (thresholds.get(ingredient.getIntegerFoodGroup()) / 100) * ingredient.getTotalQuantity();
             if (ingredient.getCurrentQuantity() < threshold) {
                 ingredientsLow.add(ingredient.getIngredientName());
