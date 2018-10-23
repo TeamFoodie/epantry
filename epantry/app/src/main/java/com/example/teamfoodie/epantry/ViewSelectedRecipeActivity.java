@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
@@ -21,11 +22,15 @@ import android.widget.TextView;
 import com.example.teamfoodie.R;
 import com.example.teamfoodie.database.DatabaseHandler;
 import com.example.teamfoodie.database.RecipeIngredientsTable;
+import com.example.teamfoodie.epantry.listAdapters.CustomPantryIngredientAdapter;
 import com.example.teamfoodie.epantry.listAdapters.CustomRecipeAdapter;
+import com.example.teamfoodie.models.Ingredient;
 import com.example.teamfoodie.models.PantryIngredient;
 import com.example.teamfoodie.models.Recipe;
 
 import java.util.List;
+
+import static android.os.Build.ID;
 
 public class ViewSelectedRecipeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -112,6 +117,25 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
         }
     }
 
+    public void compreIngredientsPantryVRecipe(List<Object> makeIngredients, List<PantryIngredient> pantyList) {
+
+
+        //ri --> recipe index
+        //pi --> pantry index
+        for (int ri = 0; ri < ingredientList.size(); ri++ ){
+            Ingredient ingredient = (Ingredient) ingredientList.get(ri);
+            for(int pi = 0; pi < pantryList.size();pi++) {
+
+                if(ingredient.getName().contains(pantryList.get(pi).getIngredientName()) ){//== pantryList.get(pi)){
+                    pantryList.get(pi).setCurrentQuantity();
+                }
+            }
+        }
+
+
+
+    }
+
     public void setAlertDialog(String message) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -164,8 +188,6 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
         pantryList.get(0).setTotalQuantity(100);
         pantryList.get(0).setCurrentQuantity(1);
         System.out.println("TOTAL: "+pantryList.get(0).getTotalQuantity()+ "CURRENT: "+pantryList.get(0).getCurrentQuantity());
-
-
 
 
 
