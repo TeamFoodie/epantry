@@ -53,7 +53,7 @@ public class ViewAllRecipesActivity extends AppCompatActivity implements View.On
 
         this.adapter = new CustomRecipeListAdapter(this, recipeList);
         listView.setAdapter(adapter);
-        dbHandler.populateRecipeDatabase();
+//        dbHandler.populateRecipeDatabase();
 
 
         /**All three items have different listeners thus implemented anonymously.*/

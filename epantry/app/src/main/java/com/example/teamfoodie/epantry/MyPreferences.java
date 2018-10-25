@@ -104,14 +104,16 @@ public class MyPreferences extends AppCompatActivity implements View.OnClickList
 
             for (int i = 0; i < textBoxes.size(); i++) {
                     try{
+                        if(textBoxes.get(i).getText().toString().isEmpty()) {
+                            thresholdList.add(0);
+                        }else
                         this.thresholdList.add(Integer.parseInt(textBoxes.get(i).getText().toString()));
                     }catch (NumberFormatException e){
                         Toast noMatch = Toast.makeText(MyPreferences.this, "Please ensure you enter WHOLE NUMBERS only!", Toast.LENGTH_SHORT);
                         noMatch.show();
-                    }catch (NullPointerException ex){
-                        this.thresholdList.add(0);
+                    }
 
-                }
+
 
             }
 

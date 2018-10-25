@@ -43,7 +43,7 @@ public class ViewPantryActivity extends AppCompatActivity {
 
         System.out.println("Current user in View pantry is " + currentUSER_ID);
 
-        PopulateRecipeTable.populatePantryIngredients(dbHandler, currentUSER_ID);
+//        PopulateRecipeTable.populatePantryIngredients(dbHandler, currentUSER_ID);
 
         pantryList = dbHandler.loadAllPantryIngredients(currentUSER_ID);
         ListView listView = (ListView) findViewById(R.id.viewAllPantry);

@@ -160,11 +160,11 @@ public class ViewSelectedRecipeActivity extends AppCompatActivity implements Vie
             dbHandler.setUSER_ID(currentUSER_ID);
             List<PantryIngredient> pantryIngredients = dbHandler.loadAllPantryIngredients(currentUSER_ID);
 
-            if (servesChanged) {
-                compareIngredientsPantryVSRecipe(UPDATED_INGREDIENTS, pantryIngredients);
-            } else {
-                compareIngredientsPantryVSRecipe(ingredientList, pantryIngredients);
-            }
+//            if (servesChanged) {
+//                compareIngredientsPantryVSRecipe(UPDATED_INGREDIENTS, pantryIngredients);
+//            } else {
+//                compareIngredientsPantryVSRecipe(ingredientList, pantryIngredients);
+//            }
 
             this.makeRecipe.setVisibility(View.INVISIBLE);
             this.close.setVisibility(View.VISIBLE);

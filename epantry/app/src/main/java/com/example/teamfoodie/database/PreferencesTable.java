@@ -30,7 +30,7 @@ public class PreferencesTable {
                 VEGETABLES + " INTEGER," +
                 MEATS + " INTEGER," +
                 SAUCES + " INTEGER," +
-                OILS + " INTEGER" +
+                OILS + " INTEGER," +
                 BAKING + " INTEGER" +");";
 
         return createTable;

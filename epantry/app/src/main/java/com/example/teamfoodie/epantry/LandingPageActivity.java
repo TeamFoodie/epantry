@@ -160,8 +160,8 @@ public class LandingPageActivity extends AppCompatActivity implements View.OnCli
             startActivity(intent);
         }
         else if(v.getId() == R.id.newRecipe){
-//            Intent intent = new Intent(LandingPageActivity.this, UserRecipeActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(LandingPageActivity.this, UserRecipeActivity.class);
+            startActivity(intent);
         }
         else if(v.getId() == R.id.shop_list){
             Intent intent = new Intent(LandingPageActivity.this, ShoppingListActivity.class);
